@@ -1,0 +1,8 @@
+node_modules
+dist
+.env
+server/.env
+server/data/
+.env.local
+*.local
+server/data/

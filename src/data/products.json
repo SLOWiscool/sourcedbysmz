@@ -1,0 +1,2106 @@
+[
+  {
+    "id": "p-dior-shoes",
+    "slug": "chunky-sneakers",
+    "title": "Chunky Sneakers",
+    "category": "Footwear",
+    "description": "Chunky logo sneakers with technical mesh upper, side logo detailing and cushioned sole, offered in Black, Grey, White and White/Black colourways. Select a colour to view its dedicated photograph set. Size, condition and pricing to be confirmed by the owners.",
+    "price": 0,
+    "currency": "GBP",
+    "condition": "good",
+    "conditionNotes": "Size, condition and pricing to be confirmed by the owners. Photographs show the item as it currently is. No authenticity claim is made.",
+    "images": [
+      {
+        "url": "/images/products/black-dior-shoes/black-shoes-01.jpg",
+        "alt": "Chunky sneakers in black, rear view showing heel logo"
+      },
+      {
+        "url": "/images/products/black-dior-shoes/black-shoes-02.jpg",
+        "alt": "Chunky sneakers in black, sole tread and side profile beside box"
+      },
+      {
+        "url": "/images/products/black-dior-shoes/black-shoes-03.jpg",
+        "alt": "Chunky sneakers in black, side profile on box"
+      },
+      {
+        "url": "/images/products/black-dior-shoes/black-shoes-04.jpg",
+        "alt": "Chunky sneakers in black, pair front view"
+      },
+      {
+        "url": "/images/products/black-dior-shoes/black-shoes-05.jpg",
+        "alt": "Chunky sneakers in black, pair top view"
+      },
+      {
+        "url": "/images/products/black-dior-shoes/black-shoes-06.jpg",
+        "alt": "Chunky sneakers in black, single shoe side view"
+      },
+      {
+        "url": "/images/products/dior-shoes-black-07.jpg",
+        "alt": "Chunky sneakers in black, held side view"
+      },
+      {
+        "url": "/images/products/dior-shoes-black-08.jpg",
+        "alt": "Chunky sneakers in black and white, pair held in hand"
+      },
+      {
+        "url": "/images/products/dior-shoes-black-09.jpg",
+        "alt": "Chunky sneakers in black with grey accents, pair view"
+      },
+      {
+        "url": "/images/products/dior-shoes-black-10.jpg",
+        "alt": "Chunky sneakers in black, pair top view with box"
+      },
+      {
+        "url": "/images/products/w1-dior-shoes-black-black-side.jpg",
+        "alt": "Chunky sneakers in black with black sole, side view"
+      },
+      {
+        "url": "/images/products/w1-dior-shoes-black-white-side.jpg",
+        "alt": "Chunky sneakers in black with white sole, side view"
+      }
+    ],
+    "variants": [
+      {
+        "id": "sn-black",
+        "label": "Black",
+        "colorHex": "#111111",
+        "stockQuantity": 0,
+        "images": [
+          {
+            "url": "/images/products/black-dior-shoes/black-shoes-01.jpg",
+            "alt": "Chunky sneakers in black, rear view showing heel logo"
+          },
+          {
+            "url": "/images/products/black-dior-shoes/black-shoes-02.jpg",
+            "alt": "Chunky sneakers in black, sole tread and side profile beside box"
+          },
+          {
+            "url": "/images/products/black-dior-shoes/black-shoes-03.jpg",
+            "alt": "Chunky sneakers in black, side profile on box"
+          },
+          {
+            "url": "/images/products/black-dior-shoes/black-shoes-04.jpg",
+            "alt": "Chunky sneakers in black, pair front view"
+          },
+          {
+            "url": "/images/products/black-dior-shoes/black-shoes-05.jpg",
+            "alt": "Chunky sneakers in black, pair top view"
+          },
+          {
+            "url": "/images/products/black-dior-shoes/black-shoes-06.jpg",
+            "alt": "Chunky sneakers in black, single shoe side view"
+          },
+          {
+            "url": "/images/products/dior-shoes-black-07.jpg",
+            "alt": "Chunky sneakers in black, held side view"
+          },
+          {
+            "url": "/images/products/dior-shoes-black-08.jpg",
+            "alt": "Chunky sneakers in black and white, pair held in hand"
+          },
+          {
+            "url": "/images/products/dior-shoes-black-09.jpg",
+            "alt": "Chunky sneakers in black with grey accents, pair view"
+          },
+          {
+            "url": "/images/products/dior-shoes-black-10.jpg",
+            "alt": "Chunky sneakers in black, pair top view with box"
+          },
+          {
+            "url": "/images/products/w1-dior-shoes-black-black-side.jpg",
+            "alt": "Chunky sneakers in black with black sole, side view"
+          },
+          {
+            "url": "/images/products/w1-dior-shoes-black-white-side.jpg",
+            "alt": "Chunky sneakers in black with white sole, side view"
+          }
+        ]
+      },
+      {
+        "id": "sn-grey",
+        "label": "Grey",
+        "colorHex": "#9a9a9a",
+        "stockQuantity": 0,
+        "images": [
+          {
+            "url": "/images/products/dior-shoes-grey-01.jpg",
+            "alt": "Chunky sneakers in grey and white with box, top view"
+          },
+          {
+            "url": "/images/products/dior-shoes-grey-02.jpg",
+            "alt": "Chunky sneakers in grey, pair held showing side logo"
+          },
+          {
+            "url": "/images/products/dior-shoes-grey-03.jpg",
+            "alt": "Chunky sneakers in grey and white, pair side view"
+          },
+          {
+            "url": "/images/products/dior-shoes-grey-04.jpg",
+            "alt": "Chunky sneakers in grey and white, pair top view"
+          },
+          {
+            "url": "/images/products/dior-shoes-grey-05.jpg",
+            "alt": "Chunky sneakers in grey, handheld side detail with pair"
+          },
+          {
+            "url": "/images/products/dior-shoes-grey-06.jpg",
+            "alt": "Chunky sneakers in grey, handheld front view showing logo"
+          }
+        ]
+      },
+      {
+        "id": "sn-white",
+        "label": "White",
+        "colorHex": "#f2f2f2",
+        "stockQuantity": 0,
+        "images": [
+          {
+            "url": "/images/products/white-dior-shoes/white-shoes-01.jpg",
+            "alt": "Chunky sneakers in white, side profile on box"
+          },
+          {
+            "url": "/images/products/white-dior-shoes/white-shoes-02.jpg",
+            "alt": "Chunky sneakers in white, side and angled view"
+          },
+          {
+            "url": "/images/products/white-dior-shoes/white-shoes-03.jpg",
+            "alt": "Chunky sneakers in white, pair top view with laces"
+          },
+          {
+            "url": "/images/products/white-dior-shoes/white-shoes-04.jpg",
+            "alt": "Chunky sneakers in white, pair front view"
+          },
+          {
+            "url": "/images/products/white-dior-shoes/white-shoes-05.jpg",
+            "alt": "Chunky sneakers in white, sole tread detail"
+          },
+          {
+            "url": "/images/products/white-dior-shoes/white-shoes-06.jpg",
+            "alt": "Chunky sneakers in white, pair angled on box"
+          },
+          {
+            "url": "/images/products/dior-shoes-white-07.jpg",
+            "alt": "Chunky sneakers in white with black trim, pair top view"
+          },
+          {
+            "url": "/images/products/dior-shoes-white-08.jpg",
+            "alt": "Chunky sneakers in white, pair with shoe box"
+          },
+          {
+            "url": "/images/products/w2-dior-shoes-white-pair-flatlay.jpg",
+            "alt": "Chunky sneakers in white, pair flat lay with box"
+          }
+        ]
+      },
+      {
+        "id": "sn-white-black",
+        "label": "White / Black",
+        "stockQuantity": 0,
+        "images": [
+          {
+            "url": "/images/products/dior-shoes-white-black-01.jpg",
+            "alt": "Chunky sneakers in white and black, pair flat lay"
+          },
+          {
+            "url": "/images/products/dior-shoes-white-black-02.jpg",
+            "alt": "Chunky sneakers in white and black, in-hand side view"
+          },
+          {
+            "url": "/images/products/dior-shoes-white-black-03.jpg",
+            "alt": "Chunky sneakers in white and black, pair side view with box"
+          },
+          {
+            "url": "/images/products/dior-shoes-black-white-01.jpg",
+            "alt": "Chunky sneakers in black and white, pair side view with box"
+          }
+        ]
+      }
+    ],
+    "sizes": [
+      "S",
+      "M",
+      "L"
+    ],
+    "stockQuantity": 0,
+    "status": "active",
+    "featured": true,
+    "tags": [
+      "sneakers",
+      "chunky",
+      "black",
+      "grey",
+      "white",
+      "footwear"
+    ],
+    "createdAt": "2026-10-01T10:00:00Z",
+    "updatedAt": "2026-10-13T10:00:00Z"
+  },
+  {
+    "id": "p-moncler-puffer",
+    "slug": "hooded-puffer-jacket",
+    "title": "Hooded Puffer Jacket",
+    "category": "Outerwear",
+    "description": "Down puffer jacket with hood, front zip, side pockets and sleeve logo patch, offered in Black, Navy, Grey, White, Blue and Silver colourways. Select a colour to view its dedicated photograph set. Size, condition and pricing to be confirmed by the owners.",
+    "price": 0,
+    "currency": "GBP",
+    "condition": "good",
+    "conditionNotes": "Size, condition and pricing to be confirmed by the owners. Photographs show the item as it currently is. No authenticity claim is made.",
+    "images": [
+      {
+        "url": "/images/products/moncler-black-puffer-front.jpg",
+        "alt": "Black hooded puffer jacket, front view with tags"
+      },
+      {
+        "url": "/images/products/moncler-black-puffer-interior.jpg",
+        "alt": "Black hooded puffer jacket open showing interior"
+      },
+      {
+        "url": "/images/products/moncler-black-puffer-patch.jpg",
+        "alt": "Black hooded puffer jacket sleeve patch close-up"
+      },
+      {
+        "url": "/images/products/moncler-black-comic-washlabel.jpg",
+        "alt": "Black hooded puffer jacket interior wash label"
+      },
+      {
+        "url": "/images/products/moncler-black-puffer-back.jpg",
+        "alt": "Black hooded puffer jacket, back view"
+      },
+      {
+        "url": "/images/products/moncler-black-puffer-zipper.jpg",
+        "alt": "Black hooded puffer jacket zipper detail"
+      },
+      {
+        "url": "/images/products/moncler-black-puffer-hood.jpg",
+        "alt": "Black hooded puffer jacket with open hood and tag"
+      },
+      {
+        "url": "/images/products/moncler-black-puffer-drawcord.jpg",
+        "alt": "Black hooded puffer jacket hood drawcord detail"
+      },
+      {
+        "url": "/images/products/moncler-puffer-stack.jpg",
+        "alt": "Hooded puffer jackets in black, navy and grey stacked"
+      },
+      {
+        "url": "/images/products/moncler-puffer-trio-stack.jpg",
+        "alt": "Three hooded puffer jackets stacked in grey, navy and black"
+      },
+      {
+        "url": "/images/products/w2-moncler-puffer-black-back-side.jpg",
+        "alt": "Black hooded puffer jacket, back and side view"
+      },
+      {
+        "url": "/images/products/w2-moncler-puffer-black-front-open.jpg",
+        "alt": "Black hooded puffer jacket open showing lining"
+      },
+      {
+        "url": "/images/products/w2-moncler-puffer-black-front-tags-angled.jpg",
+        "alt": "Black hooded puffer jacket angled front view with tags"
+      },
+      {
+        "url": "/images/products/w2-moncler-puffer-black-front-tags.jpg",
+        "alt": "Black hooded puffer jacket front view with tags"
+      },
+      {
+        "url": "/images/products/w2-moncler-puffer-black-back-side-alt.jpg",
+        "alt": "Black hooded puffer jacket, back view alternate angle"
+      },
+      {
+        "url": "/images/products/w2-moncler-puffer-black-front-open-alt.jpg",
+        "alt": "Black hooded puffer jacket open, alternate view"
+      },
+      {
+        "url": "/images/products/w3-moncler-puffer-black-open-front.jpg",
+        "alt": "Black hooded puffer jacket open showing lining"
+      },
+      {
+        "url": "/images/products/w3-moncler-puffer-black-front-closed.jpg",
+        "alt": "Black hooded puffer jacket zipped, front view"
+      },
+      {
+        "url": "/images/products/w4-moncler-puffer-black-patch-closeup.jpg",
+        "alt": "Black hooded puffer jacket sleeve patch close-up with tags"
+      },
+      {
+        "url": "/images/products/w4-moncler-puffer-black-open-interior.jpg",
+        "alt": "Black hooded puffer jacket open showing interior tags"
+      },
+      {
+        "url": "/images/products/w4-moncler-puffer-black-hood-detail.jpg",
+        "alt": "Black hooded puffer jacket hood and shoulder detail"
+      },
+      {
+        "url": "/images/products/w4-moncler-puffer-black-open-flatlay.jpg",
+        "alt": "Black hooded puffer jacket open flat lay showing lining"
+      },
+      {
+        "url": "/images/products/w4-moncler-puffer-black-front-zipped.jpg",
+        "alt": "Black hooded puffer jacket, front view with tags"
+      },
+      {
+        "url": "/images/products/w4-moncler-puffer-black-front-tags.jpg",
+        "alt": "Black hooded puffer jacket front view with neck tags"
+      },
+      {
+        "url": "/images/products/w6-moncler-puffer-black-closeup-13.jpg",
+        "alt": "Black hooded puffer jacket hood and chest close-up"
+      },
+      {
+        "url": "/images/products/w6-moncler-puffer-black-front-14.jpg",
+        "alt": "Black hooded puffer jacket, full front view with tag"
+      }
+    ],
+    "variants": [
+      {
+        "id": "puf-black",
+        "label": "Black",
+        "colorHex": "#111111",
+        "stockQuantity": 0,
+        "images": [
+          {
+            "url": "/images/products/moncler-black-puffer-front.jpg",
+            "alt": "Black hooded puffer jacket, front view with tags"
+          },
+          {
+            "url": "/images/products/moncler-black-puffer-interior.jpg",
+            "alt": "Black hooded puffer jacket open showing interior"
+          },
+          {
+            "url": "/images/products/moncler-black-puffer-patch.jpg",
+            "alt": "Black hooded puffer jacket sleeve patch close-up"
+          },
+          {
+            "url": "/images/products/moncler-black-comic-washlabel.jpg",
+            "alt": "Black hooded puffer jacket interior wash label"
+          },
+          {
+            "url": "/images/products/moncler-black-puffer-back.jpg",
+            "alt": "Black hooded puffer jacket, back view"
+          },
+          {
+            "url": "/images/products/moncler-black-puffer-zipper.jpg",
+            "alt": "Black hooded puffer jacket zipper detail"
+          },
+          {
+            "url": "/images/products/moncler-black-puffer-hood.jpg",
+            "alt": "Black hooded puffer jacket with open hood and tag"
+          },
+          {
+            "url": "/images/products/moncler-black-puffer-drawcord.jpg",
+            "alt": "Black hooded puffer jacket hood drawcord detail"
+          },
+          {
+            "url": "/images/products/moncler-puffer-stack.jpg",
+            "alt": "Hooded puffer jackets in black, navy and grey stacked"
+          },
+          {
+            "url": "/images/products/moncler-puffer-trio-stack.jpg",
+            "alt": "Three hooded puffer jackets stacked in grey, navy and black"
+          },
+          {
+            "url": "/images/products/w2-moncler-puffer-black-back-side.jpg",
+            "alt": "Black hooded puffer jacket, back and side view"
+          },
+          {
+            "url": "/images/products/w2-moncler-puffer-black-front-open.jpg",
+            "alt": "Black hooded puffer jacket open showing lining"
+          },
+          {
+            "url": "/images/products/w2-moncler-puffer-black-front-tags-angled.jpg",
+            "alt": "Black hooded puffer jacket angled front view with tags"
+          },
+          {
+            "url": "/images/products/w2-moncler-puffer-black-front-tags.jpg",
+            "alt": "Black hooded puffer jacket front view with tags"
+          },
+          {
+            "url": "/images/products/w2-moncler-puffer-black-back-side-alt.jpg",
+            "alt": "Black hooded puffer jacket, back view alternate angle"
+          },
+          {
+            "url": "/images/products/w2-moncler-puffer-black-front-open-alt.jpg",
+            "alt": "Black hooded puffer jacket open, alternate view"
+          },
+          {
+            "url": "/images/products/w3-moncler-puffer-black-open-front.jpg",
+            "alt": "Black hooded puffer jacket open showing lining"
+          },
+          {
+            "url": "/images/products/w3-moncler-puffer-black-front-closed.jpg",
+            "alt": "Black hooded puffer jacket zipped, front view"
+          },
+          {
+            "url": "/images/products/w4-moncler-puffer-black-patch-closeup.jpg",
+            "alt": "Black hooded puffer jacket sleeve patch close-up with tags"
+          },
+          {
+            "url": "/images/products/w4-moncler-puffer-black-open-interior.jpg",
+            "alt": "Black hooded puffer jacket open showing interior tags"
+          },
+          {
+            "url": "/images/products/w4-moncler-puffer-black-hood-detail.jpg",
+            "alt": "Black hooded puffer jacket hood and shoulder detail"
+          },
+          {
+            "url": "/images/products/w4-moncler-puffer-black-open-flatlay.jpg",
+            "alt": "Black hooded puffer jacket open flat lay showing lining"
+          },
+          {
+            "url": "/images/products/w4-moncler-puffer-black-front-zipped.jpg",
+            "alt": "Black hooded puffer jacket, front view with tags"
+          },
+          {
+            "url": "/images/products/w4-moncler-puffer-black-front-tags.jpg",
+            "alt": "Black hooded puffer jacket front view with neck tags"
+          },
+          {
+            "url": "/images/products/w6-moncler-puffer-black-closeup-13.jpg",
+            "alt": "Black hooded puffer jacket hood and chest close-up"
+          },
+          {
+            "url": "/images/products/w6-moncler-puffer-black-front-14.jpg",
+            "alt": "Black hooded puffer jacket, full front view with tag"
+          }
+        ]
+      },
+      {
+        "id": "puf-navy",
+        "label": "Navy",
+        "colorHex": "#1c2a4a",
+        "stockQuantity": 0,
+        "images": [
+          {
+            "url": "/images/products/moncler-navy-puffer-front.jpg",
+            "alt": "Navy hooded puffer jacket, front view with tags"
+          },
+          {
+            "url": "/images/products/moncler-navy-puffer-interior.jpg",
+            "alt": "Navy hooded puffer jacket open showing interior"
+          },
+          {
+            "url": "/images/products/moncler-navy-puffer-open.jpg",
+            "alt": "Navy hooded puffer jacket open showing inner label"
+          }
+        ]
+      },
+      {
+        "id": "puf-grey",
+        "label": "Grey",
+        "colorHex": "#9a9a9a",
+        "stockQuantity": 0,
+        "images": [
+          {
+            "url": "/images/products/moncler-grey-puffer-interior.jpg",
+            "alt": "Grey hooded puffer jacket open showing interior and labels"
+          },
+          {
+            "url": "/images/products/moncler-grey-puffer-patch.jpg",
+            "alt": "Grey hooded puffer jacket sleeve logo patch close-up"
+          },
+          {
+            "url": "/images/products/moncler-grey-comic-washlabel.jpg",
+            "alt": "Grey hooded puffer jacket interior illustrated wash label"
+          },
+          {
+            "url": "/images/products/moncler-grey-puffer-front.jpg",
+            "alt": "Grey hooded puffer jacket with open hood and tags"
+          },
+          {
+            "url": "/images/products/moncler-grey-puffer-front-2.jpg",
+            "alt": "Grey hooded puffer jacket, front view"
+          },
+          {
+            "url": "/images/products/w6-moncler-puffer-grey-front-18.jpg",
+            "alt": "Silver grey hooded puffer jacket, full front view"
+          },
+          {
+            "url": "/images/products/w6-moncler-puffer-grey-open-19.jpg",
+            "alt": "Grey hooded puffer jacket with open collar, tags visible"
+          },
+          {
+            "url": "/images/products/w6-moncler-puffer-grey-neck-20.jpg",
+            "alt": "Grey hooded puffer jacket neckline tags and logo close-up"
+          }
+        ]
+      },
+      {
+        "id": "puf-white",
+        "label": "White",
+        "colorHex": "#f2f2f2",
+        "stockQuantity": 0,
+        "images": [
+          {
+            "url": "/images/products/w2-moncler-puffer-white-front.jpg",
+            "alt": "White hooded puffer jacket, front view"
+          },
+          {
+            "url": "/images/products/w2-moncler-puffer-white-front-open.jpg",
+            "alt": "White hooded puffer jacket open showing inner patch"
+          },
+          {
+            "url": "/images/products/w2-moncler-puffer-white-back-side.jpg",
+            "alt": "White hooded puffer jacket, back and side view"
+          },
+          {
+            "url": "/images/products/w2-moncler-puffer-white-front-alt.jpg",
+            "alt": "White hooded puffer jacket front view, alternate angle"
+          },
+          {
+            "url": "/images/products/w2-moncler-puffer-white-front-open-alt.jpg",
+            "alt": "White hooded puffer jacket open, alternate view"
+          },
+          {
+            "url": "/images/products/w3-moncler-puffer-white-folded-side.jpg",
+            "alt": "White hooded puffer jacket folded showing arm logo"
+          }
+        ]
+      },
+      {
+        "id": "puf-blue",
+        "label": "Blue",
+        "colorHex": "#2563eb",
+        "stockQuantity": 0,
+        "images": [
+          {
+            "url": "/images/products/w6-moncler-puffer-blue-front-15.jpg",
+            "alt": "Bright blue hooded puffer jacket, full front view"
+          },
+          {
+            "url": "/images/products/w6-moncler-puffer-blue-open-17.jpg",
+            "alt": "Blue hooded puffer jacket with open collar, tags visible"
+          },
+          {
+            "url": "/images/products/w6-moncler-puffer-blue-neck-21.jpg",
+            "alt": "Blue hooded puffer jacket neckline tags and logo close-up"
+          }
+        ]
+      },
+      {
+        "id": "puf-silver",
+        "label": "Silver",
+        "colorHex": "#c0c0c0",
+        "stockQuantity": 0,
+        "images": [
+          {
+            "url": "/images/products/moncler-silver-puffer-detail.jpg",
+            "alt": "Silver hooded puffer jacket fabric and stitching detail"
+          },
+          {
+            "url": "/images/products/moncler-silver-puffer-zipper.jpg",
+            "alt": "Silver hooded puffer jacket zipper and toggle detail"
+          }
+        ]
+      }
+    ],
+    "sizes": [
+      "S",
+      "M",
+      "L"
+    ],
+    "stockQuantity": 0,
+    "status": "active",
+    "featured": true,
+    "tags": [
+      "puffer",
+      "down",
+      "hooded",
+      "jacket",
+      "outerwear"
+    ],
+    "createdAt": "2026-10-13T10:00:00Z",
+    "updatedAt": "2026-10-13T10:00:00Z"
+  },
+  {
+    "id": "p-canada-goose-puffer",
+    "slug": "lightweight-puffer-jacket",
+    "title": "Lightweight Puffer Jacket",
+    "category": "Outerwear",
+    "description": "Lightweight down puffer jacket with hood, front zip and sleeve patch, offered in Black, Navy and Grey colourways. Select a colour to view its dedicated photograph set. Size, condition and pricing to be confirmed by the owners.",
+    "price": 0,
+    "currency": "GBP",
+    "condition": "good",
+    "conditionNotes": "Size, condition and pricing to be confirmed by the owners. Photographs show the item as it currently is. No authenticity claim is made.",
+    "images": [
+      {
+        "url": "/images/products/canada-goose-black-puffer-front.jpg",
+        "alt": "Black lightweight puffer jacket, front view with tags"
+      },
+      {
+        "url": "/images/products/canada-goose-black-puffer-front-2.jpg",
+        "alt": "Black lightweight puffer jacket open showing interior"
+      },
+      {
+        "url": "/images/products/canada-goose-black-puffer-front-3.jpg",
+        "alt": "Black hooded lightweight puffer jacket, front view"
+      },
+      {
+        "url": "/images/products/w3-canada-goose-puffer-black-front.jpg",
+        "alt": "Black lightweight puffer jacket front view with tag"
+      },
+      {
+        "url": "/images/products/w3-canada-goose-puffer-black-open-interior.jpg",
+        "alt": "Black lightweight puffer jacket open showing interior"
+      },
+      {
+        "url": "/images/products/w3-canada-goose-puffer-black-front-tag.jpg",
+        "alt": "Black lightweight puffer jacket front view with white tag"
+      },
+      {
+        "url": "/images/products/w3-canada-goose-puffer-black-front-snaps.jpg",
+        "alt": "Black lightweight puffer jacket front with snap placket"
+      },
+      {
+        "url": "/images/products/w3-canada-goose-puffer-black-badge-closeup.jpg",
+        "alt": "Close-up of black round sleeve badge"
+      },
+      {
+        "url": "/images/products/w4-canada-goose-puffer-black-front-open.jpg",
+        "alt": "Black lightweight puffer jacket partly unzipped, front view"
+      }
+    ],
+    "variants": [
+      {
+        "id": "lp-black",
+        "label": "Black",
+        "colorHex": "#111111",
+        "stockQuantity": 0,
+        "images": [
+          {
+            "url": "/images/products/canada-goose-black-puffer-front.jpg",
+            "alt": "Black lightweight puffer jacket, front view with tags"
+          },
+          {
+            "url": "/images/products/canada-goose-black-puffer-front-2.jpg",
+            "alt": "Black lightweight puffer jacket open showing interior"
+          },
+          {
+            "url": "/images/products/canada-goose-black-puffer-front-3.jpg",
+            "alt": "Black hooded lightweight puffer jacket, front view"
+          },
+          {
+            "url": "/images/products/w3-canada-goose-puffer-black-front.jpg",
+            "alt": "Black lightweight puffer jacket front view with tag"
+          },
+          {
+            "url": "/images/products/w3-canada-goose-puffer-black-open-interior.jpg",
+            "alt": "Black lightweight puffer jacket open showing interior"
+          },
+          {
+            "url": "/images/products/w3-canada-goose-puffer-black-front-tag.jpg",
+            "alt": "Black lightweight puffer jacket front view with white tag"
+          },
+          {
+            "url": "/images/products/w3-canada-goose-puffer-black-front-snaps.jpg",
+            "alt": "Black lightweight puffer jacket front with snap placket"
+          },
+          {
+            "url": "/images/products/w3-canada-goose-puffer-black-badge-closeup.jpg",
+            "alt": "Close-up of black round sleeve badge"
+          },
+          {
+            "url": "/images/products/w4-canada-goose-puffer-black-front-open.jpg",
+            "alt": "Black lightweight puffer jacket partly unzipped, front view"
+          }
+        ]
+      },
+      {
+        "id": "lp-navy",
+        "label": "Navy",
+        "colorHex": "#1c2a4a",
+        "stockQuantity": 0,
+        "images": [
+          {
+            "url": "/images/products/canada-goose-navy-puffer-front.jpg",
+            "alt": "Navy lightweight puffer jacket, front view with tags"
+          },
+          {
+            "url": "/images/products/canada-goose-navy-puffer-front-2.jpg",
+            "alt": "Navy lightweight puffer jacket, front view"
+          },
+          {
+            "url": "/images/products/canada-goose-navy-puffer-interior.jpg",
+            "alt": "Navy lightweight puffer jacket open showing interior"
+          },
+          {
+            "url": "/images/products/canada-goose-navy-puffer-open.jpg",
+            "alt": "Navy lightweight puffer jacket open showing interior"
+          },
+          {
+            "url": "/images/products/w3-canada-goose-puffer-navy-front-closed.jpg",
+            "alt": "Navy lightweight puffer jacket front view with tag"
+          },
+          {
+            "url": "/images/products/w4-canada-goose-puffer-navy-front.jpg",
+            "alt": "Navy lightweight puffer jacket, front view"
+          }
+        ]
+      },
+      {
+        "id": "lp-grey",
+        "label": "Grey",
+        "colorHex": "#9a9a9a",
+        "stockQuantity": 0,
+        "images": [
+          {
+            "url": "/images/products/canada-goose-grey-patch.jpg",
+            "alt": "Round sleeve patch close-up on grey sleeve"
+          },
+          {
+            "url": "/images/products/w3-canada-goose-puffer-grey-open-interior.jpg",
+            "alt": "Grey lightweight puffer jacket open showing interior"
+          },
+          {
+            "url": "/images/products/w3-canada-goose-puffer-grey-front-closed.jpg",
+            "alt": "Grey lightweight puffer jacket front view with tag"
+          },
+          {
+            "url": "/images/products/w3-canada-goose-puffer-lightgrey-front.jpg",
+            "alt": "Light grey lightweight puffer jacket front view with tag"
+          },
+          {
+            "url": "/images/products/w3-canada-goose-puffer-graphite-front-tag.jpg",
+            "alt": "Graphite grey lightweight puffer jacket front view with tag"
+          },
+          {
+            "url": "/images/products/w4-canada-goose-puffer-grey-front.jpg",
+            "alt": "Grey lightweight puffer jacket, front view"
+          },
+          {
+            "url": "/images/products/w4-canada-goose-puffer-grey-patch-closeup.jpg",
+            "alt": "Red and white round sleeve patch close-up on grey sleeve"
+          }
+        ]
+      }
+    ],
+    "sizes": [
+      "S",
+      "M",
+      "L"
+    ],
+    "stockQuantity": 0,
+    "status": "active",
+    "featured": true,
+    "tags": [
+      "puffer",
+      "down",
+      "lightweight",
+      "jacket",
+      "outerwear"
+    ],
+    "createdAt": "2026-10-13T10:00:00Z",
+    "updatedAt": "2026-10-13T10:00:00Z"
+  },
+  {
+    "id": "p-canada-goose-parka",
+    "slug": "fur-hood-parka",
+    "title": "Fur-Hood Parka",
+    "category": "Outerwear",
+    "description": "Down parka with fur-trim hood, front placket and sleeve patch, offered in Black and Grey colourways. Select a colour to view its dedicated photograph set. Size, condition and pricing to be confirmed by the owners.",
+    "price": 0,
+    "currency": "GBP",
+    "condition": "good",
+    "conditionNotes": "Size, condition and pricing to be confirmed by the owners. Photographs show the item as it currently is. No authenticity claim is made.",
+    "images": [
+      {
+        "url": "/images/products/black-canada-goose-jacket/jacket-01.jpg",
+        "alt": "Black fur-hood parka, close-up of sleeve patch"
+      },
+      {
+        "url": "/images/products/black-canada-goose-jacket/jacket-02.jpg",
+        "alt": "Black fur-hood parka, back view with hood"
+      },
+      {
+        "url": "/images/products/black-canada-goose-jacket/jacket-03.jpg",
+        "alt": "Black fur-hood parka, interior showing labels"
+      },
+      {
+        "url": "/images/products/black-canada-goose-jacket/jacket-04.jpg",
+        "alt": "Black fur-hood parka, side view with fur hood"
+      },
+      {
+        "url": "/images/products/black-canada-goose-jacket/jacket-05.jpg",
+        "alt": "Black fur-hood parka, front view with pockets"
+      },
+      {
+        "url": "/images/products/canada-goose-black-jacket-tags.jpg",
+        "alt": "Black hooded jacket neckline with tags"
+      },
+      {
+        "url": "/images/products/w1-canada-goose-parka-black-front-fur-on-red.jpg",
+        "alt": "Black fur-hood parka, front view"
+      },
+      {
+        "url": "/images/products/w1-canada-goose-parka-black-front-fur-on-black-a.jpg",
+        "alt": "Black fur-hood parka, front view alternate"
+      },
+      {
+        "url": "/images/products/w1-canada-goose-parka-black-front-fur-on-black-b.jpg",
+        "alt": "Black fur-hood parka laid flat"
+      },
+      {
+        "url": "/images/products/w1-canada-goose-parka-black-hood-up-fur-off-red.jpg",
+        "alt": "Black parka with hood up, fur detached"
+      },
+      {
+        "url": "/images/products/w4-canada-goose-parka-black-front.jpg",
+        "alt": "Black fur-hood parka flat lay with hood up"
+      }
+    ],
+    "variants": [
+      {
+        "id": "pk-black",
+        "label": "Black",
+        "colorHex": "#111111",
+        "stockQuantity": 0,
+        "images": [
+          {
+            "url": "/images/products/black-canada-goose-jacket/jacket-01.jpg",
+            "alt": "Black fur-hood parka, close-up of sleeve patch"
+          },
+          {
+            "url": "/images/products/black-canada-goose-jacket/jacket-02.jpg",
+            "alt": "Black fur-hood parka, back view with hood"
+          },
+          {
+            "url": "/images/products/black-canada-goose-jacket/jacket-03.jpg",
+            "alt": "Black fur-hood parka, interior showing labels"
+          },
+          {
+            "url": "/images/products/black-canada-goose-jacket/jacket-04.jpg",
+            "alt": "Black fur-hood parka, side view with fur hood"
+          },
+          {
+            "url": "/images/products/black-canada-goose-jacket/jacket-05.jpg",
+            "alt": "Black fur-hood parka, front view with pockets"
+          },
+          {
+            "url": "/images/products/canada-goose-black-jacket-tags.jpg",
+            "alt": "Black hooded jacket neckline with tags"
+          },
+          {
+            "url": "/images/products/w1-canada-goose-parka-black-front-fur-on-red.jpg",
+            "alt": "Black fur-hood parka, front view"
+          },
+          {
+            "url": "/images/products/w1-canada-goose-parka-black-front-fur-on-black-a.jpg",
+            "alt": "Black fur-hood parka, front view alternate"
+          },
+          {
+            "url": "/images/products/w1-canada-goose-parka-black-front-fur-on-black-b.jpg",
+            "alt": "Black fur-hood parka laid flat"
+          },
+          {
+            "url": "/images/products/w1-canada-goose-parka-black-hood-up-fur-off-red.jpg",
+            "alt": "Black parka with hood up, fur detached"
+          },
+          {
+            "url": "/images/products/w4-canada-goose-parka-black-front.jpg",
+            "alt": "Black fur-hood parka flat lay with hood up"
+          }
+        ]
+      },
+      {
+        "id": "pk-grey",
+        "label": "Grey",
+        "colorHex": "#9a9a9a",
+        "stockQuantity": 0,
+        "images": [
+          {
+            "url": "/images/products/w1-canada-goose-parka-grey-front-fur-on-red.jpg",
+            "alt": "Grey fur-hood parka, front view"
+          },
+          {
+            "url": "/images/products/w1-canada-goose-parka-grey-front-fur-on-black.jpg",
+            "alt": "Grey fur-hood parka with dark sleeve badge"
+          },
+          {
+            "url": "/images/products/w1-canada-goose-parka-grey-hood-up-fur-off-red.jpg",
+            "alt": "Grey parka with hood up, fur detached"
+          },
+          {
+            "url": "/images/products/w1-canada-goose-parka-grey-hood-up-fur-off-black.jpg",
+            "alt": "Grey parka with hood up and dark sleeve badge"
+          }
+        ]
+      }
+    ],
+    "sizes": [
+      "S",
+      "M",
+      "L"
+    ],
+    "stockQuantity": 0,
+    "status": "active",
+    "featured": true,
+    "tags": [
+      "parka",
+      "fur hood",
+      "down",
+      "outerwear"
+    ],
+    "createdAt": "2026-10-01T10:00:00Z",
+    "updatedAt": "2026-10-13T10:00:00Z"
+  },
+  {
+    "id": "p-canada-goose-vest",
+    "slug": "down-vest",
+    "title": "Down Vest",
+    "category": "Outerwear",
+    "description": "Down vest/gilet with front zip and chest patch, offered in Black, Navy and Grey colourways. Select a colour to view its dedicated photograph set. Size, condition and pricing to be confirmed by the owners.",
+    "price": 0,
+    "currency": "GBP",
+    "condition": "good",
+    "conditionNotes": "Size, condition and pricing to be confirmed by the owners. Photographs show the item as it currently is. No authenticity claim is made.",
+    "images": [
+      {
+        "url": "/images/products/w5-canada-goose-vest-black-open-front.jpg",
+        "alt": "Black down vest open showing zip"
+      },
+      {
+        "url": "/images/products/w5-canada-goose-vest-black-front-red-patch.jpg",
+        "alt": "Black down vest front with red chest patch"
+      },
+      {
+        "url": "/images/products/w5-canada-goose-vest-black-open-front-2.jpg",
+        "alt": "Black down vest open showing interior label"
+      },
+      {
+        "url": "/images/products/w5-canada-goose-vest-black-open-side.jpg",
+        "alt": "Black down vest open showing lining and care label"
+      },
+      {
+        "url": "/images/products/w5-canada-goose-vest-black-front-black-patch.jpg",
+        "alt": "Black down vest front with black chest patch"
+      }
+    ],
+    "variants": [
+      {
+        "id": "vest-black",
+        "label": "Black",
+        "colorHex": "#111111",
+        "stockQuantity": 0,
+        "images": [
+          {
+            "url": "/images/products/w5-canada-goose-vest-black-open-front.jpg",
+            "alt": "Black down vest open showing zip"
+          },
+          {
+            "url": "/images/products/w5-canada-goose-vest-black-front-red-patch.jpg",
+            "alt": "Black down vest front with red chest patch"
+          },
+          {
+            "url": "/images/products/w5-canada-goose-vest-black-open-front-2.jpg",
+            "alt": "Black down vest open showing interior label"
+          },
+          {
+            "url": "/images/products/w5-canada-goose-vest-black-open-side.jpg",
+            "alt": "Black down vest open showing lining and care label"
+          },
+          {
+            "url": "/images/products/w5-canada-goose-vest-black-front-black-patch.jpg",
+            "alt": "Black down vest front with black chest patch"
+          }
+        ]
+      },
+      {
+        "id": "vest-navy",
+        "label": "Navy",
+        "colorHex": "#1c2a4a",
+        "stockQuantity": 0,
+        "images": [
+          {
+            "url": "/images/products/w5-canada-goose-vest-navy-open-front.jpg",
+            "alt": "Navy down vest open showing interior"
+          },
+          {
+            "url": "/images/products/w5-canada-goose-vest-navy-front-red-patch.jpg",
+            "alt": "Navy down vest front with red chest patch"
+          }
+        ]
+      },
+      {
+        "id": "vest-grey",
+        "label": "Grey",
+        "colorHex": "#9a9a9a",
+        "stockQuantity": 0,
+        "images": [
+          {
+            "url": "/images/products/w5-canada-goose-vest-grey-open-front.jpg",
+            "alt": "Grey down vest open showing interior label"
+          },
+          {
+            "url": "/images/products/w5-canada-goose-vest-grey-black-stacked-1.jpg",
+            "alt": "Grey and black down vests stacked together"
+          },
+          {
+            "url": "/images/products/w5-canada-goose-vest-grey-black-stacked-2.jpg",
+            "alt": "Grey and black down vests overlapping flat lay"
+          },
+          {
+            "url": "/images/products/w5-canada-goose-vest-grey-open-interior.jpg",
+            "alt": "Grey down vest open showing dark lining"
+          },
+          {
+            "url": "/images/products/w5-canada-goose-vest-grey-front-red-patch.jpg",
+            "alt": "Grey down vest front with red chest patch"
+          },
+          {
+            "url": "/images/products/w5-canada-goose-vest-grey-front-black-patch.jpg",
+            "alt": "Grey down vest front with black chest patch"
+          },
+          {
+            "url": "/images/products/w5-canada-goose-vest-grey-open-front-2.jpg",
+            "alt": "Grey down vest open showing interior label"
+          }
+        ]
+      }
+    ],
+    "sizes": [
+      "S",
+      "M",
+      "L"
+    ],
+    "stockQuantity": 0,
+    "status": "active",
+    "featured": false,
+    "tags": [
+      "vest",
+      "gilet",
+      "down",
+      "outerwear"
+    ],
+    "createdAt": "2026-10-13T10:00:00Z",
+    "updatedAt": "2026-10-13T10:00:00Z"
+  },
+  {
+    "id": "p-stone-island-jacket",
+    "slug": "hooded-utility-jacket",
+    "title": "Hooded Utility Jacket",
+    "category": "Outerwear",
+    "description": "Hooded utility jacket with arm badge and front pockets, offered in Grey, Black, Navy and Light Blue colourways. Select a colour to view its dedicated photograph set. Size, condition and pricing to be confirmed by the owners.",
+    "price": 0,
+    "currency": "GBP",
+    "condition": "good",
+    "conditionNotes": "Size, condition and pricing to be confirmed by the owners. Photographs show the item as it currently is. No authenticity claim is made.",
+    "images": [
+      {
+        "url": "/images/products/stone-island-grey-jacket-tags.jpg",
+        "alt": "Grey hooded utility jacket with tags and arm badge"
+      },
+      {
+        "url": "/images/products/stone-island-grey-jacket-front.jpg",
+        "alt": "Grey hooded utility jacket, front view"
+      },
+      {
+        "url": "/images/products/stone-island-grey-jacket-front-2.jpg",
+        "alt": "Grey hooded utility jacket laid flat, front view"
+      },
+      {
+        "url": "/images/products/stone-island-grey-jacket-detail.jpg",
+        "alt": "Grey hooded utility jacket pocket and badge detail"
+      },
+      {
+        "url": "/images/products/stone-island-grey-jacket-collar.jpg",
+        "alt": "Grey hooded utility jacket collar and lining detail"
+      },
+      {
+        "url": "/images/products/stone-island-grey-jacket-hood.jpg",
+        "alt": "Grey hooded utility jacket hood and neckline detail"
+      }
+    ],
+    "variants": [
+      {
+        "id": "uj-grey",
+        "label": "Grey",
+        "colorHex": "#9a9a9a",
+        "stockQuantity": 0,
+        "images": [
+          {
+            "url": "/images/products/stone-island-grey-jacket-tags.jpg",
+            "alt": "Grey hooded utility jacket with tags and arm badge"
+          },
+          {
+            "url": "/images/products/stone-island-grey-jacket-front.jpg",
+            "alt": "Grey hooded utility jacket, front view"
+          },
+          {
+            "url": "/images/products/stone-island-grey-jacket-front-2.jpg",
+            "alt": "Grey hooded utility jacket laid flat, front view"
+          },
+          {
+            "url": "/images/products/stone-island-grey-jacket-detail.jpg",
+            "alt": "Grey hooded utility jacket pocket and badge detail"
+          },
+          {
+            "url": "/images/products/stone-island-grey-jacket-collar.jpg",
+            "alt": "Grey hooded utility jacket collar and lining detail"
+          },
+          {
+            "url": "/images/products/stone-island-grey-jacket-hood.jpg",
+            "alt": "Grey hooded utility jacket hood and neckline detail"
+          }
+        ]
+      },
+      {
+        "id": "uj-black",
+        "label": "Black",
+        "colorHex": "#111111",
+        "stockQuantity": 0,
+        "images": [
+          {
+            "url": "/images/products/stone-island-black-jacket-front.jpg",
+            "alt": "Black hooded utility jacket, front view"
+          },
+          {
+            "url": "/images/products/stone-island-black-jacket-front-2.jpg",
+            "alt": "Black hooded utility jacket, front view"
+          }
+        ]
+      },
+      {
+        "id": "uj-navy",
+        "label": "Navy",
+        "colorHex": "#1c2a4a",
+        "stockQuantity": 0,
+        "images": [
+          {
+            "url": "/images/products/stone-island-navy-jacket-front.jpg",
+            "alt": "Navy hooded utility jacket, front view"
+          }
+        ]
+      },
+      {
+        "id": "uj-blue",
+        "label": "Light Blue",
+        "colorHex": "#93b4d4",
+        "stockQuantity": 0,
+        "images": [
+          {
+            "url": "/images/products/stone-island-blue-jacket-front.jpg",
+            "alt": "Light blue hooded utility jacket, front view"
+          }
+        ]
+      }
+    ],
+    "sizes": [
+      "S",
+      "M",
+      "L"
+    ],
+    "stockQuantity": 0,
+    "status": "active",
+    "featured": true,
+    "tags": [
+      "utility",
+      "jacket",
+      "hooded",
+      "outerwear"
+    ],
+    "createdAt": "2026-10-13T10:00:00Z",
+    "updatedAt": "2026-10-13T10:00:00Z"
+  },
+  {
+    "id": "p-moncler-beanie",
+    "slug": "ribbed-knit-beanie",
+    "title": "Ribbed Knit Beanie",
+    "category": "Accessories",
+    "description": "Ribbed knit beanie with logo patch, offered in Black, Grey, Navy, Burgundy, Charcoal, Indigo, Olive and tricolor-stripe colourways. Select a colour to view its dedicated photograph set. Size, condition and pricing to be confirmed by the owners.",
+    "price": 0,
+    "currency": "GBP",
+    "condition": "good",
+    "conditionNotes": "Size, condition and pricing to be confirmed by the owners. Photographs show the item as it currently is. No authenticity claim is made.",
+    "images": [
+      {
+        "url": "/images/products/moncler-black-beanie.jpg",
+        "alt": "Black ribbed knit beanie with logo patch and tag"
+      },
+      {
+        "url": "/images/products/moncler-black-beanie-logo-closeup.jpg",
+        "alt": "Close-up of logo patch on black ribbed beanie"
+      },
+      {
+        "url": "/images/products/w4-moncler-beanie-black-flatlay.jpg",
+        "alt": "Black ribbed knit beanie with logo patch and tag"
+      },
+      {
+        "url": "/images/products/moncler-beanies-group-flatlay.jpg",
+        "alt": "Eight ribbed knit beanies in assorted colours laid out together"
+      },
+      {
+        "url": "/images/products/w3-moncler-beanie-duo-grey-black-pair.jpg",
+        "alt": "Two ribbed knit beanies in grey and black with tags"
+      }
+    ],
+    "variants": [
+      {
+        "id": "rkb-black",
+        "label": "Black",
+        "colorHex": "#111111",
+        "stockQuantity": 0,
+        "images": [
+          {
+            "url": "/images/products/moncler-black-beanie.jpg",
+            "alt": "Black ribbed knit beanie with logo patch and tag"
+          },
+          {
+            "url": "/images/products/moncler-black-beanie-logo-closeup.jpg",
+            "alt": "Close-up of logo patch on black ribbed beanie"
+          },
+          {
+            "url": "/images/products/w4-moncler-beanie-black-flatlay.jpg",
+            "alt": "Black ribbed knit beanie with logo patch and tag"
+          },
+          {
+            "url": "/images/products/moncler-beanies-group-flatlay.jpg",
+            "alt": "Eight ribbed knit beanies in assorted colours laid out together"
+          },
+          {
+            "url": "/images/products/w3-moncler-beanie-duo-grey-black-pair.jpg",
+            "alt": "Two ribbed knit beanies in grey and black with tags"
+          }
+        ]
+      },
+      {
+        "id": "rkb-grey",
+        "label": "Grey",
+        "colorHex": "#9a9a9a",
+        "stockQuantity": 0,
+        "images": [
+          {
+            "url": "/images/products/moncler-grey-beanie.jpg",
+            "alt": "Grey ribbed knit beanie with logo patch and tag"
+          }
+        ]
+      },
+      {
+        "id": "rkb-navy",
+        "label": "Navy",
+        "colorHex": "#1c2a4a",
+        "stockQuantity": 0,
+        "images": [
+          {
+            "url": "/images/products/moncler-navy-beanie-front.jpg",
+            "alt": "Navy ribbed knit beanie with tag"
+          },
+          {
+            "url": "/images/products/w4-moncler-beanie-navy-flatlay.jpg",
+            "alt": "Navy ribbed knit beanie with logo patch and tag"
+          }
+        ]
+      },
+      {
+        "id": "rkb-burgundy",
+        "label": "Burgundy",
+        "colorHex": "#6d1a2d",
+        "stockQuantity": 0,
+        "images": [
+          {
+            "url": "/images/products/moncler-burgundy-beanie.jpg",
+            "alt": "Burgundy ribbed knit beanie with logo patch and tags"
+          }
+        ]
+      },
+      {
+        "id": "rkb-charcoal",
+        "label": "Charcoal",
+        "colorHex": "#3a3a3a",
+        "stockQuantity": 0,
+        "images": [
+          {
+            "url": "/images/products/w4-moncler-beanie-charcoal-flatlay.jpg",
+            "alt": "Charcoal ribbed knit beanie with logo patch and tag"
+          }
+        ]
+      },
+      {
+        "id": "rkb-indigo",
+        "label": "Indigo",
+        "colorHex": "#3b4a6b",
+        "stockQuantity": 0,
+        "images": [
+          {
+            "url": "/images/products/moncler-indigo-beanie-front.jpg",
+            "alt": "Indigo ribbed knit beanie with tag"
+          },
+          {
+            "url": "/images/products/moncler-indigo-grey-beanie.jpg",
+            "alt": "Dark indigo ribbed knit beanie with tag"
+          }
+        ]
+      },
+      {
+        "id": "rkb-olive",
+        "label": "Olive",
+        "colorHex": "#5b6236",
+        "stockQuantity": 0,
+        "images": [
+          {
+            "url": "/images/products/moncler-olive-beanie.jpg",
+            "alt": "Olive green ribbed knit beanie with tag"
+          }
+        ]
+      },
+      {
+        "id": "rkb-navy-tri",
+        "label": "Navy Tricolor",
+        "colorHex": "#1c2a4a",
+        "stockQuantity": 0,
+        "images": [
+          {
+            "url": "/images/products/w3-moncler-beanie-navy-tricolor-front.jpg",
+            "alt": "Navy ribbed beanie with tricolor stripe"
+          }
+        ]
+      },
+      {
+        "id": "rkb-grey-tri",
+        "label": "Grey Tricolor",
+        "colorHex": "#9a9a9a",
+        "stockQuantity": 0,
+        "images": [
+          {
+            "url": "/images/products/w3-moncler-beanie-grey-tricolor-front.jpg",
+            "alt": "Grey ribbed beanie with tricolor stripe"
+          }
+        ]
+      }
+    ],
+    "sizes": [],
+    "stockQuantity": 0,
+    "status": "active",
+    "featured": false,
+    "tags": [
+      "beanie",
+      "hat",
+      "knit",
+      "ribbed",
+      "accessories"
+    ],
+    "createdAt": "2026-10-13T10:00:00Z",
+    "updatedAt": "2026-10-13T10:00:00Z"
+  },
+  {
+    "id": "p-canada-goose-beanie",
+    "slug": "patch-knit-beanie",
+    "title": "Patch Knit Beanie",
+    "category": "Accessories",
+    "description": "Ribbed knit beanie with chest-style logo patch, offered in Black, Grey, Navy, Light Blue, Burgundy and Charcoal colourways. Select a colour to view its dedicated photograph set. Size, condition and pricing to be confirmed by the owners.",
+    "price": 0,
+    "currency": "GBP",
+    "condition": "good",
+    "conditionNotes": "Size, condition and pricing to be confirmed by the owners. Photographs show the item as it currently is. No authenticity claim is made.",
+    "images": [
+      {
+        "url": "/images/products/w2-other-beanie-black-closeup.jpg",
+        "alt": "Black knit beanie with tonal patch, close-up"
+      },
+      {
+        "url": "/images/products/w2-other-beanie-black-flatlay.jpg",
+        "alt": "Black knit beanie with tonal patch and tag"
+      },
+      {
+        "url": "/images/products/w2-other-beanie-black-red-patch-flatlay.jpg",
+        "alt": "Black knit beanie with red patch"
+      },
+      {
+        "url": "/images/products/w3-other-beanie-black-black-patch-front.jpg",
+        "alt": "Black knit beanie with black patch"
+      },
+      {
+        "url": "/images/products/w3-other-beanie-black-red-patch-front.jpg",
+        "alt": "Black knit beanie with red patch"
+      },
+      {
+        "url": "/images/products/w4-other-beanie-black-redpatch-front.jpg",
+        "alt": "Black knit beanie with red patch"
+      },
+      {
+        "url": "/images/products/w4-other-beanie-black-blackpatch-front.jpg",
+        "alt": "Black knit beanie with black patch"
+      },
+      {
+        "url": "/images/products/w5-other-canada-goose-beanie-black-front.jpg",
+        "alt": "Black knit beanie with chest-style patch"
+      }
+    ],
+    "variants": [
+      {
+        "id": "pkb-black",
+        "label": "Black",
+        "colorHex": "#111111",
+        "stockQuantity": 0,
+        "images": [
+          {
+            "url": "/images/products/w2-other-beanie-black-closeup.jpg",
+            "alt": "Black knit beanie with tonal patch, close-up"
+          },
+          {
+            "url": "/images/products/w2-other-beanie-black-flatlay.jpg",
+            "alt": "Black knit beanie with tonal patch and tag"
+          },
+          {
+            "url": "/images/products/w2-other-beanie-black-red-patch-flatlay.jpg",
+            "alt": "Black knit beanie with red patch"
+          },
+          {
+            "url": "/images/products/w3-other-beanie-black-black-patch-front.jpg",
+            "alt": "Black knit beanie with black patch"
+          },
+          {
+            "url": "/images/products/w3-other-beanie-black-red-patch-front.jpg",
+            "alt": "Black knit beanie with red patch"
+          },
+          {
+            "url": "/images/products/w4-other-beanie-black-redpatch-front.jpg",
+            "alt": "Black knit beanie with red patch"
+          },
+          {
+            "url": "/images/products/w4-other-beanie-black-blackpatch-front.jpg",
+            "alt": "Black knit beanie with black patch"
+          },
+          {
+            "url": "/images/products/w5-other-canada-goose-beanie-black-front.jpg",
+            "alt": "Black knit beanie with chest-style patch"
+          }
+        ]
+      },
+      {
+        "id": "pkb-grey",
+        "label": "Grey",
+        "colorHex": "#9a9a9a",
+        "stockQuantity": 0,
+        "images": [
+          {
+            "url": "/images/products/w3-other-beanie-grey-red-patch-front.jpg",
+            "alt": "Grey knit beanie with red patch"
+          },
+          {
+            "url": "/images/products/w3-other-beanie-grey-black-patch-front.jpg",
+            "alt": "Grey knit beanie with black patch"
+          },
+          {
+            "url": "/images/products/w4-other-beanie-grey-redpatch-front.jpg",
+            "alt": "Grey knit beanie with red patch"
+          },
+          {
+            "url": "/images/products/w5-other-canada-goose-beanie-grey-front.jpg",
+            "alt": "Grey knit beanie with patch"
+          }
+        ]
+      },
+      {
+        "id": "pkb-navy",
+        "label": "Navy",
+        "colorHex": "#1c2a4a",
+        "stockQuantity": 0,
+        "images": [
+          {
+            "url": "/images/products/w4-other-beanie-navy-front.jpg",
+            "alt": "Navy knit beanie with red patch"
+          }
+        ]
+      },
+      {
+        "id": "pkb-lightblue",
+        "label": "Light Blue",
+        "colorHex": "#93b4d4",
+        "stockQuantity": 0,
+        "images": [
+          {
+            "url": "/images/products/w4-other-beanie-light-blue-front.jpg",
+            "alt": "Light blue knit beanie with red patch"
+          }
+        ]
+      },
+      {
+        "id": "pkb-burgundy",
+        "label": "Burgundy",
+        "colorHex": "#6d1a2d",
+        "stockQuantity": 0,
+        "images": [
+          {
+            "url": "/images/products/w4-other-beanie-burgundy-front.jpg",
+            "alt": "Burgundy knit beanie with black patch"
+          }
+        ]
+      },
+      {
+        "id": "pkb-charcoal",
+        "label": "Charcoal",
+        "colorHex": "#3a3a3a",
+        "stockQuantity": 0,
+        "images": [
+          {
+            "url": "/images/products/w4-other-beanie-charcoal-blackpatch-front.jpg",
+            "alt": "Charcoal knit beanie with black patch"
+          }
+        ]
+      }
+    ],
+    "sizes": [],
+    "stockQuantity": 0,
+    "status": "active",
+    "featured": false,
+    "tags": [
+      "beanie",
+      "hat",
+      "knit",
+      "patch",
+      "accessories"
+    ],
+    "createdAt": "2026-10-13T10:00:00Z",
+    "updatedAt": "2026-10-13T10:00:00Z"
+  },
+  {
+    "id": "p-cp-beanie",
+    "slug": "classic-knit-beanie",
+    "title": "Classic Knit Beanie",
+    "category": "Accessories",
+    "description": "Black knit beanie with small logo, shown with box and tag. Size, condition and pricing to be confirmed by the owners.",
+    "price": 0,
+    "currency": "GBP",
+    "condition": "good",
+    "conditionNotes": "Size, condition and pricing to be confirmed by the owners. Photographs show the item as it currently is. No authenticity claim is made.",
+    "images": [
+      {
+        "url": "/images/products/w6-other-cp-beanie-black-front-11.jpg",
+        "alt": "Black knit beanie with box and tag, front view"
+      },
+      {
+        "url": "/images/products/w6-other-cp-beanie-black-top-12.jpg",
+        "alt": "Black knit beanie with box, top view"
+      }
+    ],
+    "sizes": [],
+    "stockQuantity": 0,
+    "status": "active",
+    "featured": false,
+    "tags": [
+      "beanie",
+      "hat",
+      "knit",
+      "accessories"
+    ],
+    "createdAt": "2026-10-13T10:00:00Z",
+    "updatedAt": "2026-10-13T10:00:00Z"
+  },
+  {
+    "id": "p-rolex-submariner",
+    "slug": "automatic-date-watch",
+    "title": "Automatic Date Watch",
+    "category": "Watches",
+    "description": "Steel and gold-tone automatic diver-style date watch with rotating bezel and metal bracelet, offered in Steel/Black, Steel/Blue and Gold/Blue finishes. Select a finish to view its photograph. Size, condition, servicing history and pricing to be confirmed by the owners.",
+    "price": 0,
+    "currency": "GBP",
+    "condition": "good",
+    "conditionNotes": "Condition, reference, servicing history and authenticity to be confirmed by the owners. Photographs show the watches as they currently are. No authenticity claim is made.",
+    "images": [
+      {
+        "url": "/images/products/rolex-submariner-steel-black.jpg",
+        "alt": "Steel date watch with black dial held in gloved hand"
+      }
+    ],
+    "variants": [
+      {
+        "id": "watch-steel-black",
+        "label": "Steel / Black",
+        "colorHex": "#3a3a3a",
+        "stockQuantity": 0,
+        "images": [
+          {
+            "url": "/images/products/rolex-submariner-steel-black.jpg",
+            "alt": "Steel date watch with black dial held in gloved hand"
+          }
+        ]
+      },
+      {
+        "id": "watch-steel-blue",
+        "label": "Steel / Blue",
+        "colorHex": "#2563eb",
+        "stockQuantity": 0,
+        "images": [
+          {
+            "url": "/images/products/rolex-submariner-blue.jpg",
+            "alt": "Steel date watch with blue bezel held in gloved hand"
+          }
+        ]
+      },
+      {
+        "id": "watch-gold-blue",
+        "label": "Gold / Blue",
+        "colorHex": "#c9a227",
+        "stockQuantity": 0,
+        "images": [
+          {
+            "url": "/images/products/rolex-submariner-gold-blue.jpg",
+            "alt": "Gold-tone date watch with blue dial held in gloved hand"
+          }
+        ]
+      }
+    ],
+    "sizes": [],
+    "stockQuantity": 0,
+    "status": "active",
+    "featured": true,
+    "tags": [
+      "watch",
+      "diver",
+      "steel",
+      "gold",
+      "date"
+    ],
+    "createdAt": "2026-10-13T10:00:00Z",
+    "updatedAt": "2026-10-13T10:00:00Z"
+  },
+  {
+    "id": "p-cartier-bracelets",
+    "slug": "nail-bracelet-trio",
+    "title": "Nail Bracelet Trio",
+    "category": "Jewellery",
+    "description": "Trio of nail-style bracelets in yellow, rose and white gold tones, shown with box and certificate. Sizes, condition and pricing to be confirmed by the owners.",
+    "price": 0,
+    "currency": "GBP",
+    "condition": "good",
+    "conditionNotes": "Size, condition and pricing to be confirmed by the owners. Photographs show the item as it currently is. No authenticity claim is made.",
+    "images": [
+      {
+        "url": "/images/products/cartier-juste-un-clou-trio.jpg",
+        "alt": "Three nail-style bracelets with box and certificate"
+      }
+    ],
+    "sizes": [],
+    "stockQuantity": 0,
+    "status": "active",
+    "featured": true,
+    "tags": [
+      "bracelet",
+      "gold",
+      "nail",
+      "jewellery"
+    ],
+    "createdAt": "2026-10-13T10:00:00Z",
+    "updatedAt": "2026-10-13T10:00:00Z"
+  },
+  {
+    "id": "p-canvas-messenger-bag",
+    "slug": "canvas-messenger-bag",
+    "title": "Canvas Messenger Bag",
+    "category": "Bags",
+    "description": "Patterned canvas messenger/crossbody bag with flap and adjustable strap, offered in Beige, Black and Navy colourways. Select a colour to view its dedicated photograph set. Size, condition and pricing to be confirmed by the owners.",
+    "price": 0,
+    "currency": "GBP",
+    "condition": "good",
+    "conditionNotes": "Size, condition and pricing to be confirmed by the owners. Photographs show the item as it currently is. No authenticity claim is made.",
+    "images": [
+      {
+        "url": "/images/products/w1-other-dior-messenger-beige-front.jpg",
+        "alt": "Canvas messenger bag in beige pattern with dark flap"
+      },
+      {
+        "url": "/images/products/w6-other-dior-bag-beige-top-02.jpg",
+        "alt": "Beige patterned mini bag with box and strap, top view"
+      }
+    ],
+    "variants": [
+      {
+        "id": "cmb-beige",
+        "label": "Beige",
+        "colorHex": "#c9b18c",
+        "stockQuantity": 0,
+        "images": [
+          {
+            "url": "/images/products/w1-other-dior-messenger-beige-front.jpg",
+            "alt": "Canvas messenger bag in beige pattern with dark flap"
+          },
+          {
+            "url": "/images/products/w6-other-dior-bag-beige-top-02.jpg",
+            "alt": "Beige patterned mini bag with box and strap, top view"
+          },
+          {
+            "url": "/images/products/w6-other-dior-bag-beige-closeup-04.jpg",
+            "alt": "Beige patterned bag, close-up angled view"
+          },
+          {
+            "url": "/images/products/w6-other-dior-bag-beige-back-05.jpg",
+            "alt": "Beige patterned bag, back view with strap"
+          },
+          {
+            "url": "/images/products/w6-other-dior-bag-beige-buckle-09.jpg",
+            "alt": "Beige patterned bag buckle, extreme close-up"
+          }
+        ]
+      },
+      {
+        "id": "cmb-black",
+        "label": "Black",
+        "colorHex": "#111111",
+        "stockQuantity": 0,
+        "images": [
+          {
+            "url": "/images/products/w1-other-dior-messenger-black-front.jpg",
+            "alt": "Black patterned messenger bag, front view"
+          },
+          {
+            "url": "/images/products/w1-other-dior-crossbody-black-set.jpg",
+            "alt": "Black patterned crossbody set with pouch, top view"
+          }
+        ]
+      },
+      {
+        "id": "cmb-navy",
+        "label": "Navy",
+        "colorHex": "#1c2a4a",
+        "stockQuantity": 0,
+        "images": [
+          {
+            "url": "/images/products/w6-other-dior-bag-navy-front-08.jpg",
+            "alt": "Navy patterned bag with decorative box, front view"
+          },
+          {
+            "url": "/images/products/w6-other-dior-bag-navy-closeup-16.jpg",
+            "alt": "Navy patterned bag, front close-up with box"
+          }
+        ]
+      }
+    ],
+    "sizes": [],
+    "stockQuantity": 0,
+    "status": "active",
+    "featured": true,
+    "tags": [
+      "bag",
+      "messenger",
+      "crossbody",
+      "canvas"
+    ],
+    "createdAt": "2026-10-13T10:00:00Z",
+    "updatedAt": "2026-10-13T10:00:00Z"
+  },
+  {
+    "id": "p-goyard-bag",
+    "slug": "patterned-shoulder-bag",
+    "title": "Patterned Shoulder Bag & Pouch",
+    "category": "Bags",
+    "description": "Patterned coated-canvas shoulder bag, pouch and clutch pieces, offered in Grey, Tan, Navy, Green and Black colourways. Select a colour to view its dedicated photograph set. Size, condition and pricing to be confirmed by the owners.",
+    "price": 0,
+    "currency": "GBP",
+    "condition": "good",
+    "conditionNotes": "Size, condition and pricing to be confirmed by the owners. Photographs show the item as it currently is. No authenticity claim is made.",
+    "images": [
+      {
+        "url": "/images/products/w1-other-goyard-crossbody-grey-front.jpg",
+        "alt": "Grey patterned crossbody bag with green box"
+      }
+    ],
+    "variants": [
+      {
+        "id": "pcb-grey",
+        "label": "Grey",
+        "colorHex": "#9a9a9a",
+        "stockQuantity": 0,
+        "images": [
+          {
+            "url": "/images/products/w1-other-goyard-crossbody-grey-front.jpg",
+            "alt": "Grey patterned crossbody bag with green box"
+          },
+          {
+            "url": "/images/products/w1-other-goyard-pouch-grey-front.jpg",
+            "alt": "Grey patterned pouch with green box, front view"
+          }
+        ]
+      },
+      {
+        "id": "pcb-tan",
+        "label": "Tan",
+        "colorHex": "#b07d4f",
+        "stockQuantity": 0,
+        "images": [
+          {
+            "url": "/images/products/w1-other-goyard-pouch-tan-back.jpg",
+            "alt": "Tan-trim patterned pouch, back view"
+          },
+          {
+            "url": "/images/products/w6-other-goyard-bag-tan-front-06.jpg",
+            "alt": "Tan patterned bag with box, front view"
+          }
+        ]
+      },
+      {
+        "id": "pcb-navy",
+        "label": "Navy",
+        "colorHex": "#1c2a4a",
+        "stockQuantity": 0,
+        "images": [
+          {
+            "url": "/images/products/w6-other-goyard-bag-navy-front-07.jpg",
+            "alt": "Navy patterned bag with box, front view"
+          }
+        ]
+      },
+      {
+        "id": "pcb-green",
+        "label": "Green",
+        "colorHex": "#2f6b3a",
+        "stockQuantity": 0,
+        "images": [
+          {
+            "url": "/images/products/w6-other-goyard-bag-green-front-10.jpg",
+            "alt": "Green patterned bag with box, front view"
+          }
+        ]
+      },
+      {
+        "id": "pcb-black",
+        "label": "Black",
+        "colorHex": "#111111",
+        "stockQuantity": 0,
+        "images": [
+          {
+            "url": "/images/products/w1-other-goyard-pouch-black-back.jpg",
+            "alt": "Black-trim patterned pouch, back view"
+          },
+          {
+            "url": "/images/products/w2-other-goyard-black-clutch-flatlay.jpg",
+            "alt": "Black patterned clutch with green box"
+          }
+        ]
+      }
+    ],
+    "sizes": [],
+    "stockQuantity": 0,
+    "status": "active",
+    "featured": false,
+    "tags": [
+      "bag",
+      "pouch",
+      "clutch",
+      "crossbody",
+      "patterned"
+    ],
+    "createdAt": "2026-10-13T10:00:00Z",
+    "updatedAt": "2026-10-13T10:00:00Z"
+  },
+  {
+    "id": "p-lv-trio-set",
+    "slug": "trio-messenger-set",
+    "title": "Three-Piece Messenger Set",
+    "category": "Bags",
+    "description": "Three-piece messenger bag set with pouches in coated canvas, offered in Black, Navy, Grey and Grey Check finishes. Select a finish to view its photograph. Size, condition and pricing to be confirmed by the owners.",
+    "price": 0,
+    "currency": "GBP",
+    "condition": "good",
+    "conditionNotes": "Size, condition and pricing to be confirmed by the owners. Photographs show the item as it currently is. No authenticity claim is made.",
+    "images": [
+      {
+        "url": "/images/products/w1-other-lv-trio-black-top.jpg",
+        "alt": "Black three-piece messenger bag set, top view"
+      }
+    ],
+    "variants": [
+      {
+        "id": "trio-black",
+        "label": "Black",
+        "colorHex": "#111111",
+        "stockQuantity": 0,
+        "images": [
+          {
+            "url": "/images/products/w1-other-lv-trio-black-top.jpg",
+            "alt": "Black three-piece messenger bag set, top view"
+          }
+        ]
+      },
+      {
+        "id": "trio-navy",
+        "label": "Navy",
+        "colorHex": "#1c2a4a",
+        "stockQuantity": 0,
+        "images": [
+          {
+            "url": "/images/products/w1-other-lv-trio-navy-top.jpg",
+            "alt": "Navy three-piece messenger bag set, top view"
+          }
+        ]
+      },
+      {
+        "id": "trio-grey",
+        "label": "Grey",
+        "colorHex": "#9a9a9a",
+        "stockQuantity": 0,
+        "images": [
+          {
+            "url": "/images/products/w1-other-lv-trio-grey-top.jpg",
+            "alt": "Grey and black three-piece bag set, top view"
+          }
+        ]
+      },
+      {
+        "id": "trio-check",
+        "label": "Grey Check",
+        "colorHex": "#3a3a3a",
+        "stockQuantity": 0,
+        "images": [
+          {
+            "url": "/images/products/w2-other-lv-damier-graphite-bag-set.jpg",
+            "alt": "Grey check three-piece bag set"
+          }
+        ]
+      }
+    ],
+    "sizes": [],
+    "stockQuantity": 0,
+    "status": "active",
+    "featured": false,
+    "tags": [
+      "bag",
+      "trio",
+      "messenger",
+      "pouch",
+      "set"
+    ],
+    "createdAt": "2026-10-13T10:00:00Z",
+    "updatedAt": "2026-10-13T10:00:00Z"
+  },
+  {
+    "id": "p-lv-belt-wallet-set",
+    "slug": "belt-wallet-set",
+    "title": "Belt & Wallet Set",
+    "category": "Bags",
+    "description": "Belt and wallet gift set in coated canvas with gold-tone hardware, offered in Brown Pattern, Grey Check and Black Pattern finishes. Select a finish to view its photograph. Size, condition and pricing to be confirmed by the owners.",
+    "price": 0,
+    "currency": "GBP",
+    "condition": "good",
+    "conditionNotes": "Size, condition and pricing to be confirmed by the owners. Photographs show the item as it currently is. No authenticity claim is made.",
+    "images": [
+      {
+        "url": "/images/products/w2-other-lv-monogram-belt-wallet-set-brown.jpg",
+        "alt": "Brown patterned belt and wallet gift set"
+      }
+    ],
+    "variants": [
+      {
+        "id": "set-brown-pattern",
+        "label": "Brown Pattern",
+        "colorHex": "#7a5230",
+        "stockQuantity": 0,
+        "images": [
+          {
+            "url": "/images/products/w2-other-lv-monogram-belt-wallet-set-brown.jpg",
+            "alt": "Brown patterned belt and wallet gift set"
+          }
+        ]
+      },
+      {
+        "id": "set-grey-check",
+        "label": "Grey Check",
+        "colorHex": "#3a3a3a",
+        "stockQuantity": 0,
+        "images": [
+          {
+            "url": "/images/products/w2-other-lv-damier-graphite-belt-wallet-set.jpg",
+            "alt": "Grey check belt and wallet gift set"
+          }
+        ]
+      },
+      {
+        "id": "set-black-pattern",
+        "label": "Black Pattern",
+        "colorHex": "#111111",
+        "stockQuantity": 0,
+        "images": [
+          {
+            "url": "/images/products/w2-other-lv-eclipse-belt-wallet-set-black.jpg",
+            "alt": "Black patterned belt and wallet gift set"
+          }
+        ]
+      }
+    ],
+    "sizes": [],
+    "stockQuantity": 0,
+    "status": "active",
+    "featured": false,
+    "tags": [
+      "belt",
+      "wallet",
+      "gift set",
+      "accessories"
+    ],
+    "createdAt": "2026-10-13T10:00:00Z",
+    "updatedAt": "2026-10-13T10:00:00Z"
+  },
+  {
+    "id": "p-lv-knit-jumper",
+    "slug": "logo-knit-jumper",
+    "title": "Logo Knit Jumper",
+    "category": "Clothing",
+    "description": "Knit jumper with tonal logo detailing, offered in Black and White colourways. Select a colour to view its dedicated photograph set. Size, condition and pricing to be confirmed by the owners.",
+    "price": 0,
+    "currency": "GBP",
+    "condition": "good",
+    "conditionNotes": "Size, condition and pricing to be confirmed by the owners. Photographs show the item as it currently is. No authenticity claim is made.",
+    "images": [
+      {
+        "url": "/images/products/w5-other-lv-jumper-black-flatlay.jpg",
+        "alt": "Black logo knit jumper flat lay"
+      }
+    ],
+    "variants": [
+      {
+        "id": "jumper-black",
+        "label": "Black",
+        "colorHex": "#111111",
+        "stockQuantity": 0,
+        "images": [
+          {
+            "url": "/images/products/w5-other-lv-jumper-black-closeup.jpg",
+            "alt": "Black logo knit jumper logo close-up"
+          },
+          {
+            "url": "/images/products/w5-other-lv-jumper-black-flatlay.jpg",
+            "alt": "Black logo knit jumper flat lay"
+          },
+          {
+            "url": "/images/products/w6-other-lv-sweater-black-angled-03.jpg",
+            "alt": "Black logo knit jumper, angled flat lay"
+          }
+        ]
+      },
+      {
+        "id": "jumper-white",
+        "label": "White",
+        "colorHex": "#f2f2f2",
+        "stockQuantity": 0,
+        "images": [
+          {
+            "url": "/images/products/w5-other-lv-jumper-white-closeup.jpg",
+            "alt": "White logo knit jumper logo close-up"
+          },
+          {
+            "url": "/images/products/w5-other-lv-jumper-white-flatlay.jpg",
+            "alt": "White logo knit jumper flat lay"
+          },
+          {
+            "url": "/images/products/w6-other-lv-sweater-white-front-01.jpg",
+            "alt": "White logo knit jumper, front flat lay"
+          }
+        ]
+      }
+    ],
+    "sizes": [
+      "S",
+      "M",
+      "L"
+    ],
+    "stockQuantity": 0,
+    "status": "active",
+    "featured": true,
+    "tags": [
+      "jumper",
+      "knit",
+      "logo",
+      "clothing"
+    ],
+    "createdAt": "2026-10-13T10:00:00Z",
+    "updatedAt": "2026-10-13T10:00:00Z"
+  }
+]

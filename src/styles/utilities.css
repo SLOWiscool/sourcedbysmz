@@ -1,0 +1,360 @@
+.container {
+  width: 100%;
+  max-width: var(--content-wide);
+  margin-inline: auto;
+  padding-inline: var(--space-4);
+}
+
+@media (min-width: 768px) {
+  .container {
+    padding-inline: var(--space-8);
+  }
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  padding: var(--space-3) var(--space-5);
+  font-weight: 600;
+  font-size: 0.875rem;
+  border-radius: var(--radius-medium);
+  transition: background-color 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+  text-decoration: none;
+  border: 1px solid transparent;
+  min-height: 40px;
+  letter-spacing: 0.01em;
+}
+
+.btn--primary {
+  background: var(--color-ink);
+  color: var(--color-paper);
+}
+
+.btn--primary:hover:not(:disabled) {
+  background: var(--color-brand);
+  text-decoration: none;
+}
+
+.btn--secondary {
+  background: var(--color-surface);
+  color: var(--color-ink);
+  border-color: var(--color-border);
+}
+
+.btn--secondary:hover:not(:disabled) {
+  border-color: var(--color-ink);
+  text-decoration: none;
+}
+
+.btn--small {
+  padding: var(--space-2) var(--space-3);
+  font-size: 0.8125rem;
+  min-height: 32px;
+}
+
+.btn--full {
+  width: 100%;
+}
+
+.btn:active:not(:disabled) {
+  transform: scale(0.98);
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 2px var(--space-2);
+  font-size: 0.6875rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  border-radius: var(--radius-small);
+}
+
+.badge--sold-out {
+  background: var(--color-surface-muted);
+  color: var(--color-text-muted);
+}
+
+.badge--low-stock {
+  background: #fef3c7;
+  color: #92400e;
+}
+
+.badge--new {
+  background: #dcfce7;
+  color: #166534;
+}
+
+.input {
+  width: 100%;
+  padding: var(--space-3) var(--space-4);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-medium);
+  background: var(--color-surface);
+  color: var(--color-text);
+  transition: border-color 0.15s ease;
+  min-height: 40px;
+  font-size: 0.9375rem;
+}
+
+.input:focus {
+  outline: none;
+  border-color: var(--color-brand);
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-brand);
+  outline-offset: 2px;
+}
+
+.input::placeholder {
+  color: var(--color-text-muted);
+}
+
+.label {
+  display: block;
+  font-weight: 500;
+  font-size: 0.875rem;
+  margin-bottom: var(--space-2);
+}
+
+/* ---- Dark admin inputs (for use on dark blue/black admin surfaces) ---- */
+.input--dark {
+  background: #0f172a;
+  border-color: #1e3a8a;
+  color: #fff;
+  min-height: 44px;
+}
+
+.input--dark:focus {
+  border-color: #2563eb;
+}
+
+.input--dark::placeholder {
+  color: #64748b;
+}
+
+select.input--dark option {
+  background: #0f172a;
+  color: #fff;
+}
+
+/* ---- Admin section cards ---- */
+.admin-card {
+  background: #111827;
+  border: 1px solid #1e3a8a;
+  border-radius: 12px;
+  padding: 16px;
+}
+
+.admin-card-title {
+  font-size: 1rem;
+  font-weight: 800;
+  color: #f8fafc;
+  margin: 0 0 12px;
+}
+
+/* ---- Sticky admin save bar (always reachable on long phone forms) ---- */
+.admin-savebar {
+  position: sticky;
+  bottom: 12px;
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: rgba(10, 10, 10, 0.96);
+  border: 1px solid #1e3a8a;
+  border-radius: 12px;
+  padding: 12px 16px;
+}
+
+.error-text {
+  color: var(--color-error);
+  font-size: 0.8125rem;
+  margin-top: var(--space-1);
+}
+
+.card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-large);
+  overflow: hidden;
+}
+
+.section {
+  padding-block: var(--space-8);
+}
+
+@media (min-width: 768px) {
+  .section {
+    padding-block: var(--space-12);
+  }
+}
+
+.grid {
+  display: grid;
+  gap: var(--space-4);
+}
+
+.grid--products {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+@media (min-width: 640px) {
+  .grid--products {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 1024px) {
+  .grid--products {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 1280px) {
+  .grid--products {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+.divider {
+  height: 1px;
+  background: var(--color-border);
+  border: none;
+  margin: 0;
+}
+
+/* ---- Motion system (all motion disabled under prefers-reduced-motion) ---- */
+@keyframes rise-in {
+  from { opacity: 0; transform: translateY(14px); }
+  to { opacity: 1; transform: none; }
+}
+
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes pop-in {
+  from { opacity: 0; transform: scale(0.96); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+@keyframes glow-pan {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.anim-rise {
+  animation: rise-in 0.5s cubic-bezier(0.22, 0.9, 0.3, 1) both;
+}
+
+.anim-fade {
+  animation: fade-in 0.35s ease both;
+}
+
+.anim-pop {
+  animation: pop-in 0.25s ease both;
+}
+
+@media (hover: hover) {
+  .lift {
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .lift:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 28px rgb(5 11 24 / 0.16);
+  }
+
+  .zoom img {
+    transition: transform 0.35s ease;
+  }
+
+  .zoom:hover img {
+    transform: scale(1.05);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* ---- Responsive split layouts (hero, product detail) ---- */
+/* Single column on phones (avoids squeezed 300px columns and sideways
+   overflow at ~320px widths); two columns from small tablets up. */
+.split {
+  display: grid;
+  gap: var(--space-8);
+  grid-template-columns: 1fr;
+  align-items: center;
+}
+
+@media (min-width: 720px) {
+  .split {
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr));
+  }
+}
+
+/* ---- Page + order-summary layouts (cart, checkout) ---- */
+/* Summary stacks below the lines on phones; side-by-side on laptops. */
+.summary-layout {
+  display: grid;
+  gap: var(--space-8);
+  align-items: start;
+  grid-template-columns: 1fr;
+}
+
+@media (min-width: 900px) {
+  .summary-layout {
+    grid-template-columns: 1fr 360px;
+  }
+}
+
+/* ---- Admin + checkout form grids ---- */
+.form-grid-2,
+.form-grid-3 {
+  display: grid;
+  gap: 12px;
+  grid-template-columns: 1fr;
+}
+
+@media (min-width: 640px) {
+  .form-grid-2 {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (min-width: 720px) {
+  .form-grid-3 {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+}
+
+.empty-state {
+  text-align: center;
+  padding: var(--space-16) var(--space-6);
+  color: var(--color-text-muted);
+}
+
+.empty-state h2 {
+  font-size: 1.25rem;
+  margin-bottom: var(--space-2);
+  color: var(--color-text);
+}
+
+.empty-state p {
+  margin-bottom: var(--space-4);
+  font-size: 0.9375rem;
+}

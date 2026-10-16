@@ -1,0 +1,467 @@
+{
+  "_note": "TRUSTED server copy of prices, stock and status. Every value is 0 / unconfirmed until the owners supply real data, so the API honestly refuses every purchase until then. A test (src/tests/server-catalogue.test.ts) fails if this file drifts from src/data/sample-products.ts.",
+  "currency": "GBP",
+  "shipping": {
+    "standard": 399,
+    "express": 699,
+    "freeStandardOver": 5000
+  },
+  "maxQuantityPerLine": 10,
+  "products": {
+    "p-dior-shoes": {
+      "sizes": [
+        "S",
+        "M",
+        "L"
+      ],
+      "status": "active",
+      "price": 0,
+      "stock": 0,
+      "title": "Chunky Sneakers",
+      "variants": {
+        "sn-black": {
+          "label": "Black",
+          "price": null,
+          "stock": 0
+        },
+        "sn-grey": {
+          "label": "Grey",
+          "price": null,
+          "stock": 0
+        },
+        "sn-white": {
+          "label": "White",
+          "price": null,
+          "stock": 0
+        },
+        "sn-white-black": {
+          "label": "White / Black",
+          "price": null,
+          "stock": 0
+        }
+      }
+    },
+    "p-moncler-puffer": {
+      "sizes": [
+        "S",
+        "M",
+        "L"
+      ],
+      "status": "active",
+      "price": 0,
+      "stock": 0,
+      "title": "Hooded Puffer Jacket",
+      "variants": {
+        "puf-black": {
+          "label": "Black",
+          "price": null,
+          "stock": 0
+        },
+        "puf-navy": {
+          "label": "Navy",
+          "price": null,
+          "stock": 0
+        },
+        "puf-grey": {
+          "label": "Grey",
+          "price": null,
+          "stock": 0
+        },
+        "puf-white": {
+          "label": "White",
+          "price": null,
+          "stock": 0
+        },
+        "puf-blue": {
+          "label": "Blue",
+          "price": null,
+          "stock": 0
+        },
+        "puf-silver": {
+          "label": "Silver",
+          "price": null,
+          "stock": 0
+        }
+      }
+    },
+    "p-canada-goose-puffer": {
+      "sizes": [
+        "S",
+        "M",
+        "L"
+      ],
+      "status": "active",
+      "price": 0,
+      "stock": 0,
+      "title": "Lightweight Puffer Jacket",
+      "variants": {
+        "lp-black": {
+          "label": "Black",
+          "price": null,
+          "stock": 0
+        },
+        "lp-navy": {
+          "label": "Navy",
+          "price": null,
+          "stock": 0
+        },
+        "lp-grey": {
+          "label": "Grey",
+          "price": null,
+          "stock": 0
+        }
+      }
+    },
+    "p-canada-goose-parka": {
+      "sizes": [
+        "S",
+        "M",
+        "L"
+      ],
+      "status": "active",
+      "price": 0,
+      "stock": 0,
+      "title": "Fur-Hood Parka",
+      "variants": {
+        "pk-black": {
+          "label": "Black",
+          "price": null,
+          "stock": 0
+        },
+        "pk-grey": {
+          "label": "Grey",
+          "price": null,
+          "stock": 0
+        }
+      }
+    },
+    "p-canada-goose-vest": {
+      "sizes": [
+        "S",
+        "M",
+        "L"
+      ],
+      "status": "active",
+      "price": 0,
+      "stock": 0,
+      "title": "Down Vest",
+      "variants": {
+        "vest-black": {
+          "label": "Black",
+          "price": null,
+          "stock": 0
+        },
+        "vest-navy": {
+          "label": "Navy",
+          "price": null,
+          "stock": 0
+        },
+        "vest-grey": {
+          "label": "Grey",
+          "price": null,
+          "stock": 0
+        }
+      }
+    },
+    "p-stone-island-jacket": {
+      "sizes": [
+        "S",
+        "M",
+        "L"
+      ],
+      "status": "active",
+      "price": 0,
+      "stock": 0,
+      "title": "Hooded Utility Jacket",
+      "variants": {
+        "uj-grey": {
+          "label": "Grey",
+          "price": null,
+          "stock": 0
+        },
+        "uj-black": {
+          "label": "Black",
+          "price": null,
+          "stock": 0
+        },
+        "uj-navy": {
+          "label": "Navy",
+          "price": null,
+          "stock": 0
+        },
+        "uj-blue": {
+          "label": "Light Blue",
+          "price": null,
+          "stock": 0
+        }
+      }
+    },
+    "p-moncler-beanie": {
+      "sizes": [],
+      "status": "active",
+      "price": 0,
+      "stock": 0,
+      "title": "Ribbed Knit Beanie",
+      "variants": {
+        "rkb-black": {
+          "label": "Black",
+          "price": null,
+          "stock": 0
+        },
+        "rkb-grey": {
+          "label": "Grey",
+          "price": null,
+          "stock": 0
+        },
+        "rkb-navy": {
+          "label": "Navy",
+          "price": null,
+          "stock": 0
+        },
+        "rkb-burgundy": {
+          "label": "Burgundy",
+          "price": null,
+          "stock": 0
+        },
+        "rkb-charcoal": {
+          "label": "Charcoal",
+          "price": null,
+          "stock": 0
+        },
+        "rkb-indigo": {
+          "label": "Indigo",
+          "price": null,
+          "stock": 0
+        },
+        "rkb-olive": {
+          "label": "Olive",
+          "price": null,
+          "stock": 0
+        },
+        "rkb-navy-tri": {
+          "label": "Navy Tricolor",
+          "price": null,
+          "stock": 0
+        },
+        "rkb-grey-tri": {
+          "label": "Grey Tricolor",
+          "price": null,
+          "stock": 0
+        }
+      }
+    },
+    "p-canada-goose-beanie": {
+      "sizes": [],
+      "status": "active",
+      "price": 0,
+      "stock": 0,
+      "title": "Patch Knit Beanie",
+      "variants": {
+        "pkb-black": {
+          "label": "Black",
+          "price": null,
+          "stock": 0
+        },
+        "pkb-grey": {
+          "label": "Grey",
+          "price": null,
+          "stock": 0
+        },
+        "pkb-navy": {
+          "label": "Navy",
+          "price": null,
+          "stock": 0
+        },
+        "pkb-lightblue": {
+          "label": "Light Blue",
+          "price": null,
+          "stock": 0
+        },
+        "pkb-burgundy": {
+          "label": "Burgundy",
+          "price": null,
+          "stock": 0
+        },
+        "pkb-charcoal": {
+          "label": "Charcoal",
+          "price": null,
+          "stock": 0
+        }
+      }
+    },
+    "p-cp-beanie": {
+      "sizes": [],
+      "status": "active",
+      "price": 0,
+      "stock": 0,
+      "title": "Classic Knit Beanie",
+      "variants": {}
+    },
+    "p-rolex-submariner": {
+      "sizes": [],
+      "status": "active",
+      "price": 0,
+      "stock": 0,
+      "title": "Automatic Date Watch",
+      "variants": {
+        "watch-steel-black": {
+          "label": "Steel / Black",
+          "price": null,
+          "stock": 0
+        },
+        "watch-steel-blue": {
+          "label": "Steel / Blue",
+          "price": null,
+          "stock": 0
+        },
+        "watch-gold-blue": {
+          "label": "Gold / Blue",
+          "price": null,
+          "stock": 0
+        }
+      }
+    },
+    "p-cartier-bracelets": {
+      "sizes": [],
+      "status": "active",
+      "price": 0,
+      "stock": 0,
+      "title": "Nail Bracelet Trio",
+      "variants": {}
+    },
+    "p-canvas-messenger-bag": {
+      "sizes": [],
+      "status": "active",
+      "price": 0,
+      "stock": 0,
+      "title": "Canvas Messenger Bag",
+      "variants": {
+        "cmb-beige": {
+          "label": "Beige",
+          "price": null,
+          "stock": 0
+        },
+        "cmb-black": {
+          "label": "Black",
+          "price": null,
+          "stock": 0
+        },
+        "cmb-navy": {
+          "label": "Navy",
+          "price": null,
+          "stock": 0
+        }
+      }
+    },
+    "p-goyard-bag": {
+      "sizes": [],
+      "status": "active",
+      "price": 0,
+      "stock": 0,
+      "title": "Patterned Shoulder Bag & Pouch",
+      "variants": {
+        "pcb-grey": {
+          "label": "Grey",
+          "price": null,
+          "stock": 0
+        },
+        "pcb-tan": {
+          "label": "Tan",
+          "price": null,
+          "stock": 0
+        },
+        "pcb-navy": {
+          "label": "Navy",
+          "price": null,
+          "stock": 0
+        },
+        "pcb-green": {
+          "label": "Green",
+          "price": null,
+          "stock": 0
+        },
+        "pcb-black": {
+          "label": "Black",
+          "price": null,
+          "stock": 0
+        }
+      }
+    },
+    "p-lv-trio-set": {
+      "sizes": [],
+      "status": "active",
+      "price": 0,
+      "stock": 0,
+      "title": "Three-Piece Messenger Set",
+      "variants": {
+        "trio-black": {
+          "label": "Black",
+          "price": null,
+          "stock": 0
+        },
+        "trio-navy": {
+          "label": "Navy",
+          "price": null,
+          "stock": 0
+        },
+        "trio-grey": {
+          "label": "Grey",
+          "price": null,
+          "stock": 0
+        },
+        "trio-check": {
+          "label": "Grey Check",
+          "price": null,
+          "stock": 0
+        }
+      }
+    },
+    "p-lv-belt-wallet-set": {
+      "sizes": [],
+      "status": "active",
+      "price": 0,
+      "stock": 0,
+      "title": "Belt & Wallet Set",
+      "variants": {
+        "set-brown-pattern": {
+          "label": "Brown Pattern",
+          "price": null,
+          "stock": 0
+        },
+        "set-grey-check": {
+          "label": "Grey Check",
+          "price": null,
+          "stock": 0
+        },
+        "set-black-pattern": {
+          "label": "Black Pattern",
+          "price": null,
+          "stock": 0
+        }
+      }
+    },
+    "p-lv-knit-jumper": {
+      "sizes": [
+        "S",
+        "M",
+        "L"
+      ],
+      "status": "active",
+      "price": 0,
+      "stock": 0,
+      "title": "Logo Knit Jumper",
+      "variants": {
+        "jumper-black": {
+          "label": "Black",
+          "price": null,
+          "stock": 0
+        },
+        "jumper-white": {
+          "label": "White",
+          "price": null,
+          "stock": 0
+        }
+      }
+    }
+  }
+}

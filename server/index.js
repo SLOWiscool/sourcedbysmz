@@ -65,14 +65,16 @@ import {
 } from './discounts.js';
 import {
   listSubscriptions, subscribe as subscribeWatchlist, unsubscribe as unsubscribeWatchlist,
-  removeSubscription, findNewlyAvailableWatchers, markNotified,
+  removeSubscription, findNewlyAvailableWatchers, markNotified, isRecordPurchasable,
 } from './watchlist.js';
 import { sendStockAlert, getOutbox } from './email.js';
 
 /** Email waiting subscribers when a save makes a product buyable. */
 async function notifyWatchers(before, after) {
   const waiting = findNewlyAvailableWatchers(before, after, listSubscriptions());
-  if (waiting.length === 0) return;
+  console.log(
+    `[watchlist] save ${after.id}: was-buyable=${isRecordPurchasable(before)}, now-buyable=${isRecordPurchasable(after)}, waiting=${waiting.length}`
+  );
   for (const sub of waiting) {
     try {
       await sendStockAlert({
@@ -82,11 +84,13 @@ async function notifyWatchers(before, after) {
         unsubscribeToken: sub.token,
       });
       markNotified([sub.token]);
+      console.log(`[watchlist] alert sent to ${sub.email} for ${after.id}`);
     } catch (err) {
       // Recorded in the outbox by email.js; keep trying the rest.
       console.error(`watchlist email to ${sub.email} failed:`, err instanceof Error ? err.message : err);
     }
   }
+  return { emailed: waiting.length };
 }
 import { isAuthConfigured, checkCredentials, requireAdmin } from './auth.js';
 import { loadStore, saveStore, publicProducts, validateProduct } from './store.js';
@@ -551,6 +555,43 @@ app.delete('/api/admin/watchlist/:token', requireAdmin, (req, res) => {
     res.status(err instanceof HttpError ? err.status : 400).json({
       error: err instanceof Error ? err.message : 'Could not remove subscription.',
     });
+  }
+});
+
+// --- Admin: notify watchers on demand -------------------------------------------
+// Sends stock alerts to everyone still waiting on a product, whether or not
+// a fresh restock just happened. Useful for testing delivery and for products
+// restocked before anyone subscribed (the automatic trigger only fires on the
+// not-buyable → buyable transition).
+app.post('/api/admin/watchlist/notify', requireAdmin, async (req, res) => {
+  try {
+    const productId = typeof req.body?.productId === 'string' ? req.body.productId : '';
+    const products = loadStore();
+    const product = products.find((p) => p.id === productId);
+    if (!product) {
+      res.status(404).json({ error: 'Product not found.' });
+      return;
+    }
+    const waiting = listSubscriptions().filter((s) => s.productId === product.id && !s.notifiedAt);
+    let sent = 0;
+    const failures = [];
+    for (const sub of waiting) {
+      try {
+        await sendStockAlert({
+          to: sub.email,
+          productSlug: product.slug,
+          productTitle: product.title,
+          unsubscribeToken: sub.token,
+        });
+        markNotified([sub.token]);
+        sent += 1;
+      } catch (err) {
+        failures.push({ email: sub.email, reason: err instanceof Error ? err.message : String(err) });
+      }
+    }
+    res.json({ ok: true, sent, failed: failures.length, failures, waiting: waiting.length });
+  } catch (err) {
+    res.status(500).json({ error: 'Notify run failed.' });
   }
 });
 

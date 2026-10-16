@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { adminWatchlist, adminRemoveWatchlist, adminListProducts, type WatchlistEntry } from '../../lib/admin-api';
+import { adminWatchlist, adminRemoveWatchlist, adminNotifyWatchlist, adminListProducts, type WatchlistEntry } from '../../lib/admin-api';
 import type { Product } from '../../types';
 
 export default function AdminWatchlistPage() {
@@ -8,6 +8,8 @@ export default function AdminWatchlistPage() {
   const [products, setProducts] = useState<Product[] | null>(null);
   const [showOutbox, setShowOutbox] = useState(false);
   const [error, setError] = useState('');
+  const [notice, setNotice] = useState('');
+  const [notifying, setNotifying] = useState('');
 
   const refresh = () =>
     Promise.all([adminWatchlist(), adminListProducts()])
@@ -25,11 +27,37 @@ export default function AdminWatchlistPage() {
   const remove = async (token: string, email: string) => {
     if (!window.confirm(`Remove ${email} from stock alerts?`)) return;
     setError('');
+    setNotice('');
     try {
       await adminRemoveWatchlist(token);
       await refresh();
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Remove failed.');
+    }
+  };
+
+  const notifyNow = async (productId: string, title: string) => {
+    const waiting = (subscriptions || []).filter((s) => s.productId === productId && !s.notifiedAt).length;
+    if (waiting === 0) {
+      setNotice(`Nobody left waiting on "${title}" — everyone was already emailed.`);
+      return;
+    }
+    if (!window.confirm(`Email ${waiting} waiting customer${waiting === 1 ? '' : 's'} about "${title}" now?`)) return;
+    setError('');
+    setNotice('');
+    setNotifying(productId);
+    try {
+      const r = await adminNotifyWatchlist(productId);
+      setNotice(
+        r.failed > 0
+          ? `Sent ${r.sent}, ${r.failed} failed — see the email log for reasons.`
+          : `Sent ${r.sent} alert${r.sent === 1 ? '' : 's'} for "${title}".`
+      );
+      await refresh();
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Notify failed.');
+    } finally {
+      setNotifying('');
     }
   };
 
@@ -80,12 +108,27 @@ export default function AdminWatchlistPage() {
       {subscriptions.length === 0 ? (
         <p style={{ color: '#94a3b8' }}>No one is watching anything yet. The signup form appears on unavailable product pages.</p>
       ) : (
-        <div style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
+        <>
+          {notice && (
+            <p style={{ fontSize: '0.9rem', color: '#4ade80', marginBottom: 12 }}>{notice}</p>
+          )}
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
           {[...byProduct.entries()].map(([productId, list]) => (
             <section key={productId} className="admin-card" aria-label={`Watchers for ${titleOf(productId)}`}>
-              <h2 className="admin-card-title">
-                {titleOf(productId)} ({list.length})
-              </h2>
+              <div style={{ display: 'flex', alignItems: 'center', gap: 10, flexWrap: 'wrap', marginBottom: 10 }}>
+                <h2 className="admin-card-title" style={{ margin: 0 }}>
+                  {titleOf(productId)} ({list.length})
+                </h2>
+                <button
+                  type="button"
+                  onClick={() => notifyNow(productId, titleOf(productId))}
+                  disabled={notifying === productId}
+                  className="btn"
+                  style={{ marginLeft: 'auto', background: '#2563eb', color: '#fff', borderRadius: 6, padding: '8px 16px', minHeight: 44, fontSize: '0.85rem' }}
+                >
+                  {notifying === productId ? 'Sending…' : 'Notify now'}
+                </button>
+              </div>
               <ul style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
                 {list.map((s) => (
                   <li
@@ -109,7 +152,8 @@ export default function AdminWatchlistPage() {
               </ul>
             </section>
           ))}
-        </div>
+          </div>
+        </>
       )}
     </>
   );

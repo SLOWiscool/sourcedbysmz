@@ -113,6 +113,12 @@ export const adminWatchlist = () =>
 export const adminRemoveWatchlist = (token: string) =>
   req<{ ok: boolean }>(`/api/admin/watchlist/${encodeURIComponent(token)}`, { method: 'DELETE' });
 
+export const adminNotifyWatchlist = (productId: string) =>
+  req<{ ok: boolean; sent: number; failed: number; waiting: number; failures: Array<{ email: string; reason: string }> }>(
+    '/api/admin/watchlist/notify',
+    { method: 'POST', body: { productId } }
+  );
+
 export const adminCreateProduct = (product: Product) =>
   req<{ product: Product }>('/api/admin/products', { method: 'POST', body: product });
 

@@ -54,35 +54,44 @@ function PaymentForm({ amount, orderRef, onSuccess, onError }: { amount: number;
   );
 }
 
-/** True when a backend answers on this origin (same-origin or configured URL). */
-async function backendAlive(base: string): Promise<boolean> {
+/** Backend health including whether the server sees a Stripe secret key. */
+async function getBackendHealth(base: string): Promise<{ ok: boolean; stripe: boolean; admin: boolean } | null> {
   try {
     const res = await fetch(`${base}/api/health`);
-    if (!res.ok) return false;
-    const data = (await res.json().catch(() => null)) as { ok?: boolean } | null;
-    return !!data && data.ok === true;
+    if (!res.ok) return null;
+    const data = (await res.json().catch(() => null)) as { ok?: boolean; stripe?: boolean; admin?: boolean } | null;
+    if (!data || data.ok !== true) return null;
+    return { ok: true, stripe: !!data.stripe, admin: !!data.admin };
   } catch {
-    return false;
+    return null;
   }
 }
 
 export default function StripePayment(props: StripePaymentProps) {
   const [clientSecret, setClientSecret] = useState<string | null>(null);
   const [orderRef, setOrderRef] = useState<string | null>(null);
-  const [status, setStatus] = useState<'idle' | 'loading' | 'ready' | 'unavailable' | 'error'>('idle');
+  const [status, setStatus] = useState<'idle' | 'loading' | 'ready' | 'unavailable' | 'error' | 'needs-key' | 'needs-secret'>('idle');
   const [message, setMessage] = useState('');
 
   useEffect(() => {
     let cancelled = false;
     async function setup() {
+      const backend = getBackendUrl();
+      const health = backend === null ? null : await getBackendHealth(backend);
       if (!isStripeConfigured()) {
-        setStatus('unavailable');
+        // App was built without a publishable key. If the backend is ready,
+        // say exactly that so the owner rebuilds instead of guessing.
+        if (cancelled) return;
+        setStatus(health && health.stripe ? 'needs-key' : 'unavailable');
         return;
       }
-      const backend = getBackendUrl();
       // No backend detected (e.g. static preview hosting): honest demo notice.
-      if (backend === null || !(await backendAlive(backend))) {
+      if (!health) {
         if (!cancelled) setStatus('unavailable');
+        return;
+      }
+      if (!health.stripe) {
+        if (!cancelled) setStatus('needs-secret');
         return;
       }
       setStatus('loading');
@@ -111,14 +120,18 @@ export default function StripePayment(props: StripePaymentProps) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [props.amount, props.shippingMethod]);
 
-  if (!isStripeConfigured() || status === 'unavailable') {
+  if (!isStripeConfigured() || status === 'unavailable' || status === 'needs-key' || status === 'needs-secret') {
+    const heading = 'Secure card & wallet checkout';
+    const body =
+      status === 'needs-secret'
+        ? 'The server is running but has no Stripe secret key. Add STRIPE_SECRET_KEY to server/.env on the host and restart the server — then payments go live. No payment is processed in this preview.'
+        : status === 'needs-key'
+          ? 'The server is ready for payments, but this app copy was built without its publishable key. Set VITE_STRIPE_PUBLISHABLE_KEY and rebuild (restart the server), then payments go live.'
+          : 'Live Stripe payments (Apple Pay, Google Pay, cards) activate once the store backend and publishable key are configured. No payment is processed in this preview.';
     return (
       <div style={{ border: '1px solid var(--color-border)', borderRadius: 8, padding: 16, background: '#fafafa' }}>
-        <p style={{ fontWeight: 700, marginBottom: 6 }}>Secure card & wallet checkout</p>
-        <p style={{ fontSize: '0.87rem', color: '#555', marginBottom: 8 }}>
-          Live Stripe payments (Apple Pay, Google Pay, cards) activate once the store backend
-          and publishable key are configured. No payment is processed in this preview.
-        </p>
+        <p style={{ fontWeight: 700, marginBottom: 6 }}>{heading}</p>
+        <p style={{ fontSize: '0.87rem', color: '#555', marginBottom: 8 }}>{body}</p>
         <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
           {['Apple Pay', 'Google Pay', 'Visa', 'Mastercard', 'Amex'].map((m) => (
             <span key={m} style={{ fontSize: '0.75rem', padding: '4px 8px', border: '1px solid var(--color-border)', borderRadius: 4, color: '#777' }}>{m}</span>

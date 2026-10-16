@@ -179,9 +179,9 @@ describe('outgoing mail boundary', () => {
   });
 
   it('uses a custom verified sender when configured', async () => {
-    const calls = [];
-    const stubFetch = async (url, init) => {
-      calls.push({ url, init });
+    const calls: Array<{ url: string; init: { body: string } }> = [];
+    const stubFetch = async (_url: string, init: { body: string }) => {
+      calls.push({ url: _url, init });
       return { ok: true, json: async () => ({ result: true }) };
     };
     process.env.SENDPULSE_API_KEY = 'sp_test_key';
@@ -194,21 +194,20 @@ describe('outgoing mail boundary', () => {
         unsubscribeToken: 'tok123',
         fetchImpl: stubFetch,
       });
-      expect(JSON.parse(calls[0].init.body).email.from.email).toBe('alerts@sourcedbysmz.co.uk');
+      expect(JSON.parse(calls[0]?.init.body || '{}').email.from.email).toBe('alerts@sourcedbysmz.co.uk');
     } finally {
       delete process.env.SENDPULSE_API_KEY;
       delete process.env.SENDPULSE_API_FROM_EMAIL;
     }
   });
 
-  it('verifyAuth hits GET /user/info and surfaces auth failures', async () => {
-    const stubOk = async (url, init) => ({
+  it('verifyAuth hits GET /user/info and surfaces auth failures', async () => {    const stubOk = async (_url: string) => ({
       ok: true,
       json: async () => ({ email: 'owner@example.com' }),
     });
     process.env.SENDPULSE_API_KEY = 'sp_test_key';
     const seen: string[] = [];
-    const spy = async (url: string, init: unknown) => { seen.push(url); return stubOk(url, init); };
+    const spy = async (url: string) => { seen.push(url); return stubOk(url); };
     try {
       const me = await emailMod.verifySendPulseAuth(spy);
       expect(seen).toEqual(['https://api.sendpulse.com/user/info']);
@@ -216,7 +215,12 @@ describe('outgoing mail boundary', () => {
     } finally {
       delete process.env.SENDPULSE_API_KEY;
     }
-    await expect(emailMod.verifySendPulseAuth(async () => ({ ok: false, status: 401, text: async () => 'Unauthorized' }))).rejects.toThrow(/401/);
+    process.env.SENDPULSE_API_KEY = 'sp_test_key';
+    try {
+      await expect(emailMod.verifySendPulseAuth(async () => ({ ok: false, status: 401, text: async () => 'Unauthorized' }))).rejects.toThrow(/401/);
+    } finally {
+      delete process.env.SENDPULSE_API_KEY;
+    }
   });
 
   it('surfaces quota exhaustion as a rate-limit error, not a silent failure', async () => {
@@ -253,7 +257,7 @@ describe('outgoing mail boundary', () => {
           unsubscribeToken: 'tok123',
           fetchImpl: stubFetch,
         })
-      ).rejects.toThrow(/verify .* sender/i);
+      ).rejects.toThrow(/verified sender/);
     } finally {
       delete process.env.SENDPULSE_API_KEY;
     }

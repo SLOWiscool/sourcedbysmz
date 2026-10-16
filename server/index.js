@@ -113,7 +113,7 @@ app.use((req, res, next) => {
 });
 
 // --- Webhook FIRST: needs the raw body for signature verification -----------
-app.post('/api/stripe-webhook', express.raw({ type: 'application/json' }), (req, res) => {
+app.post('/api/stripe-webhook', express.raw({ type: 'application/json' }), async (req, res) => {
   if (!stripe || !WEBHOOK_SECRET || WEBHOOK_SECRET.includes('placeholder')) {
     res.status(503).json({ error: 'Webhook endpoint is not configured.' });
     return;
@@ -442,7 +442,8 @@ app.post('/api/admin/upload', requireAdmin, (req, res) => {
   });
 });
 
-// --- Admin: orders (summaries from verified payment flow) ----------------------app.get('/api/admin/orders', requireAdmin, (_req, res) => {
+// --- Admin: orders (summaries from verified payment flow) ----------------------
+app.get('/api/admin/orders', requireAdmin, (_req, res) => {
   const orders = [...store.orders.entries()].map(([ref, o]) => ({
     ref,
     email: o.email,

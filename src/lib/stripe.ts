@@ -1,6 +1,7 @@
 import { loadStripe, type Stripe } from '@stripe/stripe-js';
 
 let stripePromise: Promise<Stripe | null> | null = null;
+let runtimeConfig: Promise<{ stripePublishableKey: string | null }> | null = null;
 
 /** Publishable key only. Never put a secret key here. */
 export function getPublishableKey(): string | null {
@@ -9,14 +10,47 @@ export function getPublishableKey(): string | null {
   return key;
 }
 
+/**
+ * Publishable key served by the backend at runtime (server/.env
+ * STRIPE_PUBLISHABLE_KEY). Lets keys take effect with a restart —
+ * no rebuild needed. Falls back to the build-time VITE_ key.
+ */
+export function loadRuntimeConfig(): Promise<{ stripePublishableKey: string | null }> {
+  if (!runtimeConfig) {
+    runtimeConfig = (async () => {
+      try {
+        const base = getBackendUrl();
+        if (base === null) return { stripePublishableKey: null };
+        const res = await fetch(`${base}/api/public-config`);
+        if (!res.ok) return { stripePublishableKey: null };
+        const data = await res.json();
+        const key = typeof data?.stripePublishableKey === 'string' ? data.stripePublishableKey : '';
+        if (!key || key.includes('placeholder') || key.trim() === '') return { stripePublishableKey: null };
+        return { stripePublishableKey: key };
+      } catch {
+        return { stripePublishableKey: null };
+      }
+    })();
+  }
+  return runtimeConfig;
+}
+
+/** Effective key: runtime (server/.env) first, build-time VITE_ second. */
+export async function getEffectivePublishableKey(): Promise<string | null> {
+  const runtime = await loadRuntimeConfig();
+  if (runtime.stripePublishableKey) return runtime.stripePublishableKey;
+  return getPublishableKey();
+}
+
 export function isStripeConfigured(): boolean {
   return getPublishableKey() !== null;
 }
 
-export function getStripe(): Promise<Stripe | null> {
+export function getStripe(key?: string): Promise<Stripe | null> {
+  const wanted = key || getPublishableKey();
+  if (!wanted) return Promise.resolve(null);
   if (!stripePromise) {
-    const key = getPublishableKey();
-    stripePromise = key ? loadStripe(key) : Promise.resolve(null);
+    stripePromise = loadStripe(wanted);
   }
   return stripePromise;
 }

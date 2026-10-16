@@ -1,9 +1,13 @@
 # Stripe setup — where the keys go and what to do
 
+Keys take effect with a **restart only — no rebuild needed**. The publishable
+key is served to the shop at runtime from `server/.env`, so add keys and
+restart the server (or Pterodactyl server).
+
 ## 1. Where the keys go
 
-Everything lives in **`server/.env`** on the machine that runs the backend
-(the Pterodactyl container). Create it from the template:
+Everything lives in **`server/.env`** on the machine that runs the backend.
+Create it from the template:
 
 ```bash
 cd server
@@ -11,33 +15,35 @@ cp .env.example .env
 nano .env
 ```
 
-Fill in these three lines:
+Fill in these lines:
 
 ```
 PORT=25609
 STRIPE_SECRET_KEY=sk_test_YOUR_KEY_HERE
+STRIPE_PUBLISHABLE_KEY=pk_test_YOUR_KEY_HERE
 STRIPE_WEBHOOK_SECRET=whsec_placeholder
 ```
 
-- `STRIPE_SECRET_KEY` — starts with `sk_test_` for testing, `sk_live_` for real money.
+- `STRIPE_SECRET_KEY` — starts with `sk_test_` for testing, `sk_live_` for real money. Server-only, never leaves the backend.
+- `STRIPE_PUBLISHABLE_KEY` — starts with `pk_test_` / `pk_live_`. Public by design; the server hands it to the shop at runtime.
 - `STRIPE_WEBHOOK_SECRET` — printed by the Stripe CLI in step 3.
 - `PORT` — must match the Pterodactyl allocation (25609).
+
+(Advanced: you can still bake `VITE_STRIPE_PUBLISHABLE_KEY` into root `.env`
+at build time as a fallback — the runtime server key wins when both exist.)
 
 **Never** put the secret key in the frontend, in a `VITE_` variable, in chat,
 or in git. `server/.env` is git-ignored.
 
 ## 2. Frontend publishable key
 
-The storefront needs the **publishable** key (`pk_test_...` / `pk_live_...`).
-It goes in the **root** `.env` (next to `package.json`):
+No separate step needed: the backend serves `STRIPE_PUBLISHABLE_KEY` from
+`server/.env` to the shop at runtime (`GET /api/public-config`). Add the key,
+restart, done.
 
-```
-VITE_STRIPE_PUBLISHABLE_KEY=pk_test_YOUR_KEY_HERE
-VITE_BACKEND_URL=
-```
-
-`VITE_BACKEND_URL=` (empty) means "same origin" — the launcher serves the shop
-and API from one port, so leave it empty on Pterodactyl.
+`VITE_BACKEND_URL=` stays empty on the panel (same origin — shop and API share
+port 25609). Only set it for split hosting, e.g.
+`VITE_BACKEND_URL=https://api.sourcedbysmz.co.uk`.
 
 ## 3. Webhooks (required for real orders)
 

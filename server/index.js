@@ -188,6 +188,15 @@ app.get('/api/health', async (_req, res) => {
   res.json({ ok: true, stripe: !!stripe, admin: await isAuthConfigured() });
 });
 
+// --- Public runtime config (publishable key only — safe for browsers) ---------
+// Lets the storefront pick up STRIPE_PUBLISHABLE_KEY from server/.env with
+// just a restart (no rebuild). Never put secret keys here.
+app.get('/api/public-config', (_req, res) => {
+  const key = process.env.STRIPE_PUBLISHABLE_KEY || '';
+  const clean = key && !key.includes('placeholder') && key.trim() !== '' ? key : null;
+  res.json({ stripePublishableKey: clean });
+});
+
 // --- Public catalogue (active products only) --------------------------------
 app.get('/api/products', (_req, res) => {
   try {

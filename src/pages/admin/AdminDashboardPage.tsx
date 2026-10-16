@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { adminListProducts, adminOrders, type AdminOrder } from '../../lib/admin-api';
 import type { Product } from '../../types';
 import { formatPrice } from '../../lib/currency';
-import { getBackendUrl, isStripeConfigured } from '../../lib/stripe';
+import { getBackendUrl, getEffectivePublishableKey } from '../../lib/stripe';
 
 interface BackendHealth {
   ok: boolean;
@@ -15,6 +15,7 @@ export default function AdminDashboardPage() {
   const [products, setProducts] = useState<Product[] | null>(null);
   const [orders, setOrders] = useState<AdminOrder[] | null>(null);
   const [health, setHealth] = useState<BackendHealth | null>(null);
+  const [frontendKey, setFrontendKey] = useState(false);
   const [error, setError] = useState('');
 
   useEffect(() => {
@@ -35,6 +36,9 @@ export default function AdminDashboardPage() {
         if (alive && data) setHealth(data);
       })
       .catch(() => {});
+    getEffectivePublishableKey().then((key) => {
+      if (alive) setFrontendKey(!!key);
+    });
     return () => {
       alive = false;
     };
@@ -43,7 +47,6 @@ export default function AdminDashboardPage() {
   if (error) return <p role="alert">{error}</p>;
   if (!products || !orders) return <p>Loading…</p>;
 
-  const frontendKey = isStripeConfigured();
   const backendKey = health?.stripe === true;
   const paymentsLive = frontendKey && backendKey;
 
@@ -78,8 +81,8 @@ export default function AdminDashboardPage() {
         </p>
         <ul style={{ fontSize: '0.85rem', color: '#e5e7eb', display: 'flex', flexDirection: 'column', gap: 4 }}>
           <li>
-            {frontendKey ? '✓' : '✗'} Publishable key in this app build{' '}
-            {!frontendKey && '(set VITE_STRIPE_PUBLISHABLE_KEY in root .env, then rebuild + restart)'}
+            {frontendKey ? '✓' : '✗'} Publishable key (server STRIPE_PUBLISHABLE_KEY or build VITE_STRIPE_PUBLISHABLE_KEY){' '}
+            {!frontendKey && '(add it to server/.env on the host, then restart — no rebuild needed)'}
           </li>
           <li>
             {backendKey ? '✓' : '✗'} Secret key on the server{' '}

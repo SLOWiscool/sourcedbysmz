@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
 import { CheckCircle, XCircle, Loader2 } from 'lucide-react';
 import { formatPrice } from '../lib/currency';
+import { getBackendUrl } from '../lib/stripe';
 
 interface OrderStatus {
   ref?: string;
@@ -56,9 +57,10 @@ export default function CheckoutSuccessPage() {
     (async () => {
       // Poll a few times: Stripe confirms asynchronously after redirect,
       // so the order can still be "pending" when the page first loads.
+      const base = getBackendUrl() || '';
       for (let attempt = 0; attempt < 6 && alive; attempt += 1) {
         try {
-          const res = await fetch(`/api/orders/${encodeURIComponent(ref)}`);
+          const res = await fetch(`${base}/api/orders/${encodeURIComponent(ref)}`);
           if (!res.ok) throw new Error('not found');
           const data = await res.json();
           setOrder(data);

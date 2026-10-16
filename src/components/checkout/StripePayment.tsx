@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Elements, PaymentElement, ExpressCheckoutElement, useStripe, useElements } from '@stripe/react-stripe-js';
-import { getStripe, isStripeConfigured, getBackendUrl, createPaymentIntent } from '../../lib/stripe';
+import { getStripe, getBackendUrl, getEffectivePublishableKey, createPaymentIntent } from '../../lib/stripe';
 import { formatPrice } from '../../lib/currency';
 
 interface StripePaymentProps {
@@ -70,6 +70,7 @@ async function getBackendHealth(base: string): Promise<{ ok: boolean; stripe: bo
 export default function StripePayment(props: StripePaymentProps) {
   const [clientSecret, setClientSecret] = useState<string | null>(null);
   const [orderRef, setOrderRef] = useState<string | null>(null);
+  const [stripeKey, setStripeKey] = useState<string | null>(null);
   const [status, setStatus] = useState<'idle' | 'loading' | 'ready' | 'unavailable' | 'error' | 'needs-key' | 'needs-secret'>('idle');
   const [message, setMessage] = useState('');
 
@@ -78,11 +79,11 @@ export default function StripePayment(props: StripePaymentProps) {
     async function setup() {
       const backend = getBackendUrl();
       const health = backend === null ? null : await getBackendHealth(backend);
-      if (!isStripeConfigured()) {
-        // App was built without a publishable key. If the backend is ready,
-        // say exactly that so the owner rebuilds instead of guessing.
-        if (cancelled) return;
-        setStatus(health && health.stripe ? 'needs-key' : 'unavailable');
+      const key = await getEffectivePublishableKey();
+      if (!key) {
+        // No publishable key in the build or on the server — point at the
+        // exact missing piece instead of a generic notice.
+        if (!cancelled) setStatus(health && health.stripe ? 'needs-key' : 'unavailable');
         return;
       }
       // No backend detected (e.g. static preview hosting): honest demo notice.
@@ -94,6 +95,8 @@ export default function StripePayment(props: StripePaymentProps) {
         if (!cancelled) setStatus('needs-secret');
         return;
       }
+      if (!cancelled) setStripeKey(key);
+      if (cancelled) return;
       setStatus('loading');
       try {
         const data = await createPaymentIntent(backend, {
@@ -120,13 +123,13 @@ export default function StripePayment(props: StripePaymentProps) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [props.amount, props.shippingMethod]);
 
-  if (!isStripeConfigured() || status === 'unavailable' || status === 'needs-key' || status === 'needs-secret') {
+  if (!stripeKey || status === 'unavailable' || status === 'needs-key' || status === 'needs-secret') {
     const heading = 'Secure card & wallet checkout';
     const body =
       status === 'needs-secret'
         ? 'The server is running but has no Stripe secret key. Add STRIPE_SECRET_KEY to server/.env on the host and restart the server — then payments go live. No payment is processed in this preview.'
         : status === 'needs-key'
-          ? 'The server is ready for payments, but this app copy was built without its publishable key. Set VITE_STRIPE_PUBLISHABLE_KEY and rebuild (restart the server), then payments go live.'
+          ? 'No publishable key found. Add STRIPE_PUBLISHABLE_KEY to server/.env on the host (or VITE_STRIPE_PUBLISHABLE_KEY before building) and restart — no rebuild needed for the server key.'
           : 'Live Stripe payments (Apple Pay, Google Pay, cards) activate once the store backend and publishable key are configured. No payment is processed in this preview.';
     return (
       <div style={{ border: '1px solid var(--color-border)', borderRadius: 8, padding: 16, background: '#fafafa' }}>
@@ -155,7 +158,7 @@ export default function StripePayment(props: StripePaymentProps) {
   }
 
   return (
-    <Elements stripe={getStripe()} options={{ clientSecret, appearance: { theme: 'stripe' } }}>
+    <Elements stripe={getStripe(stripeKey || undefined)} options={{ clientSecret, appearance: { theme: 'stripe' } }}>
       <PaymentForm amount={props.amount} orderRef={orderRef} onSuccess={props.onSuccess} onError={(m) => { setMessage(m); props.onError(m); }} />
       {message && <p role="alert" style={{ color: 'var(--color-error)', fontSize: '0.85rem', marginTop: 8 }}>{message}</p>}
     </Elements>

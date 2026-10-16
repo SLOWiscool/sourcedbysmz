@@ -51,6 +51,12 @@ export default function AdminLayout() {
             <NavLink to="/admin/products" style={linkStyle}>
               Products
             </NavLink>
+            <NavLink to="/admin/discounts" style={linkStyle}>
+              Discounts
+            </NavLink>
+            <NavLink to="/admin/watchlist" style={linkStyle}>
+              Watchlist
+            </NavLink>
             <NavLink to="/admin/orders" style={linkStyle}>
               Orders
             </NavLink>

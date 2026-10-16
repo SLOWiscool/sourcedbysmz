@@ -8,7 +8,76 @@ import {
   availabilityLabel, isPurchasable,
 } from '../types';
 import { useCart } from '../context/CartContext';
+import { getBackendUrl } from '../lib/stripe';
 import NotFoundPage from './NotFoundPage';
+
+function WatchlistForm({ productId, productTitle }: { productId: string; productTitle: string }) {
+  const [email, setEmail] = useState('');
+  const [state, setState] = useState<'idle' | 'sending' | 'done' | 'error'>('idle');
+  const [message, setMessage] = useState('');
+
+  const submit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    const base = getBackendUrl();
+    if (base === null) {
+      setState('error');
+      setMessage('Stock alerts need the shop backend running.');
+      return;
+    }
+    setState('sending');
+    setMessage('');
+    try {
+      const res = await fetch(`${base}/api/watchlist`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ productId, email }),
+      });
+      const data = await res.json().catch(() => ({}));
+      if (!res.ok) throw new Error(data.error || 'Could not join the list.');
+      setState('done');
+    } catch (err) {
+      setState('error');
+      setMessage(err instanceof Error ? err.message : 'Could not join the list.');
+    }
+  };
+
+  if (state === 'done') {
+    return (
+      <p style={{ fontSize: '0.88rem', color: 'var(--color-success)', fontWeight: 600, marginBottom: 20 }}>
+        You&apos;re on the list — we&apos;ll email you the moment {productTitle} is available.
+      </p>
+    );
+  }
+
+  return (
+    <form onSubmit={submit} style={{ marginBottom: 20, border: '1px solid var(--color-border)', borderRadius: 8, padding: 14 }}>
+      <p style={{ fontWeight: 700, fontSize: '0.9rem', marginBottom: 4 }}>Want it when it lands?</p>
+      <p style={{ fontSize: '0.83rem', color: 'var(--color-text-muted)', marginBottom: 10 }}>
+        Leave your email for a one-time stock alert about {productTitle}. No marketing, unsubscribe anytime.
+      </p>
+      <div style={{ display: 'flex', gap: 8 }}>
+        <input
+          type="email"
+          required
+          aria-label="Email for stock alert"
+          className="input"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          placeholder="you@example.com"
+          style={{ flex: 1, minHeight: 44 }}
+        />
+        <button type="submit" disabled={state === 'sending'} className="btn btn--secondary" style={{ minHeight: 44, padding: '0 18px' }}>
+          {state === 'sending' ? '…' : 'Notify me'}
+        </button>
+      </div>
+      {state === 'error' && (
+        <p role="alert" style={{ color: 'var(--color-error)', fontSize: '0.82rem', marginTop: 6 }}>
+          {message}
+        </p>
+      )}
+    </form>
+  );
+}
 
 export default function ProductDetailPage() {
   const { products } = useProducts();
@@ -76,9 +145,7 @@ export default function ProductDetailPage() {
   };
 
   const nextImage = () => setSelectedImage((prev) => (prev + 1) % gallery.length);
-  const prevImage = () => setSelectedImage((prev) => (prev - 1 + gallery.length) % gallery.length);
-
-  return (
+  const prevImage = () => setSelectedImage((prev) => (prev - 1 + gallery.length) % gallery.length);  return (
     <div className="container section">
       <nav aria-label="Breadcrumb" style={{ marginBottom: 'var(--space-4)', fontSize: '0.8125rem' }}>
         <ol style={{ display: 'flex', gap: 'var(--space-2)', alignItems: 'center', flexWrap: 'wrap', color: 'var(--color-text-muted)' }}>
@@ -241,6 +308,8 @@ export default function ProductDetailPage() {
               {price <= 0 ? 'Stock and pricing to be confirmed by the owners.' : 'Currently unavailable.'}
             </p>
           )}
+
+          {!purchasable && <WatchlistForm productId={product.id} productTitle={product.title} />}
 
           <button onClick={handleAddToCart} disabled={!purchasable} className="btn btn--primary btn--full"
             style={{ marginBottom: 16, minHeight: 48, fontSize: '1rem' }}>

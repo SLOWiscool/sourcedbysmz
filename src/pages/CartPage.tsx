@@ -1,11 +1,14 @@
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Trash2, Minus, Plus, ShoppingBag } from 'lucide-react';
 import { useCart, useProductFromCart } from '../context/CartContext';
 import { getGalleryImages } from '../types';
 import { formatPrice } from '../lib/currency';
+import DiscountForm, { type DiscountPreview } from '../components/cart/DiscountForm';
 
 export default function CartPage() {
   const { state, removeItem, updateQuantity, clearCart, subtotal } = useCart();
+  const [discount, setDiscount] = useState<DiscountPreview | null>(null);
 
   if (state.items.length === 0) {
     return (
@@ -22,8 +25,12 @@ export default function CartPage() {
     );
   }
 
-  const shippingEstimate = subtotal >= 5000 ? 0 : 399;
-  const total = subtotal + shippingEstimate;
+  // Display-only preview, mirroring the server rule (free standard delivery
+  // on the discounted subtotal over £50). The server reprices authoritatively
+  // when the payment starts, so this can never undercharge.
+  const discountedSubtotal = Math.max(0, subtotal - (discount?.amount || 0));
+  const shippingEstimate = discountedSubtotal >= 5000 ? 0 : 399;
+  const total = discountedSubtotal + shippingEstimate;
 
   return (
     <div className="container section">
@@ -131,6 +138,13 @@ export default function CartPage() {
               <span>Subtotal</span>
               <span style={{ fontWeight: 600 }}>{formatPrice(subtotal)}</span>
             </div>
+            {discount && (
+              <div style={{ display: 'flex', justifyContent: 'space-between', color: 'var(--color-success)' }}>
+                <span>Discount ({discount.code})</span>
+                <span style={{ fontWeight: 600 }}>−{formatPrice(discount.amount)}</span>
+              </div>
+            )}
+            <DiscountForm items={state.items} onPreview={setDiscount} />
             <div style={{ display: 'flex', justifyContent: 'space-between' }}>
               <span>Shipping</span>
               <span style={{ fontWeight: 600 }}>

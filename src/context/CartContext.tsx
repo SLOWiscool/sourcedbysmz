@@ -1,10 +1,11 @@
-import { createContext, useContext, useReducer, useEffect, type ReactNode } from 'react';
+import { createContext, useContext, useReducer, useEffect, useState, type ReactNode } from 'react';
 import type { CartItem, Product } from '../types';
 import { getEffectivePrice } from '../types';
 import { getProducts, loadProducts } from '../lib/product-source';
 import { useProducts } from '../hooks/useProducts';
 
 const STORAGE_KEY = 'sourcedbysmz_cart';
+const DISCOUNT_KEY = 'sourcedbysmz_discount';
 
 interface CartState {
   items: CartItem[];
@@ -30,6 +31,8 @@ interface CartContextValue {
   closeDrawer: () => void;
   itemCount: number;
   subtotal: number;
+  discountCode: string;
+  setDiscountCode: (code: string) => void;
 }
 
 const CartContext = createContext<CartContextValue | null>(null);
@@ -125,6 +128,13 @@ function cartReducer(state: CartState, action: CartAction): CartState {
 export function CartProvider({ children }: { children: ReactNode }) {
   const [state, dispatch] = useReducer(cartReducer, { items: [], drawerOpen: false });
   const { products } = useProducts();
+  const [discountCode, setDiscountCodeState] = useState<string>(() => {
+    try {
+      return localStorage.getItem(DISCOUNT_KEY) || '';
+    } catch {
+      return '';
+    }
+  });
 
   useEffect(() => {
     dispatch({ type: 'HYDRATE', items: loadCart() });
@@ -160,7 +170,26 @@ export function CartProvider({ children }: { children: ReactNode }) {
     dispatch({ type: 'UPDATE_QUANTITY', productId, variantId, size, quantity });
   };
 
-  const clearCart = () => dispatch({ type: 'CLEAR_CART' });
+  const clearCart = () => {
+    dispatch({ type: 'CLEAR_CART' });
+    setDiscountCodeState('');
+    try {
+      localStorage.removeItem(DISCOUNT_KEY);
+    } catch {
+      // Storage unavailable
+    }
+  };
+
+  const setDiscountCode = (code: string) => {
+    const clean = code.trim().toUpperCase();
+    setDiscountCodeState(clean);
+    try {
+      if (clean) localStorage.setItem(DISCOUNT_KEY, clean);
+      else localStorage.removeItem(DISCOUNT_KEY);
+    } catch {
+      // Storage unavailable
+    }
+  };
   const openDrawer = () => dispatch({ type: 'OPEN_DRAWER' });
   const closeDrawer = () => dispatch({ type: 'CLOSE_DRAWER' });
 
@@ -174,7 +203,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
 
   return (
     <CartContext.Provider
-      value={{ state, addItem, removeItem, updateQuantity, clearCart, openDrawer, closeDrawer, itemCount, subtotal }}
+      value={{ state, addItem, removeItem, updateQuantity, clearCart, openDrawer, closeDrawer, itemCount, subtotal, discountCode, setDiscountCode }}
     >
       {children}
     </CartContext.Provider>

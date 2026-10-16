@@ -8,6 +8,7 @@ interface StripePaymentProps {
   email: string;
   items: Array<{ productId: string; variantId?: string; size?: string; quantity: number }>;
   shippingMethod: 'standard' | 'express';
+  discountCode?: string;
   onSuccess: (orderRef: string) => void;
   onError: (message: string) => void;
 }
@@ -103,6 +104,7 @@ export default function StripePayment(props: StripePaymentProps) {
           items: props.items,
           email: props.email,
           shippingMethod: props.shippingMethod,
+          discountCode: props.discountCode,
         });
         if (cancelled) return;
         if (data?.clientSecret) {
@@ -121,7 +123,7 @@ export default function StripePayment(props: StripePaymentProps) {
     setup();
     return () => { cancelled = true; };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [props.amount, props.shippingMethod]);
+  }, [props.amount, props.shippingMethod, props.discountCode]);
 
   if (!stripeKey || status === 'unavailable' || status === 'needs-key' || status === 'needs-secret') {
     const heading = 'Secure card & wallet checkout';

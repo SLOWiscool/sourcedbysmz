@@ -24,11 +24,13 @@ function variantKey(productId, variantId) {
 /**
  * @param {object} catalogue trusted catalogue (currency, shipping, products)
  * @param {Map<string, number>} sold units already sold per variantKey (for live availability)
- * @param {{items: Array<{productId: string, variantId?: string, size?: string, quantity: number}>, email: string, shippingMethod: string}} payload
- * @returns {{lines: Array<{productId: string, variantId: string|undefined, size: string|undefined, quantity: number, unitPrice: number, title: string, variantLabel: string|undefined}>, subtotal: number, shipping: number, total: number, currency: string}}
+ * @param {{items: Array<{productId: string, variantId?: string, size?: string, quantity: number}>, email: string, shippingMethod: string, discountCode?: string}} payload
+ * @param {(code: string, subtotal: number) => {code: string, amount: number, description: string} | null} [discountApplier]
+ *   Server-side discount hook (discounts.js). The browser never prices anything.
+ * @returns {{lines: Array<{productId: string, variantId: string|undefined, size: string|undefined, quantity: number, unitPrice: number, title: string, variantLabel: string|undefined}>, subtotal: number, discount: {code: string, amount: number, description: string} | null, shipping: number, total: number, currency: string}}
  * @throws {HttpError} with status 400/404/409 on any invalid or unavailable request
  */
-export function validateCheckout(catalogue, sold, payload) {
+export function validateCheckout(catalogue, sold, payload, discountApplier) {
   const { items, email, shippingMethod } = payload || {};
 
   if (!Array.isArray(items) || items.length === 0) {
@@ -107,19 +109,28 @@ export function validateCheckout(catalogue, sold, payload) {
   });
 
   const subtotal = lines.reduce((sum, l) => sum + l.unitPrice * l.quantity, 0);
+
+  let discount = null;
+  const discountCode = typeof payload?.discountCode === 'string' && payload.discountCode.trim() !== ''
+    ? payload.discountCode
+    : null;
+  if (discountCode && typeof discountApplier === 'function') {
+    discount = discountApplier(discountCode, subtotal);
+  }
+  const discounted = subtotal - (discount ? discount.amount : 0);
   const shipping =
     shippingMethod === 'express'
       ? catalogue.shipping.express
-      : subtotal >= catalogue.shipping.freeStandardOver
+      : discounted >= catalogue.shipping.freeStandardOver
         ? 0
         : catalogue.shipping.standard;
-  const total = subtotal + shipping;
+  const total = discounted + shipping;
 
   if (total <= 0) {
     throw new HttpError(409, 'This order cannot be priced yet.');
   }
 
-  return { lines, subtotal, shipping, total, currency: catalogue.currency };
+  return { lines, subtotal, discount, shipping, total, currency: catalogue.currency };
 }
 
 export { variantKey };

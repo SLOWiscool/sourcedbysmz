@@ -59,6 +59,7 @@ export interface CheckoutPayload {
   items: Array<{ productId: string; variantId?: string; size?: string; quantity: number }>;
   email: string;
   shippingMethod: 'standard' | 'express';
+  discountCode?: string;
 }
 
 /**

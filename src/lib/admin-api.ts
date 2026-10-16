@@ -75,6 +75,44 @@ export const adminMe = () => req<{ admin: boolean }>('/api/admin/me');
 
 export const adminListProducts = () => req<{ products: Product[] }>('/api/admin/products');
 
+export interface DiscountRecord {
+  code: string;
+  type: 'percent' | 'fixed';
+  value: number;
+  minSubtotal: number;
+  maxUses: number | null;
+  usedCount: number;
+  expiresAt: string | null;
+  active: boolean;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface WatchlistEntry {
+  token: string;
+  productId: string;
+  email: string;
+  createdAt: string;
+  notifiedAt: string | null;
+}
+
+export const adminListDiscounts = () => req<{ discounts: DiscountRecord[] }>('/api/admin/discounts');
+
+export const adminCreateDiscount = (discount: Partial<DiscountRecord> & { code: string; type: 'percent' | 'fixed'; value: number }) =>
+  req<{ discount: DiscountRecord }>('/api/admin/discounts', { method: 'POST', body: discount });
+
+export const adminUpdateDiscount = (code: string, patch: Partial<DiscountRecord>) =>
+  req<{ discount: DiscountRecord }>(`/api/admin/discounts/${encodeURIComponent(code)}`, { method: 'PUT', body: patch });
+
+export const adminDeleteDiscount = (code: string) =>
+  req<{ ok: boolean }>(`/api/admin/discounts/${encodeURIComponent(code)}`, { method: 'DELETE' });
+
+export const adminWatchlist = () =>
+  req<{ subscriptions: WatchlistEntry[]; outbox: Array<Record<string, unknown>> }>('/api/admin/watchlist');
+
+export const adminRemoveWatchlist = (token: string) =>
+  req<{ ok: boolean }>(`/api/admin/watchlist/${encodeURIComponent(token)}`, { method: 'DELETE' });
+
 export const adminCreateProduct = (product: Product) =>
   req<{ product: Product }>('/api/admin/products', { method: 'POST', body: product });
 

@@ -59,6 +59,15 @@ function loadEnvFile(file) {
 
 import { validateCheckout, HttpError } from './validate.js';
 import { resolveSucceededOrder } from './orders.js';
+import {
+  listDiscounts, saveDiscount, updateDiscount, deleteDiscount,
+  applyDiscount, incrementUsage as incrementDiscountUsage,
+} from './discounts.js';
+import {
+  listSubscriptions, subscribe as subscribeWatchlist, unsubscribe as unsubscribeWatchlist,
+  removeSubscription,
+} from './watchlist.js';
+import { getOutbox } from './email.js';
 import { isAuthConfigured, checkCredentials, requireAdmin } from './auth.js';
 import { loadStore, saveStore, publicProducts, validateProduct } from './store.js';
 
@@ -143,6 +152,17 @@ app.post('/api/stripe-webhook', express.raw({ type: 'application/json' }), async
         intentId: intent.id,
         refund: (paymentIntent) => stripe.refunds.create({ payment_intent: paymentIntent }),
       });
+      if (result.outcome === 'paid') {
+        // Burn single-use codes only on verified payment — never before.
+        const paidOrder = orderRef ? store.orders.get(orderRef) : undefined;
+        if (paidOrder && paidOrder.discountCode) {
+          try {
+            incrementDiscountUsage(paidOrder.discountCode);
+          } catch {
+            console.error(`order ${String(orderRef)}: could not record discount usage`);
+          }
+        }
+      }
       if (result.outcome === 'refund_failed' || result.outcome === 'unknown_order') {
         console.error(`order ${String(orderRef)} needs manual review (${result.outcome})`);
       }
@@ -451,6 +471,62 @@ app.post('/api/admin/upload', requireAdmin, (req, res) => {
   });
 });
 
+// --- Admin: discounts -------------------------------------------------------------
+app.get('/api/admin/discounts', requireAdmin, (_req, res) => {
+  res.json({ discounts: listDiscounts() });
+});
+
+app.post('/api/admin/discounts', requireAdmin, (req, res) => {
+  try {
+    const discount = saveDiscount(req.body || {});
+    syncCheckoutMirror();
+    res.status(201).json({ discount });
+  } catch (err) {
+    res.status(err instanceof HttpError ? err.status : 400).json({
+      error: err instanceof Error ? err.message : 'Invalid discount.',
+    });
+  }
+});
+
+app.put('/api/admin/discounts/:code', requireAdmin, (req, res) => {
+  try {
+    const discount = updateDiscount(req.params.code, req.body || {});
+    syncCheckoutMirror();
+    res.json({ discount });
+  } catch (err) {
+    res.status(err instanceof HttpError ? err.status : 400).json({
+      error: err instanceof Error ? err.message : 'Invalid discount.',
+    });
+  }
+});
+
+app.delete('/api/admin/discounts/:code', requireAdmin, (req, res) => {
+  try {
+    deleteDiscount(req.params.code);
+    res.json({ ok: true });
+  } catch (err) {
+    res.status(err instanceof HttpError ? err.status : 400).json({
+      error: err instanceof Error ? err.message : 'Could not delete discount.',
+    });
+  }
+});
+
+// --- Admin: watchlist + email outbox -----------------------------------------------
+app.get('/api/admin/watchlist', requireAdmin, (_req, res) => {
+  res.json({ subscriptions: listSubscriptions(), outbox: getOutbox() });
+});
+
+app.delete('/api/admin/watchlist/:token', requireAdmin, (req, res) => {
+  try {
+    removeSubscription(String(req.params.token || ''));
+    res.json({ ok: true });
+  } catch (err) {
+    res.status(err instanceof HttpError ? err.status : 400).json({
+      error: err instanceof Error ? err.message : 'Could not remove subscription.',
+    });
+  }
+});
+
 // --- Admin: orders (summaries from verified payment flow) ----------------------
 app.get('/api/admin/orders', requireAdmin, (_req, res) => {
   const orders = [...store.orders.entries()].map(([ref, o]) => ({
@@ -459,6 +535,8 @@ app.get('/api/admin/orders', requireAdmin, (_req, res) => {
     items: o.lines.reduce((n, l) => n + l.quantity, 0),
     lines: o.lines,
     subtotal: o.subtotal,
+    discountCode: o.discountCode || null,
+    discountAmount: o.discountAmount || 0,
     shipping: o.shipping,
     total: o.total,
     currency: o.currency,
@@ -473,7 +551,9 @@ app.get('/api/admin/orders', requireAdmin, (_req, res) => {
 app.post('/api/create-payment-intent', async (req, res) => {
   let order;
   try {
-    order = validateCheckout(catalogue, store.sold, req.body);
+    order = validateCheckout(catalogue, store.sold, req.body, (code, subtotal) =>
+      applyDiscount(code, subtotal)
+    );
   } catch (err) {
     const status = err instanceof HttpError ? err.status : 400;
     res.status(status).json({ error: err instanceof Error ? err.message : 'Invalid order.' });
@@ -491,6 +571,8 @@ app.post('/api/create-payment-intent', async (req, res) => {
     shippingMethod: req.body.shippingMethod,
     lines: order.lines,
     subtotal: order.subtotal,
+    discountCode: order.discount ? order.discount.code : null,
+    discountAmount: order.discount ? order.discount.amount : 0,
     shipping: order.shipping,
     total: order.total,
     currency: order.currency,
@@ -506,7 +588,7 @@ app.post('/api/create-payment-intent', async (req, res) => {
         currency: order.currency.toLowerCase(),
         receipt_email: String(req.body.email).trim(),
         automatic_payment_methods: { enabled: true },
-        description: `SOURCEDBYSMZ ${orderRef}`,
+        description: `SOURCEDBYSMZ ${orderRef}${order.discount ? ` (${order.discount.code})` : ''}`,
         metadata: {
           orderRef,
           items: order.lines
@@ -522,6 +604,73 @@ app.post('/api/create-payment-intent', async (req, res) => {
     store.orders.delete(orderRef);
     res.status(502).json({ error: 'Could not start the secure payment. Please try again.' });
   }
+});
+
+// --- Discount preview (public): checks a code against the live bag ----------
+// Computes the discount from trusted catalogue prices. Never burns usage —
+// that happens only on verified payment. Availability errors surface too,
+// so the preview never promises a discount on an unbuyable bag.
+app.post('/api/discounts/validate', (req, res) => {
+  try {
+    const items = Array.isArray(req.body?.items) ? req.body.items : [];
+    if (items.length === 0) {
+      res.status(400).json({ error: 'Your bag is empty.' });
+      return;
+    }
+    let subtotal = 0;
+    for (const item of items) {
+      if (!item || typeof item.productId !== 'string') {
+        res.status(400).json({ error: 'Unknown product in bag.' });
+        return;
+      }
+      const product = catalogue.products[item.productId];
+      if (!product) {
+        res.status(404).json({ error: 'A product in your bag no longer exists.' });
+        return;
+      }
+      let unit = product.price;
+      if (item.variantId !== undefined) {
+        const variant = (product.variants || {})[item.variantId];
+        if (!variant) {
+          res.status(400).json({ error: 'An option in your bag is no longer available.' });
+          return;
+        }
+        if (variant.price !== null && variant.price !== undefined) unit = variant.price;
+      }
+      const qty = Number(item.quantity);
+      if (!Number.isInteger(qty) || qty < 1 || qty > (catalogue.maxQuantityPerLine || 10)) {
+        res.status(400).json({ error: 'Invalid quantity in bag.' });
+        return;
+      }
+      subtotal += unit * qty;
+    }
+    const discount = applyDiscount(req.body?.code, subtotal);
+    res.json({ valid: true, ...discount, subtotal });
+  } catch (err) {
+    res.status(err instanceof HttpError ? err.status : 400).json({
+      error: err instanceof Error ? err.message : 'Invalid discount code.',
+    });
+  }
+});
+
+// --- Watchlist subscribe (public): stock alerts --------------------------------
+app.post('/api/watchlist', (req, res) => {
+  try {
+    const known = new Set(Object.keys(catalogue.products));
+    const result = subscribeWatchlist(req.body?.productId, req.body?.email, known);
+    res.status(201).json(result);
+  } catch (err) {
+    res.status(err instanceof HttpError ? err.status : 400).json({
+      error: err instanceof Error ? err.message : 'Could not subscribe.',
+    });
+  }
+});
+
+// --- Watchlist unsubscribe (public, human-friendly) ------------------------------
+app.get('/api/watchlist/unsubscribe/:token', (req, res) => {
+  unsubscribeWatchlist(String(req.params.token || ''));
+  res.setHeader('Content-Type', 'text/html; charset=utf-8');
+  res.send('<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Unsubscribed — SOURCEDBYSMZ</title></head><body style="font-family:sans-serif;max-width:32rem;margin:4rem auto;padding:0 1rem"><h1>Unsubscribed</h1><p>You will no longer get stock alerts for this item.</p><p><a href="/">Back to the shop</a></p></body></html>');
 });
 
 // --- Public order status (status + total only, no personal data) ----------------

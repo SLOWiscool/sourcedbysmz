@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { Lock } from 'lucide-react';
 import { useCart, useProductFromCart } from '../context/CartContext';
 import StripePayment from '../components/checkout/StripePayment';
+import DiscountForm, { type DiscountPreview } from '../components/cart/DiscountForm';
 import { formatPrice } from '../lib/currency';
 import { validateEmail, validateRequired, validatePostcode } from '../lib/validation';
 
@@ -24,7 +25,7 @@ interface FormErrors {
 
 export default function CheckoutPage() {
   const navigate = useNavigate();
-  const { state, subtotal } = useCart();
+  const { state, subtotal, discountCode } = useCart();
   const [form, setForm] = useState<FormData>({
     email: '',
     firstName: '',
@@ -38,9 +39,14 @@ export default function CheckoutPage() {
   });
   const [errors, setErrors] = useState<FormErrors>({});
   const [contactReady, setContactReady] = useState(false);
+  const [discount, setDiscount] = useState<DiscountPreview | null>(null);
 
-  const shippingCost = form.shippingMethod === 'express' ? 699 : subtotal >= 5000 ? 0 : 399;
-  const total = subtotal + shippingCost;
+  // Display-only figures mirroring the server rule (free standard delivery
+  // on the discounted subtotal over £50). The payment total is recomputed
+  // server-side and can never be set from here.
+  const discountedSubtotal = Math.max(0, subtotal - (discount?.amount || 0));
+  const shippingCost = form.shippingMethod === 'express' ? 699 : discountedSubtotal >= 5000 ? 0 : 399;
+  const total = discountedSubtotal + shippingCost;
 
   const updateField = (field: keyof FormData, value: string) => {
     setForm(prev => {
@@ -275,6 +281,7 @@ export default function CheckoutPage() {
                   email={form.email}
                   items={state.items}
                   shippingMethod={form.shippingMethod}
+                  discountCode={discount?.code || discountCode || undefined}
                   onSuccess={(orderRef) => {
                     try {
                       sessionStorage.setItem('sbmz_last_order', orderRef);
@@ -333,6 +340,13 @@ export default function CheckoutPage() {
                 <span>Subtotal</span>
                 <span>{formatPrice(subtotal)}</span>
               </div>
+              {discount && (
+                <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.875rem', color: 'var(--color-success)' }}>
+                  <span>Discount ({discount.code})</span>
+                  <span>−{formatPrice(discount.amount)}</span>
+                </div>
+              )}
+              <DiscountForm items={state.items} onPreview={setDiscount} />
               <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.875rem' }}>
                 <span>Shipping</span>
                 <span>{shippingCost === 0 ? 'Free' : formatPrice(shippingCost)}</span>

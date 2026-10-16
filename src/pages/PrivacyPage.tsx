@@ -12,6 +12,9 @@ export default function PrivacyPage() {
           <p style={{ lineHeight: 1.6, color: 'var(--color-text-muted)' }}>
             When you browse our site, we collect standard server log data including IP address and browser type for security and performance purposes.
           </p>
+          <p style={{ lineHeight: 1.6, color: 'var(--color-text-muted)' }}>
+            If you join a product watchlist, we store your email address and the product you asked about, solely to send you a one-time stock alert for that item. Every alert carries an unsubscribe link that deletes your subscription immediately. We never use watchlist emails for marketing.
+          </p>
         </section>
 
         <section>

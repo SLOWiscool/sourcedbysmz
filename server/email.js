@@ -263,7 +263,7 @@ export async function sendStockAlert({ to, productSlug, productTitle, unsubscrib
   const base = (process.env.PUBLIC_SHOP_URL || `https://${getFromDomain()}`).replace(/\/$/, '');
   const productUrl = `${base}/products/${productSlug}`;
   const unsubscribeUrl = `${base}/api/watchlist/unsubscribe/${unsubscribeToken}`;
-  const subject = `${productTitle} is back — SOURCEDBYSMZ`;
+  const subject = `Back in stock: ${productTitle} – SOURCEDBYSMZ`;
   const text =
     `Good news — ${productTitle} is available again at SOURCEDBYSMZ.\n\n` +
     `See it here: ${productUrl}\n\n` +

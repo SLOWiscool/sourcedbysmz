@@ -110,13 +110,14 @@ export default function CartDrawer() {
             </div>
           ) : (
             <ul style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-4)' }}>
-              {lines.map(({ item, product }) => (
-                <li key={`${item.productId}-${item.variantId || ''}-${item.size || ''}`} style={{
+              {lines.map(({ item, product }, i) => (
+                <li key={`${item.productId}-${item.variantId || ''}-${item.size || ''}`} className="card-row anim-slide-right" style={{
                   display: 'flex',
                   gap: 'var(--space-3)',
                   padding: 'var(--space-3)',
                   border: '1px solid var(--color-border)',
-                  borderRadius: 'var(--radius-medium)'
+                  borderRadius: 'var(--radius-medium)',
+                  animationDelay: `${Math.min(i, 5) * 50}ms`
                 }}>
                   <img
                     src={getGalleryImages(product, item.variantId)[0]?.url || product.images[0]?.url}
@@ -144,6 +145,7 @@ export default function CartDrawer() {
                       <button
                         onClick={() => updateQuantity(item.productId, item.variantId, item.quantity - 1, item.size)}
                         aria-label="Decrease quantity"
+                        className="icon-btn"
                         style={{
                           width: 24, height: 24,
                           display: 'flex', alignItems: 'center', justifyContent: 'center',
@@ -154,6 +156,7 @@ export default function CartDrawer() {
                       <button
                         onClick={() => updateQuantity(item.productId, item.variantId, item.quantity + 1, item.size)}
                         aria-label="Increase quantity"
+                        className="icon-btn"
                         style={{
                           width: 24, height: 24,
                           display: 'flex', alignItems: 'center', justifyContent: 'center',
@@ -163,6 +166,7 @@ export default function CartDrawer() {
                       <button
                         onClick={() => removeItem(item.productId, item.variantId, item.size)}
                         aria-label={`Remove ${product.title}`}
+                        className="t-color"
                         style={{ marginLeft: 'auto', fontSize: '0.75rem', color: 'var(--color-text-muted)', textDecoration: 'underline' }}
                       >
                         Remove

@@ -109,7 +109,10 @@ export default function Header() {
         fontWeight: 600,
         letterSpacing: '0.02em'
       }}>
-        New Drop is Now Live — Shop the latest arrivals
+        <span style={{ display: 'inline-flex', alignItems: 'center', gap: 8 }}>
+          <span className="live-dot" aria-hidden="true" />
+          New Drop is Now Live — Shop the latest arrivals
+        </span>
       </div>
 
       <header role="banner" style={{
@@ -132,6 +135,7 @@ export default function Header() {
             aria-label="Open menu"
             aria-expanded={menuOpen}
             aria-controls="nav-drawer"
+            className="icon-btn"
             style={{
               display: 'flex',
               flexDirection: 'column',
@@ -189,6 +193,7 @@ export default function Header() {
               onClick={() => setSearchOpen(!searchOpen)}
               aria-label="Search"
               aria-expanded={searchOpen}
+              className="icon-btn"
               style={{
                 display: 'flex',
                 alignItems: 'center',
@@ -206,6 +211,7 @@ export default function Header() {
               onClick={openDrawer}
               aria-label={`Shopping bag, ${itemCount} items`}
               aria-haspopup="dialog"
+              className="icon-btn"
               style={{
                 position: 'relative',
                 display: 'flex',
@@ -243,7 +249,7 @@ export default function Header() {
         </div>
 
         {searchOpen && (
-          <div style={{
+          <div className="anim-fade" style={{
             borderTop: '1px solid #1e293b',
             padding: 'var(--space-3) var(--space-4)'
           }}>
@@ -316,11 +322,12 @@ export default function Header() {
               padding: 'var(--space-4)',
               borderBottom: '1px solid #1e293b'
             }}>
-              <img src="/images/logo.png" alt="SOURCEDBYSMZ" style={{ height: 32, width: 'auto', objectFit: 'contain', display: 'block' }} />
+              <img src="/images/logo.png" alt="SOURCEDBYSMZ" className="logo-hover" style={{ height: 32, width: 'auto', objectFit: 'contain', display: 'block' }} />
               <button
                 ref={menuCloseRef}
                 onClick={() => setMenuOpen(false)}
                 aria-label="Close menu"
+                className="icon-btn"
                 style={{
                   display: 'flex',
                   alignItems: 'center',
@@ -342,6 +349,7 @@ export default function Header() {
                     <NavLink
                       to={link.to}
                       onClick={() => setMenuOpen(false)}
+                      className="nav-link"
                       style={({ isActive }) => ({
                         display: 'block',
                         padding: 'var(--space-3) var(--space-4)',

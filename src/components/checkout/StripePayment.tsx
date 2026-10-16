@@ -134,7 +134,7 @@ export default function StripePayment(props: StripePaymentProps) {
           ? 'No publishable key found. Add STRIPE_PUBLISHABLE_KEY to server/.env on the host (or VITE_STRIPE_PUBLISHABLE_KEY before building) and restart — no rebuild needed for the server key.'
           : 'Live Stripe payments (Apple Pay, Google Pay, cards) activate once the store backend and publishable key are configured. No payment is processed in this preview.';
     return (
-      <div style={{ border: '1px solid var(--color-border)', borderRadius: 8, padding: 16, background: '#fafafa' }}>
+      <div className="anim-rise" style={{ border: '1px solid var(--color-border)', borderRadius: 8, padding: 16, background: '#fafafa' }}>
         <p style={{ fontWeight: 700, marginBottom: 6 }}>{heading}</p>
         <p style={{ fontSize: '0.87rem', color: '#555', marginBottom: 8 }}>{body}</p>
         <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
@@ -147,12 +147,12 @@ export default function StripePayment(props: StripePaymentProps) {
   }
 
   if (status === 'loading' || status === 'idle') {
-    return <p style={{ fontSize: '0.9rem', color: '#555' }}>Loading secure payment…</p>;
+    return <p key={status} className="anim-fade" style={{ fontSize: '0.9rem', color: '#555' }}>Loading secure payment…</p>;
   }
 
   if (status === 'error' || !clientSecret) {
     return (
-      <div role="alert" style={{ border: '1px solid #f0c0c0', borderRadius: 8, padding: 14, background: '#fff5f5' }}>
+      <div role="alert" className="anim-shake" style={{ border: '1px solid #f0c0c0', borderRadius: 8, padding: 14, background: '#fff5f5' }}>
         <p style={{ fontWeight: 600 }}>Payment unavailable right now</p>
         <p style={{ fontSize: '0.87rem', color: '#666' }}>{message || 'Please try again later.'}</p>
       </div>
@@ -162,7 +162,7 @@ export default function StripePayment(props: StripePaymentProps) {
   return (
     <Elements stripe={getStripe(stripeKey || undefined)} options={{ clientSecret, appearance: { theme: 'stripe' } }}>
       <PaymentForm amount={props.amount} orderRef={orderRef} onSuccess={props.onSuccess} onError={(m) => { setMessage(m); props.onError(m); }} />
-      {message && <p role="alert" style={{ color: 'var(--color-error)', fontSize: '0.85rem', marginTop: 8 }}>{message}</p>}
+      {message && <p role="alert" className="anim-shake" style={{ color: 'var(--color-error)', fontSize: '0.85rem', marginTop: 8 }}>{message}</p>}
     </Elements>
   );
 }

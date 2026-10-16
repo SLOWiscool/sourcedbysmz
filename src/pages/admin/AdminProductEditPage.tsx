@@ -103,7 +103,7 @@ function MediaPicker({ onPick, onClose }: { onPick: (url: string) => void; onClo
       style={{ position: 'fixed', inset: 0, background: 'rgba(0,0,0,0.7)', zIndex: 100, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 16 }}
       onClick={onClose}
     >
-      <div style={{ background: '#111827', border: '1px solid #1e3a8a', borderRadius: 12, maxWidth: 720, width: '100%', maxHeight: '85vh', overflow: 'auto', padding: 16 }} onClick={(e) => e.stopPropagation()}>
+      <div className="anim-pop" style={{ background: '#111827', border: '1px solid #1e3a8a', borderRadius: 12, maxWidth: 720, width: '100%', maxHeight: '85vh', overflow: 'auto', padding: 16 }} onClick={(e) => e.stopPropagation()}>
         <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 12, flexWrap: 'wrap' }}>
           <h2 style={{ fontSize: '1.1rem', fontWeight: 700, color: '#f8fafc' }}>Choose image</h2>
           <label style={{ marginLeft: 'auto', fontSize: '0.85rem', color: '#e5e7eb' }}>
@@ -305,7 +305,7 @@ export default function AdminProductEditPage() {
       </p>
       <h1 style={{ fontSize: '1.5rem', fontWeight: 800, marginBottom: 16, color: '#f8fafc' }}>{isNew ? 'New product' : `Edit: ${product.title}`}</h1>
       {error && (
-        <p role="alert" style={{ color: '#fca5a5', marginBottom: 12 }}>
+        <p role="alert" className="anim-shake" style={{ color: '#fca5a5', marginBottom: 12 }}>
           {error}
         </p>
       )}
@@ -330,7 +330,7 @@ export default function AdminProductEditPage() {
         </section>
       )}
       <form onSubmit={save} style={{ display: 'flex', flexDirection: 'column', gap: 14, maxWidth: 720 }}>
-        <section className="admin-card" aria-label="Product details">
+        <section className="admin-card anim-rise" aria-label="Product details" style={{ animationDelay: '0ms' }}>
           <h2 className="admin-card-title">Details</h2>
           <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
             <div>
@@ -373,7 +373,7 @@ export default function AdminProductEditPage() {
           </div>
         </section>
 
-        <section className="admin-card" aria-label="Price, stock and status">
+        <section className="admin-card anim-rise" aria-label="Price, stock and status" style={{ animationDelay: '70ms' }}>
           <h2 className="admin-card-title">Price, stock & status</h2>
           <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
             <div className="form-grid-3">
@@ -419,7 +419,7 @@ export default function AdminProductEditPage() {
           </div>
         </section>
 
-        <section className="admin-card" aria-label="Product photos">
+        <section className="admin-card anim-rise" aria-label="Product photos" style={{ animationDelay: '140ms' }}>
           <h2 className="admin-card-title">Photos ({product.images.length})</h2>
           <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
             {product.images.map((image, i) => (
@@ -435,7 +435,7 @@ export default function AdminProductEditPage() {
           </button>
         </section>
 
-        <section className="admin-card" aria-label="Colour options">
+        <section className="admin-card anim-rise" aria-label="Colour options" style={{ animationDelay: '210ms' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 12, flexWrap: 'wrap' }}>
             <h2 className="admin-card-title" style={{ margin: 0 }}>Colour options ({(product.variants || []).length})</h2>
             <button type="button" onClick={addVariant} className="btn" style={{ marginLeft: 'auto', border: '1px solid #1e3a8a', color: '#fff', borderRadius: 6, padding: '10px 18px', minHeight: 44 }}>

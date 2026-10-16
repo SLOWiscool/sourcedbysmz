@@ -27,7 +27,7 @@ export default function ProductCard({ product, index = 0 }: ProductCardProps) {
         to={hasColorVariants && selectedVariant ? `/products/${product.slug}?color=${selectedVariant}` : `/products/${product.slug}`}
         aria-label={`View ${product.title}`}
       >
-        <div style={{
+        <div className="img-shell" style={{
           position: 'relative',
           aspectRatio: '4 / 5',
           overflow: 'hidden',
@@ -60,7 +60,7 @@ export default function ProductCard({ product, index = 0 }: ProductCardProps) {
 
       <div style={{ padding: '12px 2px 0', display: 'flex', flexDirection: 'column', gap: 6, flex: 1, minWidth: 0, alignSelf: 'stretch' }}>
         <h3 style={{ fontSize: '0.95rem', fontWeight: 600, lineHeight: 1.35, minHeight: '2.7em' }}>
-          <Link to={`/products/${product.slug}`} style={{ textDecoration: 'none' }}>
+          <Link to={`/products/${product.slug}`} className="t-color" style={{ textDecoration: 'none' }}>
             {product.title}
           </Link>
         </h3>
@@ -78,6 +78,7 @@ export default function ProductCard({ product, index = 0 }: ProductCardProps) {
               return (
                 <button
                   key={v.id}
+                  className="swatch"
                   onClick={() => setSelectedVariant(v.id)}
                   aria-pressed={selected}
                   aria-label={`Select colour ${v.label}`}

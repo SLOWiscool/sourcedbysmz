@@ -188,7 +188,7 @@ export default function ShopPage() {
     <div className="container section">
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', marginBottom: 'var(--space-6)' }}>
         <h1 style={{ fontSize: '1.5rem', fontWeight: 700 }}>Shop All</h1>
-        <p style={{ color: 'var(--color-text-muted)', fontSize: '0.875rem' }}>
+        <p key={filtered.length} className="anim-fade" style={{ color: 'var(--color-text-muted)', fontSize: '0.875rem' }}>
           {filtered.length} {filtered.length === 1 ? 'product' : 'products'}
         </p>
       </div>
@@ -226,7 +226,7 @@ export default function ShopPage() {
             id="sort"
             value={sort}
             onChange={(e) => updateParams({ sort: e.target.value })}
-            className="input"
+            className="input t-color"
             style={{ width: 'auto', minHeight: 32, paddingBlock: 'var(--space-1)', fontSize: '0.875rem' }}
           >
             {SORT_OPTIONS.map(opt => (
@@ -237,7 +237,7 @@ export default function ShopPage() {
       </div>
 
       {filtered.length === 0 ? (
-        <div className="empty-state">
+        <div className="empty-state anim-pop">
           <h2>No products found</h2>
           <p>Try adjusting your search or filters.</p>
           <button onClick={clearFilters} className="btn btn--primary">
@@ -263,7 +263,7 @@ export default function ShopPage() {
             onClick={() => setFiltersOpen(false)}
             style={{ position: 'absolute', inset: 0, background: 'rgba(0,0,0,0.4)' }}
           />
-          <div style={{
+          <div className="anim-slide-left" style={{
             position: 'absolute',
             top: 0,
             left: 0,

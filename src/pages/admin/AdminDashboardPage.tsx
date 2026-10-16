@@ -46,11 +46,12 @@ export default function AdminDashboardPage() {
     <>
       <h1 style={{ fontSize: '1.5rem', fontWeight: 800, marginBottom: 16, color: '#f8fafc' }}>Dashboard</h1>
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(150px, 1fr))', gap: 12, marginBottom: 24 }}>
-        {cards.map((c) => (
+        {cards.map((c, i) => (
           <Link
             key={c.label}
             to={c.to}
-            style={{ textDecoration: 'none', border: '1px solid #1e3a8a', borderRadius: 8, padding: 14, background: '#111827', color: '#e5e7eb' }}
+            className="lift anim-rise"
+            style={{ textDecoration: 'none', border: '1px solid #1e3a8a', borderRadius: 8, padding: 14, background: '#111827', color: '#e5e7eb', animationDelay: `${Math.min(i, 4) * 70}ms` }}
           >
             <div style={{ fontSize: '1.4rem', fontWeight: 800 }}>{c.value}</div>
             <div style={{ fontSize: '0.82rem', color: '#94a3b8' }}>{c.label}</div>
@@ -65,6 +66,7 @@ export default function AdminDashboardPage() {
           {orders.slice(0, 5).map((o) => (
             <li
               key={o.ref}
+              className="card-row"
               style={{ border: '1px solid #1e3a8a', borderRadius: 8, padding: 10, background: '#111827', fontSize: '0.88rem', color: '#e5e7eb' }}
             >
               <strong>{o.ref}</strong> · {o.items} item{o.items === 1 ? '' : 's'} · {formatPrice(o.total)} · {o.status}

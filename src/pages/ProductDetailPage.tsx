@@ -71,7 +71,7 @@ function WatchlistForm({ productId, productTitle }: { productId: string; product
         </button>
       </div>
       {state === 'error' && (
-        <p role="alert" style={{ color: 'var(--color-error)', fontSize: '0.82rem', marginTop: 6 }}>
+        <p role="alert" className="anim-shake" style={{ color: 'var(--color-error)', fontSize: '0.82rem', marginTop: 6 }}>
           {message}
         </p>
       )}
@@ -149,9 +149,9 @@ export default function ProductDetailPage() {
     <div className="container section">
       <nav aria-label="Breadcrumb" style={{ marginBottom: 'var(--space-4)', fontSize: '0.8125rem' }}>
         <ol style={{ display: 'flex', gap: 'var(--space-2)', alignItems: 'center', flexWrap: 'wrap', color: 'var(--color-text-muted)' }}>
-          <li><Link to="/">Home</Link></li>
+          <li><Link to="/" className="t-color">Home</Link></li>
           <li>/</li>
-          <li><Link to="/shop">Shop</Link></li>
+          <li><Link to="/shop" className="t-color">Shop</Link></li>
           <li>/</li>
           <li aria-current="page" style={{ color: 'var(--color-text)', fontWeight: 500 }}>{product.title}</li>
         </ol>
@@ -160,6 +160,7 @@ export default function ProductDetailPage() {
       <div className="split" style={{ gap: 'var(--space-8)', alignItems: 'start' }}>
         <div>
           <div
+            className="img-shell"
             style={{
               position: 'relative', borderRadius: 'var(--radius-large)', overflow: 'hidden',
               background: '#ffffff', aspectRatio: '4 / 5', cursor: 'zoom-in',
@@ -176,11 +177,11 @@ export default function ProductDetailPage() {
             />
             {gallery.length > 1 && (
               <>
-                <button onClick={(e) => { e.stopPropagation(); prevImage(); }} aria-label="Previous image"
+                <button onClick={(e) => { e.stopPropagation(); prevImage(); }} aria-label="Previous image" className="icon-btn"
                   style={{ position: 'absolute', left: 12, top: '50%', transform: 'translateY(-50%)', width: 44, height: 44, borderRadius: '50%', background: 'rgba(255,255,255,0.95)', display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: '0 1px 4px rgba(0,0,0,0.2)' }}>
                   <ChevronLeft size={18} />
                 </button>
-                <button onClick={(e) => { e.stopPropagation(); nextImage(); }} aria-label="Next image"
+                <button onClick={(e) => { e.stopPropagation(); nextImage(); }} aria-label="Next image" className="icon-btn"
                   style={{ position: 'absolute', right: 12, top: '50%', transform: 'translateY(-50%)', width: 44, height: 44, borderRadius: '50%', background: 'rgba(255,255,255,0.95)', display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: '0 1px 4px rgba(0,0,0,0.2)' }}>
                   <ChevronRight size={18} />
                 </button>
@@ -196,7 +197,7 @@ export default function ProductDetailPage() {
           {gallery.length > 1 && (
             <div style={{ display: 'flex', gap: 8, marginTop: 10, flexWrap: 'wrap' }} role="group" aria-label="Product images">
               {gallery.map((g, idx) => (
-                <button key={idx} onClick={() => setSelectedImage(idx)}
+                <button key={idx} onClick={() => setSelectedImage(idx)} className="thumb"
                   aria-label={`View image ${idx + 1} of ${gallery.length}`} aria-pressed={selectedImage === idx}
                   style={{ width: 64, height: 80, borderRadius: 6, overflow: 'hidden', border: selectedImage === idx ? '2px solid var(--color-brand)' : '1px solid var(--color-border)', padding: 0, background: '#fff' }}>
                   <img src={g.url} alt="" style={{ width: '100%', height: '100%', objectFit: 'cover' }} loading="lazy" />
@@ -234,7 +235,7 @@ export default function ProductDetailPage() {
                 {product.variants!.map((v) => {
                   const selected = v.id === selectedVariant;
                   return (
-                    <button key={v.id} role="radio" aria-checked={selected} aria-label={v.label} title={v.label}
+                    <button key={v.id} role="radio" aria-checked={selected} aria-label={v.label} title={v.label} className="pill"
                       onClick={() => selectColor(v.id)}
                       style={{
                         display: 'flex', alignItems: 'center', gap: 8, padding: '8px 14px 8px 8px', minHeight: 44,
@@ -261,7 +262,7 @@ export default function ProductDetailPage() {
                 {sizes.map((s) => {
                   const selected = s === selectedSize;
                   return (
-                    <button key={s} role="radio" aria-checked={selected} aria-label={`Size ${s}`}
+                    <button key={s} role="radio" aria-checked={selected} aria-label={`Size ${s}`} className="pill"
                       onClick={() => { setSelectedSize(s); setSizeError(false); }}
                       style={{
                         minWidth: 48, minHeight: 44, padding: '8px 14px',
@@ -275,7 +276,7 @@ export default function ProductDetailPage() {
                 })}
               </div>
               {sizeError && (
-                <p role="alert" style={{ color: 'var(--color-error)', fontSize: '0.85rem', marginTop: 8 }}>
+                <p role="alert" className="anim-shake" style={{ color: 'var(--color-error)', fontSize: '0.85rem', marginTop: 8 }}>
                   Please choose a size before adding to your bag.
                 </p>
               )}
@@ -285,7 +286,7 @@ export default function ProductDetailPage() {
           <p style={{ lineHeight: 1.65, color: '#333', marginBottom: 16 }}>{product.description}</p>
 
           {product.conditionNotes && (
-            <div style={{ background: '#f7f7f7', padding: 14, borderRadius: 8, marginBottom: 20 }}>
+            <div className="anim-rise" style={{ background: '#f7f7f7', padding: 14, borderRadius: 8, marginBottom: 20 }}>
               <p style={{ fontWeight: 600, fontSize: '0.85rem', marginBottom: 4 }}>Condition notes</p>
               <p style={{ fontSize: '0.87rem', lineHeight: 1.55, color: '#555' }}>{product.conditionNotes}</p>
             </div>
@@ -295,10 +296,10 @@ export default function ProductDetailPage() {
             <div style={{ marginBottom: 20 }}>
               <p style={{ fontWeight: 600, fontSize: '0.85rem', marginBottom: 8 }}>Quantity</p>
               <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
-                <button onClick={() => setQuantity(Math.max(1, quantity - 1))} disabled={quantity <= 1} aria-label="Decrease quantity"
+                <button onClick={() => setQuantity(Math.max(1, quantity - 1))} disabled={quantity <= 1} aria-label="Decrease quantity" className="icon-btn"
                   style={{ width: 44, height: 44, border: '1px solid var(--color-border)', borderRadius: 6, fontSize: '1.1rem' }}>−</button>
                 <span style={{ minWidth: 24, textAlign: 'center', fontWeight: 700 }}>{quantity}</span>
-                <button onClick={() => setQuantity(Math.min(stock, quantity + 1))} disabled={quantity >= stock} aria-label="Increase quantity"
+                <button onClick={() => setQuantity(Math.min(stock, quantity + 1))} disabled={quantity >= stock} aria-label="Increase quantity" className="icon-btn"
                   style={{ width: 44, height: 44, border: '1px solid var(--color-border)', borderRadius: 6, fontSize: '1.1rem' }}>+</button>
                 <span style={{ fontSize: '0.82rem', color: 'var(--color-text-muted)' }}>{stock} available</span>
               </div>

@@ -18,33 +18,33 @@ export default function Footer() {
           gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))',
           gap: 'var(--space-8)'
         }}>
-          <div>
-            <img src="/images/logo.png" alt="SOURCEDBYSMZ" style={{ height: 44, width: 'auto', objectFit: 'contain', display: 'block', marginBottom: 'var(--space-3)' }} />
+          <div className="anim-rise" style={{ animationDelay: '0ms' }}>
+            <img src="/images/logo.png" alt="SOURCEDBYSMZ" className="logo-hover" style={{ height: 44, width: 'auto', objectFit: 'contain', display: 'block', marginBottom: 'var(--space-3)' }} />
             <p style={{ fontSize: '0.875rem', color: 'var(--color-night-muted)', lineHeight: 1.6 }}>
               Curated sourced clothing and finds.
             </p>
           </div>
 
-          <div>
+          <div className="anim-rise" style={{ animationDelay: '80ms' }}>
             <p style={{ fontWeight: 700, fontSize: '0.875rem', marginBottom: 'var(--space-3)', color: '#fff' }}>Shop</p>
             <ul style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-2)' }}>
-              <li><Link to="/shop" style={linkStyle}>All Products</Link></li>
-              <li><Link to="/collections/footwear" style={linkStyle}>Footwear</Link></li>
-              <li><Link to="/collections/outerwear" style={linkStyle}>Outerwear</Link></li>
-              <li><Link to="/collections/bags" style={linkStyle}>Bags</Link></li>
-              <li><Link to="/collections/accessories" style={linkStyle}>Accessories</Link></li>
+              <li><Link to="/shop" className="footer-link" style={linkStyle}>All Products</Link></li>
+              <li><Link to="/collections/footwear" className="footer-link" style={linkStyle}>Footwear</Link></li>
+              <li><Link to="/collections/outerwear" className="footer-link" style={linkStyle}>Outerwear</Link></li>
+              <li><Link to="/collections/bags" className="footer-link" style={linkStyle}>Bags</Link></li>
+              <li><Link to="/collections/accessories" className="footer-link" style={linkStyle}>Accessories</Link></li>
             </ul>
           </div>
 
-          <div>
+          <div className="anim-rise" style={{ animationDelay: '160ms' }}>
             <p style={{ fontWeight: 700, fontSize: '0.875rem', marginBottom: 'var(--space-3)', color: '#fff' }}>Info</p>
             <ul style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-2)' }}>
-              <li><Link to="/shipping" style={linkStyle}>Shipping</Link></li>
-              <li><Link to="/returns" style={linkStyle}>Returns</Link></li>
-              <li><Link to="/contact" style={linkStyle}>Contact</Link></li>
-              <li><Link to="/privacy" style={linkStyle}>Privacy</Link></li>
-              <li><Link to="/terms" style={linkStyle}>Terms</Link></li>
-              <li><Link to="/admin" style={linkStyle}>Owner sign-in</Link></li>
+              <li><Link to="/shipping" className="footer-link" style={linkStyle}>Shipping</Link></li>
+              <li><Link to="/returns" className="footer-link" style={linkStyle}>Returns</Link></li>
+              <li><Link to="/contact" className="footer-link" style={linkStyle}>Contact</Link></li>
+              <li><Link to="/privacy" className="footer-link" style={linkStyle}>Privacy</Link></li>
+              <li><Link to="/terms" className="footer-link" style={linkStyle}>Terms</Link></li>
+              <li><Link to="/admin" className="footer-link" style={linkStyle}>Owner sign-in</Link></li>
             </ul>
           </div>
         </div>

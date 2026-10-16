@@ -66,6 +66,7 @@ export default function AdminLayout() {
           </nav>
           <button
             onClick={logout}
+            className="t-color"
             style={{ marginLeft: 'auto', background: '#2563eb', color: '#fff', border: 'none', minHeight: 44, padding: '0 18px', borderRadius: 6, fontWeight: 600 }}
           >
             Log out

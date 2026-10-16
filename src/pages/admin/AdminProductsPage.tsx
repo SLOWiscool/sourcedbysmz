@@ -73,11 +73,12 @@ export default function AdminProductsPage() {
         </p>
       )}
       <ul style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
-        {products.map((p) => {
+        {products.map((p, i) => {
           const badge = STATUS_COLORS[p.status] || STATUS_COLORS.draft!;
           return (
             <li
               key={p.id}
+              className="card-row anim-slide-right"
               style={{
                 display: 'flex',
                 gap: 12,
@@ -86,6 +87,7 @@ export default function AdminProductsPage() {
                 border: '1px solid #1e3a8a',
                 borderRadius: 10,
                 padding: 12,
+                animationDelay: `${Math.min(i, 8) * 70}ms`,
               }}
             >
               <img

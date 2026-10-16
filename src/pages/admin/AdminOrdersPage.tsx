@@ -35,6 +35,7 @@ export default function AdminOrdersPage() {
           {orders.map((o) => (
             <details
               key={o.ref}
+              className="card-row"
               style={{ border: '1px solid #1e3a8a', borderRadius: 8, padding: 12, background: '#111827', color: '#e5e7eb' }}
             >
               <summary style={{ cursor: 'pointer', fontSize: '0.92rem' }}>

@@ -250,6 +250,47 @@ select.input--dark option {
   100% { background-position: 0% 50%; }
 }
 
+@keyframes float-y {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+
+@keyframes shimmer {
+  0% { background-position: -400px 0; }
+  100% { background-position: 400px 0; }
+}
+
+@keyframes spin-360 {
+  to { transform: rotate(360deg); }
+}
+
+@keyframes pulse-dot {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.45; transform: scale(0.8); }
+}
+
+@keyframes bounce-in {
+  0% { opacity: 0; transform: scale(0.6); }
+  60% { opacity: 1; transform: scale(1.06); }
+  100% { opacity: 1; transform: scale(1); }
+}
+
+@keyframes slide-in-right {
+  from { transform: translateX(40px); opacity: 0; }
+  to { transform: none; opacity: 1; }
+}
+
+@keyframes slide-in-left {
+  from { transform: translateX(-40px); opacity: 0; }
+  to { transform: none; opacity: 1; }
+}
+
+@keyframes shake-x {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-4px); }
+  75% { transform: translateX(4px); }
+}
+
 .anim-rise {
   animation: rise-in 0.5s cubic-bezier(0.22, 0.9, 0.3, 1) both;
 }
@@ -260,6 +301,55 @@ select.input--dark option {
 
 .anim-pop {
   animation: pop-in 0.25s ease both;
+}
+
+.anim-float {
+  animation: float-y 5s ease-in-out infinite;
+}
+
+.anim-spin {
+  animation: spin-360 1s linear infinite;
+}
+
+.anim-bounce-in {
+  animation: bounce-in 0.45s cubic-bezier(0.22, 0.9, 0.3, 1.2) both;
+}
+
+.anim-shake {
+  animation: shake-x 0.3s ease both;
+}
+
+.anim-slide-right {
+  animation: slide-in-right 0.28s cubic-bezier(0.22, 0.9, 0.3, 1) both;
+}
+
+.anim-slide-left {
+  animation: slide-in-left 0.28s cubic-bezier(0.22, 0.9, 0.3, 1) both;
+}
+
+.live-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #22c55e;
+  display: inline-block;
+  animation: pulse-dot 1.6s ease-in-out infinite;
+}
+
+/* Shimmer shell behind loading images */
+.img-shell {
+  background: linear-gradient(100deg, #e8edf4 40%, #f7f9fc 50%, #e8edf4 60%);
+  background-size: 800px 100%;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .img-shell {
+    animation: shimmer 1.6s linear infinite;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
 }
 
 @media (hover: hover) {
@@ -279,6 +369,86 @@ select.input--dark option {
   .zoom:hover img {
     transform: scale(1.05);
   }
+}
+
+.link-arrow svg {
+  transition: transform 0.18s ease;
+}
+
+.link-arrow:hover svg {
+  transform: translateX(4px);
+}
+
+.thumb {
+  transition: transform 0.18s ease, border-color 0.18s ease, box-shadow 0.18s ease;
+}
+
+.thumb:hover {
+  transform: translateY(-2px);
+}
+
+.swatch {
+  transition: transform 0.18s ease, box-shadow 0.18s ease;
+}
+
+.swatch:hover {
+  transform: scale(1.15);
+}
+
+.pill {
+  transition: background-color 0.18s ease, color 0.18s ease, border-color 0.18s ease, transform 0.12s ease;
+}
+
+.pill:active {
+  transform: scale(0.96);
+}
+
+.icon-btn {
+  transition: background-color 0.18s ease, transform 0.12s ease;
+}
+
+.icon-btn:hover {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.icon-btn:active {
+  transform: scale(0.94);
+}
+
+.icon-btn-light:hover {
+  background: rgba(10, 10, 10, 0.06);
+}
+
+.nav-link {
+  transition: background-color 0.18s ease, padding-left 0.18s ease;
+}
+
+.footer-link {
+  transition: color 0.18s ease;
+}
+
+.footer-link:hover {
+  color: var(--color-brand-bright);
+}
+
+.card-row {
+  transition: background-color 0.18s ease, border-color 0.18s ease, transform 0.18s ease;
+}
+
+.card-row:hover {
+  border-color: #3b5a8f;
+}
+
+.logo-hover {
+  transition: transform 0.2s ease;
+}
+
+.logo-hover:hover {
+  transform: scale(1.03);
+}
+
+.t-color {
+  transition: color 0.18s ease, background-color 0.18s ease, border-color 0.18s ease;
 }
 
 @media (prefers-reduced-motion: reduce) {

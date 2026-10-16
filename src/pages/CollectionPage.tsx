@@ -50,13 +50,13 @@ export default function CollectionPage() {
 
   return (
     <div className="container section">
-      <h1 style={{ fontSize: '1.5rem', fontWeight: 700, marginBottom: 'var(--space-4)' }}>{collection.title}</h1>
-      <p style={{ color: 'var(--color-text-muted)', marginBottom: 'var(--space-6)' }}>
+      <h1 className="anim-rise" style={{ fontSize: '1.5rem', fontWeight: 700, marginBottom: 'var(--space-4)' }}>{collection.title}</h1>
+      <p key={products.length} className="anim-fade" style={{ color: 'var(--color-text-muted)', marginBottom: 'var(--space-6)' }}>
         {products.length} {products.length === 1 ? 'product' : 'products'}
       </p>
 
       {products.length === 0 ? (
-        <div className="empty-state">
+        <div className="empty-state anim-pop">
           <h2>No products in this collection yet</h2>
           <p>Check back soon for new additions.</p>
         </div>

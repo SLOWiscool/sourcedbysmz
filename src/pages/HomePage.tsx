@@ -72,12 +72,12 @@ export default function HomePage() {
 
       <section style={{ paddingBlock: 'var(--space-12)' }}>
         <div className="container">
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', marginBottom: 20 }}>
+          <div className="anim-rise" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', marginBottom: 20 }}>
             <div>
               <h2 style={{ fontSize: '1.4rem', fontWeight: 800, letterSpacing: '-0.01em' }}>Featured products</h2>
               <p style={{ fontSize: '0.88rem', color: 'var(--color-text-muted)', marginTop: 4 }}>The current drop — real photos, real items.</p>
             </div>
-            <Link to="/shop" style={{ display: 'inline-flex', alignItems: 'center', gap: 6, fontWeight: 600, fontSize: '0.9rem' }}>
+            <Link to="/shop" className="link-arrow" style={{ display: 'inline-flex', alignItems: 'center', gap: 6, fontWeight: 600, fontSize: '0.9rem' }}>
               View all <ArrowRight size={15} />
             </Link>
           </div>
@@ -95,9 +95,9 @@ export default function HomePage() {
             { title: 'Honest condition', text: 'Every item is photographed as it actually is — flaws included. No invented grades.' },
             { title: 'Fair pricing', text: 'Researched pricing with no fake discounts or invented reference prices.' },
             { title: 'Sourced carefully', text: 'Each piece is selected by hand. Photo counts are never shown as stock.' },
-          ].map((item) => (
-            <div key={item.title}>
-              <h3 style={{ fontSize: '1.02rem', fontWeight: 700, marginBottom: 8 }}>{item.title}</h3>
+          ].map((item, i) => (
+            <div key={item.title} className="lift t-color" style={{ animationDelay: `${i * 80}ms` }}>
+              <h3 className="anim-fade" style={{ fontSize: '1.02rem', fontWeight: 700, marginBottom: 8 }}>{item.title}</h3>
               <p style={{ color: '#555', lineHeight: 1.6, fontSize: '0.92rem' }}>{item.text}</p>
             </div>
           ))}

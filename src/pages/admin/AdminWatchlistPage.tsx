@@ -130,10 +130,11 @@ export default function AdminWatchlistPage() {
                 </button>
               </div>
               <ul style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
-                {list.map((s) => (
+                {list.map((s, i) => (
                   <li
                     key={s.token}
-                    style={{ display: 'flex', gap: 10, alignItems: 'center', flexWrap: 'wrap', border: '1px solid #1e3a8a', borderRadius: 8, padding: '8px 10px', background: '#0f172a' }}
+                    className="card-row anim-slide-right"
+                    style={{ display: 'flex', gap: 10, alignItems: 'center', flexWrap: 'wrap', border: '1px solid #1e3a8a', borderRadius: 8, padding: '8px 10px', background: '#0f172a', animationDelay: `${Math.min(i, 8) * 70}ms` }}
                   >
                     <span style={{ color: '#e5e7eb', fontSize: '0.88rem', flex: 1, minWidth: 140 }}>{s.email}</span>
                     <span style={{ fontSize: '0.78rem', color: '#94a3b8' }}>

@@ -99,7 +99,7 @@ export default function CheckoutPage() {
 
       <div onBlur={validate} className="summary-layout">
           <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-6)' }}>
-            <section>
+            <section className="anim-rise" style={{ animationDelay: '0ms' }}>
               <h2 style={{ fontSize: '1rem', fontWeight: 700, marginBottom: 'var(--space-3)' }}>Contact</h2>
               <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-3)' }}>
                 <div>
@@ -114,7 +114,7 @@ export default function CheckoutPage() {
                     aria-invalid={!!errors.email}
                     aria-describedby={errors.email ? 'email-error' : undefined}
                   />
-                  {errors.email && <p id="email-error" className="error-text">{errors.email}</p>}
+                  {errors.email && <p id="email-error" className="error-text anim-shake">{errors.email}</p>}
                 </div>
                 <div>
                   <label htmlFor="phone" className="label">Phone (optional)</label>
@@ -130,7 +130,7 @@ export default function CheckoutPage() {
               </div>
             </section>
 
-            <section>
+            <section className="anim-rise" style={{ animationDelay: '60ms' }}>
               <h2 style={{ fontSize: '1rem', fontWeight: 700, marginBottom: 'var(--space-3)' }}>Delivery Address</h2>
               <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-3)' }}>
                 <div className="form-grid-2" style={{ gap: 'var(--space-3)' }}>
@@ -146,7 +146,7 @@ export default function CheckoutPage() {
                       aria-invalid={!!errors.firstName}
                       aria-describedby={errors.firstName ? 'firstName-error' : undefined}
                     />
-                    {errors.firstName && <p id="firstName-error" className="error-text">{errors.firstName}</p>}
+                    {errors.firstName && <p id="firstName-error" className="error-text anim-shake">{errors.firstName}</p>}
                   </div>
                   <div>
                     <label htmlFor="lastName" className="label">Last name *</label>
@@ -160,7 +160,7 @@ export default function CheckoutPage() {
                       aria-invalid={!!errors.lastName}
                       aria-describedby={errors.lastName ? 'lastName-error' : undefined}
                     />
-                    {errors.lastName && <p id="lastName-error" className="error-text">{errors.lastName}</p>}
+                    {errors.lastName && <p id="lastName-error" className="error-text anim-shake">{errors.lastName}</p>}
                   </div>
                 </div>
                 <div>
@@ -175,7 +175,7 @@ export default function CheckoutPage() {
                     aria-invalid={!!errors.addressLine1}
                     aria-describedby={errors.addressLine1 ? 'addressLine1-error' : undefined}
                   />
-                  {errors.addressLine1 && <p id="addressLine1-error" className="error-text">{errors.addressLine1}</p>}
+                  {errors.addressLine1 && <p id="addressLine1-error" className="error-text anim-shake">{errors.addressLine1}</p>}
                 </div>
                 <div>
                   <label htmlFor="addressLine2" className="label">Address line 2 (optional)</label>
@@ -201,7 +201,7 @@ export default function CheckoutPage() {
                       aria-invalid={!!errors.city}
                       aria-describedby={errors.city ? 'city-error' : undefined}
                     />
-                    {errors.city && <p id="city-error" className="error-text">{errors.city}</p>}
+                    {errors.city && <p id="city-error" className="error-text anim-shake">{errors.city}</p>}
                   </div>
                   <div>
                     <label htmlFor="postcode" className="label">Postcode *</label>
@@ -215,13 +215,13 @@ export default function CheckoutPage() {
                       aria-invalid={!!errors.postcode}
                       aria-describedby={errors.postcode ? 'postcode-error' : undefined}
                     />
-                    {errors.postcode && <p id="postcode-error" className="error-text">{errors.postcode}</p>}
+                    {errors.postcode && <p id="postcode-error" className="error-text anim-shake">{errors.postcode}</p>}
                   </div>
                 </div>
               </div>
             </section>
 
-            <section>
+            <section className="anim-rise" style={{ animationDelay: '120ms' }}>
               <h2 style={{ fontSize: '1rem', fontWeight: 700, marginBottom: 'var(--space-3)' }}>Shipping Method</h2>
               <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-2)' }}>
                 <label style={{
@@ -273,7 +273,7 @@ export default function CheckoutPage() {
               </div>
             </section>
 
-            <section>
+            <section className="anim-rise" style={{ animationDelay: '180ms' }}>
               <h2 style={{ fontSize: '1rem', fontWeight: 700, marginBottom: 'var(--space-3)' }}>Payment</h2>
               {contactReady ? (
                 <StripePayment
@@ -321,7 +321,7 @@ export default function CheckoutPage() {
                   : undefined;
                 const unit = product.variants?.find((v) => v.id === item.variantId)?.price ?? product.price;
                 return (
-                  <li key={`${item.productId}-${item.variantId || ''}-${item.size || ''}`} style={{
+                  <li key={`${item.productId}-${item.variantId || ''}-${item.size || ''}`} className="anim-fade" style={{
                     display: 'flex',
                     justifyContent: 'space-between',
                     fontSize: '0.875rem'
@@ -335,7 +335,7 @@ export default function CheckoutPage() {
 
             <hr className="divider" style={{ marginBottom: 'var(--space-3)' }} />
 
-            <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-1)', marginBottom: 'var(--space-3)' }}>
+            <div className="anim-fade" style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-1)', marginBottom: 'var(--space-3)' }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.875rem' }}>
                 <span>Subtotal</span>
                 <span>{formatPrice(subtotal)}</span>

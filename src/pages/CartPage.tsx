@@ -36,7 +36,7 @@ export default function CartPage() {
     <div className="container section">
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', marginBottom: 'var(--space-8)' }}>
         <h1 style={{ fontSize: '1.5rem', fontWeight: 700 }}>Shopping Bag</h1>
-        <button onClick={clearCart} className="btn btn--secondary btn--small">
+        <button onClick={clearCart} className="btn btn--secondary btn--small t-color">
           <Trash2 size={14} />
           Clear bag
         </button>
@@ -44,7 +44,7 @@ export default function CartPage() {
 
       <div className="summary-layout">
         <ul style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-4)' }}>
-          {state.items.map((item) => {
+          {state.items.map((item, i) => {
             const product = useProductFromCart(item.productId);
             if (!product) return null;
             const variantLabel = item.variantId
@@ -54,12 +54,14 @@ export default function CartPage() {
             return (
               <li
                 key={`${item.productId}-${item.variantId || ''}-${item.size || ''}`}
+                className="card-row anim-slide-right"
                 style={{
                   display: 'flex',
                   gap: 'var(--space-4)',
                   padding: 'var(--space-4)',
                   border: '1px solid var(--color-border)',
-                  borderRadius: 'var(--radius-large)'
+                  borderRadius: 'var(--radius-large)',
+                  animationDelay: `${Math.min(i, 5) * 50}ms`
                 }}
               >
                 <Link to={`/products/${product.slug}`} style={{ flexShrink: 0 }}>
@@ -97,6 +99,7 @@ export default function CartPage() {
                       <button
                         onClick={() => updateQuantity(item.productId, item.variantId, item.quantity - 1, item.size)}
                         aria-label="Decrease quantity"
+                        className="icon-btn"
                         style={{ width: 32, height: 32, display: 'flex', alignItems: 'center', justifyContent: 'center' }}
                       >
                         <Minus size={14} />
@@ -105,6 +108,7 @@ export default function CartPage() {
                       <button
                         onClick={() => updateQuantity(item.productId, item.variantId, item.quantity + 1, item.size)}
                         aria-label="Increase quantity"
+                        className="icon-btn"
                         style={{ width: 32, height: 32, display: 'flex', alignItems: 'center', justifyContent: 'center' }}
                       >
                         <Plus size={14} />
@@ -112,6 +116,7 @@ export default function CartPage() {
                     </div>
                     <button
                       onClick={() => removeItem(item.productId, item.variantId, item.size)}
+                      className="t-color"
                       style={{ marginLeft: 'auto', display: 'flex', alignItems: 'center', gap: 'var(--space-1)', color: 'var(--color-error)', fontSize: '0.875rem', fontWeight: 500 }}
                     >
                       <Trash2 size={14} />
@@ -124,7 +129,7 @@ export default function CartPage() {
           })}
         </ul>
 
-        <aside style={{
+        <aside className="anim-rise" style={{
           border: '1px solid var(--color-border)',
           padding: 'var(--space-6)',
           borderRadius: 'var(--radius-large)',

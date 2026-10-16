@@ -67,10 +67,11 @@ export default function AdminLoginPage() {
           <img
             src={logoUrl}
             alt="SOURCEDBYSMZ"
+            className="anim-float"
             style={{ height: 56, width: 'auto', display: 'block', margin: '0 auto 24px' }}
           />
         )}
-        <div style={{ background: '#111827', border: '1px solid #1e3a8a', borderRadius: 12, padding: 24 }}>
+        <div className="anim-pop" style={{ background: '#111827', border: '1px solid #1e3a8a', borderRadius: 12, padding: 24 }}>
           <p style={{ fontWeight: 800, letterSpacing: '0.04em', marginBottom: 8, color: '#fff', fontSize: '0.8rem' }}>
             SOURCEDBYSMZ · ADMIN
           </p>
@@ -106,7 +107,7 @@ export default function AdminLoginPage() {
               />
             </div>
             {error && (
-              <p role="alert" style={{ color: 'var(--color-error)', fontSize: '0.87rem', marginBottom: 12 }}>
+              <p role="alert" className="anim-shake" style={{ color: 'var(--color-error)', fontSize: '0.87rem', marginBottom: 12 }}>
                 {error}
               </p>
             )}

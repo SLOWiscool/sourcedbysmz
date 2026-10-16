@@ -71,7 +71,7 @@ export default function HomePage() {
       </section>
 
       <section style={{ paddingBlock: 'var(--space-12)' }}>
-        <div className="container">
+        <div className="container stagger">
           <div className="anim-rise" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', marginBottom: 20 }}>
             <div>
               <h2 style={{ fontSize: '1.4rem', fontWeight: 800, letterSpacing: '-0.01em' }}>Featured products</h2>
@@ -90,7 +90,7 @@ export default function HomePage() {
       </section>
 
       <section style={{ background: '#f7f7f7', borderTop: '1px solid var(--color-border)', borderBottom: '1px solid var(--color-border)' }}>
-        <div className="container" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: 28, paddingBlock: 'var(--space-12)' }}>
+        <div className="container stagger" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: 28, paddingBlock: 'var(--space-12)' }}>
           {[
             { title: 'Honest condition', text: 'Every item is photographed as it actually is — flaws included. No invented grades.' },
             { title: 'Fair pricing', text: 'Researched pricing with no fake discounts or invented reference prices.' },

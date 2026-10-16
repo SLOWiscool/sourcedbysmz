@@ -91,6 +91,20 @@ export function getEffectiveStock(product: Product, variantId?: string): number 
   return product.stockQuantity;
 }
 
+/**
+ * Stock of -1 means "unlimited": the owner does not want a hard cap
+ * (e.g. items they can re-source). Treat it as always available.
+ */
+export function isInfiniteStock(stock: number): boolean {
+  return stock === -1;
+}
+
+export function availableStock(product: Product, variantId?: string): number {
+  return isInfiniteStock(getEffectiveStock(product, variantId))
+    ? Number.MAX_SAFE_INTEGER
+    : getEffectiveStock(product, variantId);
+}
+
 export function getGalleryImages(product: Product, variantId?: string): ProductImage[] {
   const v = getVariant(product, variantId);
   if (v?.images && v.images.length > 0) return v.images;
@@ -107,6 +121,7 @@ export function getAvailability(product: Product, variantId?: string): Availabil
   if (price <= 0) return 'coming_soon';
   if (product.status === 'sold_out') return 'sold_out';
   const stock = getEffectiveStock(product, variantId);
+  if (isInfiniteStock(stock)) return 'in_stock';
   if (stock <= 0) return 'sold_out';
   if (stock <= 2) return 'low_stock';
   return 'in_stock';
@@ -116,7 +131,7 @@ export function isPurchasable(product: Product, variantId?: string): boolean {
   if (product.status !== 'active') return false;
   const price = getEffectivePrice(product, variantId);
   if (price <= 0) return false;
-  return getEffectiveStock(product, variantId) > 0;
+  return getEffectiveStock(product, variantId) !== 0;
 }
 
 export function availabilityLabel(kind: AvailabilityKind): string | null {
@@ -160,6 +175,9 @@ export function describeAvailability(product: Product, variantId?: string): Avai
   }
   if (product.status === 'sold_out') {
     return { kind, label, purchasable, reason: `${name} shows "Sold Out" because the product status is "sold_out" — change it to "active".` };
+  }
+  if (isInfiniteStock(getEffectiveStock(product, variantId))) {
+    return { kind, label, purchasable, reason: `${name} has unlimited stock (-1) — always buyable while priced.` };
   }
   if (getEffectiveStock(product, variantId) <= 0) {
     if (variant) {

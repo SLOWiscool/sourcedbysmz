@@ -17,6 +17,8 @@ function availableFor(catalogue, sold, line) {
     if (!variant) return 0;
     stock = variant.stock;
   }
+  // -1 = unlimited: always enough, never decremented.
+  if (stock === -1) return Number.POSITIVE_INFINITY;
   return stock - (sold.get(variantKey(line.productId, line.variantId)) || 0);
 }
 

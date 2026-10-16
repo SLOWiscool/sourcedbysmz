@@ -43,8 +43,8 @@ export default function CartPage() {
       </div>
 
       <div className="summary-layout">
-        <ul style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-4)' }}>
-          {state.items.map((item, i) => {
+        <ul className="stagger" style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-4)' }}>
+          {state.items.map((item) => {
             const product = useProductFromCart(item.productId);
             if (!product) return null;
             const variantLabel = item.variantId
@@ -60,8 +60,7 @@ export default function CartPage() {
                   gap: 'var(--space-4)',
                   padding: 'var(--space-4)',
                   border: '1px solid var(--color-border)',
-                  borderRadius: 'var(--radius-large)',
-                  animationDelay: `${Math.min(i, 5) * 50}ms`
+                  borderRadius: 'var(--radius-large)'
                 }}
               >
                 <Link to={`/products/${product.slug}`} style={{ flexShrink: 0 }}>

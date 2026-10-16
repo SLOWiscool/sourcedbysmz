@@ -95,7 +95,8 @@ export function validateCheckout(catalogue, sold, payload, discountApplier) {
       throw new HttpError(409, `${label}: "${product.title}" is not currently priced for sale.`);
     }
     const alreadySold = sold.get(variantKey(item.productId, variantId)) || 0;
-    const available = stock - alreadySold;
+    // -1 means unlimited stock: never blocks the order, never goes negative.
+    const available = stock === -1 ? Number.POSITIVE_INFINITY : stock - alreadySold;
     if (item.quantity > available) {
       throw new HttpError(
         409,

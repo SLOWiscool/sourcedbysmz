@@ -126,6 +126,7 @@ export default function ProductDetailPage() {
   const badge = availabilityLabel(availability);
   const price = getEffectivePrice(product, selectedVariant);
   const stock = getEffectiveStock(product, selectedVariant);
+  const infiniteStock = stock === -1;
   const purchasable = isPurchasable(product, selectedVariant);
   const sizes = product.sizes && product.sizes.length > 0 ? product.sizes : [];
   const needsSize = sizes.length > 0;
@@ -140,7 +141,7 @@ export default function ProductDetailPage() {
       setSizeError(true);
       return;
     }
-    addItem(product.id, hasVariants ? selectedVariant : undefined, Math.min(quantity, stock), selectedSize);
+    addItem(product.id, hasVariants ? selectedVariant : undefined, Math.min(quantity, infiniteStock ? 10 : stock), selectedSize);
     openDrawer();
   };
 
@@ -160,7 +161,7 @@ export default function ProductDetailPage() {
       <div className="split" style={{ gap: 'var(--space-8)', alignItems: 'start' }}>
         <div>
           <div
-            className="img-shell"
+            className="img-shell kenburns"
             style={{
               position: 'relative', borderRadius: 'var(--radius-large)', overflow: 'hidden',
               background: '#ffffff', aspectRatio: '4 / 5', cursor: 'zoom-in',
@@ -299,9 +300,9 @@ export default function ProductDetailPage() {
                 <button onClick={() => setQuantity(Math.max(1, quantity - 1))} disabled={quantity <= 1} aria-label="Decrease quantity" className="icon-btn"
                   style={{ width: 44, height: 44, border: '1px solid var(--color-border)', borderRadius: 6, fontSize: '1.1rem' }}>−</button>
                 <span style={{ minWidth: 24, textAlign: 'center', fontWeight: 700 }}>{quantity}</span>
-                <button onClick={() => setQuantity(Math.min(stock, quantity + 1))} disabled={quantity >= stock} aria-label="Increase quantity" className="icon-btn"
+                <button onClick={() => setQuantity(Math.min(infiniteStock ? 10 : stock, quantity + 1))} disabled={!infiniteStock && quantity >= stock} aria-label="Increase quantity" className="icon-btn"
                   style={{ width: 44, height: 44, border: '1px solid var(--color-border)', borderRadius: 6, fontSize: '1.1rem' }}>+</button>
-                <span style={{ fontSize: '0.82rem', color: 'var(--color-text-muted)' }}>{stock} available</span>
+                <span style={{ fontSize: '0.82rem', color: 'var(--color-text-muted)' }}>{infiniteStock ? 'In stock — unlimited' : `${stock} available`}</span>
               </div>
             </div>
           ) : (

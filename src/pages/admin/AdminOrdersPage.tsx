@@ -31,11 +31,11 @@ export default function AdminOrdersPage() {
           No orders yet. Orders appear here only after the payment provider confirms them — never from success-page visits.
         </p>
       ) : (
-        <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+        <div className="stagger" style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
           {orders.map((o) => (
             <details
               key={o.ref}
-              className="card-row"
+              className="card-row row-lift"
               style={{ border: '1px solid #1e3a8a', borderRadius: 8, padding: 12, background: '#111827', color: '#e5e7eb' }}
             >
               <summary style={{ cursor: 'pointer', fontSize: '0.92rem' }}>

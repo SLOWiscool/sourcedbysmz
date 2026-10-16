@@ -49,7 +49,7 @@ export function validateVariant(variant, where) {
   if (variant.colorHex !== undefined && !/^#[0-9a-fA-F]{6}$/.test(variant.colorHex)) {
     fail(`${where}: colorHex must be like #111111.`);
   }
-  if (!isInt(variant.stockQuantity) || variant.stockQuantity < 0) fail(`${where}: stockQuantity must be 0 or more.`);
+  if (!isInt(variant.stockQuantity) || variant.stockQuantity < -1) fail(`${where}: stockQuantity must be 0 or more, or -1 for unlimited stock.`);
   if (variant.price !== undefined && variant.price !== null && (!isInt(variant.price) || variant.price < 0)) {
     fail(`${where}: price must be in whole pence, 0 or more.`);
   }
@@ -81,7 +81,7 @@ export function validateProduct(product, existingSlugs = new Set(), existingIds 
   if (product.conditionNotes !== undefined && typeof product.conditionNotes !== 'string') {
     fail('Condition notes must be text.');
   }
-  if (!isInt(product.stockQuantity) || product.stockQuantity < 0) fail('Stock must be 0 or more.');
+  if (!isInt(product.stockQuantity) || product.stockQuantity < -1) fail('Stock must be 0 or more, or -1 for unlimited stock.');
   if (product.sizes !== undefined) {
     if (!Array.isArray(product.sizes)) fail('Sizes must be a list.');
     if (product.sizes.length > 30) fail('Sizes list is too long.');

@@ -1,4 +1,4 @@
-import { createContext, useContext, useReducer, useEffect, useState, type ReactNode } from 'react';
+import { createContext, useContext, useReducer, useEffect, useRef, useState, type ReactNode } from 'react';
 import type { CartItem, Product } from '../types';
 import { getEffectivePrice } from '../types';
 import { getProducts, loadProducts } from '../lib/product-source';
@@ -33,6 +33,7 @@ interface CartContextValue {
   subtotal: number;
   discountCode: string;
   setDiscountCode: (code: string) => void;
+  toast: { id: number; text: string } | null;
 }
 
 const CartContext = createContext<CartContextValue | null>(null);
@@ -135,6 +136,16 @@ export function CartProvider({ children }: { children: ReactNode }) {
       return '';
     }
   });
+  const [toast, setToast] = useState<{ id: number; text: string } | null>(null);
+  const toastTimer = useRef<number | undefined>(undefined);
+
+  const showToast = (text: string) => {
+    window.clearTimeout(toastTimer.current);
+    setToast({ id: Date.now(), text });
+    toastTimer.current = window.setTimeout(() => setToast(null), 2600);
+  };
+
+  useEffect(() => () => window.clearTimeout(toastTimer.current), []);
 
   useEffect(() => {
     dispatch({ type: 'HYDRATE', items: loadCart() });
@@ -160,6 +171,11 @@ export function CartProvider({ children }: { children: ReactNode }) {
 
   const addItem = (productId: string, variantId?: string, quantity = 1, size?: string) => {
     dispatch({ type: 'ADD_ITEM', productId, variantId, size, quantity });
+    const product = products.find((p) => p.id === productId);
+    const label = product
+      ? `${product.title}${variantId ? ` (${product.variants?.find((v) => v.id === variantId)?.label || variantId})` : ''}`
+      : 'Item';
+    showToast(`${label} added to bag`);
   };
 
   const removeItem = (productId: string, variantId?: string, size?: string) => {
@@ -203,7 +219,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
 
   return (
     <CartContext.Provider
-      value={{ state, addItem, removeItem, updateQuantity, clearCart, openDrawer, closeDrawer, itemCount, subtotal, discountCode, setDiscountCode }}
+      value={{ state, addItem, removeItem, updateQuantity, clearCart, openDrawer, closeDrawer, itemCount, subtotal, discountCode, setDiscountCode, toast }}
     >
       {children}
     </CartContext.Provider>

@@ -15,14 +15,14 @@ export default function ShippingPage() {
               </tr>
             </thead>
             <tbody>
-              <tr style={{ borderBottom: '1px solid var(--color-border)' }}>
+              <tr style={{ borderBottom: '1px solid var(--color-border)' }} className="row-lift">
                 <td style={{ padding: 'var(--space-2) 0' }}>Standard</td>
-                <td style={{ padding: 'var(--space-2) 0' }}>3–5 working days</td>
+                <td style={{ padding: 'var(--space-2) 0' }}>7–12 working days</td>
                 <td style={{ padding: 'var(--space-2) 0' }}>£3.99 (free over £50)</td>
               </tr>
-              <tr style={{ borderBottom: '1px solid var(--color-border)' }}>
+              <tr style={{ borderBottom: '1px solid var(--color-border)' }} className="row-lift">
                 <td style={{ padding: 'var(--space-2) 0' }}>Express</td>
-                <td style={{ padding: 'var(--space-2) 0' }}>1–2 working days</td>
+                <td style={{ padding: 'var(--space-2) 0' }}>5–7 working days</td>
                 <td style={{ padding: 'var(--space-2) 0' }}>£6.99</td>
               </tr>
             </tbody>

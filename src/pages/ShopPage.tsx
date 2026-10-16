@@ -245,7 +245,7 @@ export default function ShopPage() {
           </button>
         </div>
       ) : (
-        <div className="grid grid--products">
+        <div className="grid grid--products stagger">
           {filtered.map((product, i) => (
             <ProductCard key={product.id} product={product} index={i} />
           ))}

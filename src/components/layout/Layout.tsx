@@ -2,6 +2,7 @@ import { Outlet, useLocation } from 'react-router-dom';
 import Header from './Header';
 import Footer from './Footer';
 import CartDrawer from '../cart/CartDrawer';
+import { BagToast, BackToTop } from '../feedback/Overlays';
 
 export default function Layout() {
   const pathname = useLocation().pathname;
@@ -15,6 +16,8 @@ export default function Layout() {
       </main>
       <Footer />
       <CartDrawer />
+      <BagToast />
+      <BackToTop />
     </>
   );
 }

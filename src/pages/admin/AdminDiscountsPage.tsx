@@ -169,9 +169,9 @@ export default function AdminDiscountsPage() {
         </form>
       </section>
 
-      <ul style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
-        {discounts.map((d, i) => (
-          <li key={d.code} className="card-row anim-slide-right" style={{ background: '#111827', border: '1px solid #1e3a8a', borderRadius: 10, padding: 12, display: 'flex', gap: 12, alignItems: 'center', flexWrap: 'wrap', animationDelay: `${Math.min(i, 8) * 70}ms` }}>
+      <ul className="stagger" style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+        {discounts.map((d) => (
+          <li key={d.code} className="card-row anim-slide-right row-lift" style={{ background: '#111827', border: '1px solid #1e3a8a', borderRadius: 10, padding: 12, display: 'flex', gap: 12, alignItems: 'center', flexWrap: 'wrap' }}>
             <div style={{ flex: 1, minWidth: 160 }}>
               <p style={{ fontWeight: 800, color: '#f8fafc', letterSpacing: '0.04em' }}>{d.code}</p>
               <p style={{ fontSize: '0.82rem', color: '#94a3b8', marginTop: 2 }}>

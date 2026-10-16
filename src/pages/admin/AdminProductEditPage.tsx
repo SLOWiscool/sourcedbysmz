@@ -382,8 +382,11 @@ export default function AdminProductEditPage() {
                 <input id="f-price" className="input input--dark" inputMode="decimal" value={priceText} onChange={(e) => { setPriceText(e.target.value); setDirty(true); }} required />
               </div>
               <div>
-                <label htmlFor="f-stock" className="label">Stock *</label>
-                <input id="f-stock" className="input input--dark" type="number" min={0} step={1} value={product.stockQuantity} onChange={(e) => set({ stockQuantity: Math.max(0, Math.floor(Number(e.target.value) || 0)) })} required />
+                <label htmlFor="f-stock" className="label">Stock * (−1 = unlimited)</label>
+                <input id="f-stock" className="input input--dark" type="number" min={-1} step={1} value={product.stockQuantity} onChange={(e) => {
+                  const n = Math.floor(Number(e.target.value) || 0);
+                  set({ stockQuantity: n === -1 ? -1 : Math.max(0, n) });
+                }} required />
                 {(product.variants || []).length > 0 && (
                   <p style={{ fontSize: '0.78rem', color: '#93c5fd', marginTop: 4 }}>
                     Ignored while colour options exist — set stock on each option below instead.
@@ -451,8 +454,11 @@ export default function AdminProductEditPage() {
                   <input id={`v-label-${i}`} className="input input--dark" value={v.label} onChange={(e) => updateVariant(i, { label: e.target.value })} required />
                 </div>
                 <div>
-                  <label className="label" htmlFor={`v-stock-${i}`}>Stock *</label>
-                  <input id={`v-stock-${i}`} className="input input--dark" type="number" min={0} step={1} value={v.stockQuantity} onChange={(e) => updateVariant(i, { stockQuantity: Math.max(0, Math.floor(Number(e.target.value) || 0)) })} required />
+                  <label className="label" htmlFor={`v-stock-${i}`}>Stock * (−1 = unlimited)</label>
+                  <input id={`v-stock-${i}`} className="input input--dark" type="number" min={-1} step={1} value={v.stockQuantity} onChange={(e) => {
+                    const n = Math.floor(Number(e.target.value) || 0);
+                    updateVariant(i, { stockQuantity: n === -1 ? -1 : Math.max(0, n) });
+                  }} required />
                 </div>
                 <div>
                   <label className="label" htmlFor={`v-price-${i}`}>Price £ (blank = product price)</label>

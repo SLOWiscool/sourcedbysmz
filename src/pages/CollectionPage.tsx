@@ -61,7 +61,7 @@ export default function CollectionPage() {
           <p>Check back soon for new additions.</p>
         </div>
       ) : (
-        <div className="grid grid--products">
+        <div className="grid grid--products stagger">
           {products.map((product, i) => (
             <ProductCard key={product.id} product={product} index={i} />
           ))}

@@ -113,9 +113,9 @@ export function isRecordPurchasable(p) {
   if (!p || p.status !== 'active') return false;
   if (!(p.price > 0)) return false;
   if (Array.isArray(p.variants) && p.variants.length > 0) {
-    return p.variants.some((v) => v.stockQuantity > 0);
+    return p.variants.some((v) => v.stockQuantity !== 0);
   }
-  return p.stockQuantity > 0;
+  return p.stockQuantity !== 0;
 }
 
 /**

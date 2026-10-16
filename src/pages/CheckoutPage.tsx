@@ -94,7 +94,7 @@ export default function CheckoutPage() {
   }
 
   return (
-    <div className="container section">
+    <div className="container section stagger">
       <h1 style={{ fontSize: '1.5rem', fontWeight: 700, marginBottom: 'var(--space-6)' }}>Checkout</h1>
 
       <div onBlur={validate} className="summary-layout">
@@ -243,7 +243,7 @@ export default function CheckoutPage() {
                   />
                   <div style={{ flex: 1 }}>
                     <p style={{ fontWeight: 600, fontSize: '0.9375rem' }}>Standard delivery</p>
-                    <p style={{ fontSize: '0.8125rem', color: 'var(--color-text-muted)' }}>3–5 working days</p>
+                    <p style={{ fontSize: '0.8125rem', color: 'var(--color-text-muted)' }}>7–12 working days</p>
                   </div>
                   <span style={{ fontWeight: 600 }}>{subtotal >= 5000 ? 'Free' : formatPrice(399)}</span>
                 </label>
@@ -266,7 +266,7 @@ export default function CheckoutPage() {
                   />
                   <div style={{ flex: 1 }}>
                     <p style={{ fontWeight: 600, fontSize: '0.9375rem' }}>Express delivery</p>
-                    <p style={{ fontSize: '0.8125rem', color: 'var(--color-text-muted)' }}>1–2 working days</p>
+                    <p style={{ fontSize: '0.8125rem', color: 'var(--color-text-muted)' }}>5–7 working days</p>
                   </div>
                   <span style={{ fontWeight: 600 }}>{formatPrice(699)}</span>
                 </label>

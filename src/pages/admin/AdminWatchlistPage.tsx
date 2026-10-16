@@ -112,7 +112,7 @@ export default function AdminWatchlistPage() {
           {notice && (
             <p style={{ fontSize: '0.9rem', color: '#4ade80', marginBottom: 12 }}>{notice}</p>
           )}
-          <div style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
+          <div className="stagger" style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
           {[...byProduct.entries()].map(([productId, list]) => (
             <section key={productId} className="admin-card" aria-label={`Watchers for ${titleOf(productId)}`}>
               <div style={{ display: 'flex', alignItems: 'center', gap: 10, flexWrap: 'wrap', marginBottom: 10 }}>
@@ -130,11 +130,11 @@ export default function AdminWatchlistPage() {
                 </button>
               </div>
               <ul style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
-                {list.map((s, i) => (
+                {list.map((s) => (
                   <li
                     key={s.token}
-                    className="card-row anim-slide-right"
-                    style={{ display: 'flex', gap: 10, alignItems: 'center', flexWrap: 'wrap', border: '1px solid #1e3a8a', borderRadius: 8, padding: '8px 10px', background: '#0f172a', animationDelay: `${Math.min(i, 8) * 70}ms` }}
+                    className="card-row anim-slide-right row-lift"
+                    style={{ display: 'flex', gap: 10, alignItems: 'center', flexWrap: 'wrap', border: '1px solid #1e3a8a', borderRadius: 8, padding: '8px 10px', background: '#0f172a' }}
                   >
                     <span style={{ color: '#e5e7eb', fontSize: '0.88rem', flex: 1, minWidth: 140 }}>{s.email}</span>
                     <span style={{ fontSize: '0.78rem', color: '#94a3b8' }}>

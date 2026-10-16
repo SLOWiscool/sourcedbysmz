@@ -22,12 +22,12 @@ export default function ProductCard({ product, index = 0 }: ProductCardProps) {
   const showPrice = product.price > 0;
 
   return (
-    <article className="lift anim-rise" style={{ display: 'flex', flexDirection: 'column', background: '#fff', width: '100%', maxWidth: '100%', boxSizing: 'border-box', borderRadius: 'var(--radius-medium)', animationDelay: `${Math.min(index, 8) * 60}ms` }}>
+    <article className="lift anim-rise anim-wipe" style={{ display: 'flex', flexDirection: 'column', background: '#fff', width: '100%', maxWidth: '100%', boxSizing: 'border-box', borderRadius: 'var(--radius-medium)', animationDelay: `${Math.min(index, 8) * 60}ms` }}>
       <Link
         to={hasColorVariants && selectedVariant ? `/products/${product.slug}?color=${selectedVariant}` : `/products/${product.slug}`}
         aria-label={`View ${product.title}`}
       >
-        <div className="img-shell" style={{
+        <div className="img-shell kenburns" style={{
           position: 'relative',
           aspectRatio: '4 / 5',
           overflow: 'hidden',

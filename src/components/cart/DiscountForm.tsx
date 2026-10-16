@@ -31,7 +31,11 @@ export default function DiscountForm({
 
   const apply = async (code: string) => {
     const clean = code.trim().toUpperCase();
-    if (!clean || backend === null) return;
+    if (!clean || backend === null) {
+      // Blank code: clear any stale remembered code so it stops re-validating.
+      setDiscountCode('');
+      return;
+    }
     setChecking(true);
     setError('');
     try {
@@ -47,8 +51,11 @@ export default function DiscountForm({
       setDiscountCode(clean);
       onPreview(result);
     } catch (err) {
+      // Don't persist a code the server rejected — clear it so it stops
+      // re-validating (and stop it being sent to checkout) on next mount.
       setPreview(null);
       onPreview(null);
+      setDiscountCode('');
       setError(err instanceof Error ? err.message : 'That code is not valid.');
     } finally {
       setChecking(false);
@@ -99,6 +106,7 @@ export default function DiscountForm({
       >
         <input
           aria-label="Discount code"
+          autoComplete="off"
           className="input"
           value={input}
           onChange={(e) => setInput(e.target.value.toUpperCase())}

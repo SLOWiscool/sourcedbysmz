@@ -25,7 +25,7 @@ interface FormErrors {
 
 export default function CheckoutPage() {
   const navigate = useNavigate();
-  const { state, subtotal, discountCode } = useCart();
+  const { state, subtotal } = useCart();
   const [form, setForm] = useState<FormData>({
     email: '',
     firstName: '',
@@ -281,7 +281,7 @@ export default function CheckoutPage() {
                   email={form.email}
                   items={state.items}
                   shippingMethod={form.shippingMethod}
-                  discountCode={discount?.code || discountCode || undefined}
+                  discountCode={discount?.code || undefined}
                   onSuccess={(orderRef) => {
                     try {
                       sessionStorage.setItem('sbmz_last_order', orderRef);

@@ -236,8 +236,8 @@ describe('outgoing mail boundary', () => {
       delete process.env.SENDPULSE_API_KEY;
     }
   });
-});
-    const stubFetch = async () => ({ ok: false, status: 429, text: async () => 'Too Many Requests' });
+
+  it('surfaces quota exhaustion as a rate-limit error, not a silent failure', async () => {
     process.env.SENDPULSE_API_KEY = 'sp_test_key';
     try {
       await expect(
@@ -275,4 +275,3 @@ describe('outgoing mail boundary', () => {
       delete process.env.SENDPULSE_API_KEY;
     }
   });
-});

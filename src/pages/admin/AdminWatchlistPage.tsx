@@ -92,7 +92,7 @@ export default function AdminWatchlistPage() {
         <ul style={{ display: 'flex', flexDirection: 'column', gap: 8, marginBottom: 16 }}>
           {outbox.length === 0 && <p style={{ color: '#94a3b8' }}>No emails attempted yet.</p>}
           {outbox.slice(-20).reverse().map((m, i) => (
-            <li key={i} style={{ border: '1px solid #1e3a8a', borderRadius: 8, padding: '8px 10px', background: '#0f172a', fontSize: '0.82rem', color: '#e5e7eb' }}>
+            <li key={i} className="tr-118" style={{ border: '1px solid #1e3a8a', borderRadius: 8, padding: '8px 10px', background: '#0f172a', fontSize: '0.82rem', color: '#e5e7eb' }}>
               <strong>{String(m.to)}</strong> · {String(m.subject)} ·{' '}
               <span style={{ color: m.status === 'sent' ? '#4ade80' : '#fbbf24', fontWeight: 700 }}>{String(m.status)}</span>
               {m.status === 'failed' && m.reason ? <span style={{ color: '#94a3b8' }}> — {String(m.reason)}</span> : null}
@@ -123,7 +123,7 @@ export default function AdminWatchlistPage() {
                   type="button"
                   onClick={() => notifyNow(productId, titleOf(productId))}
                   disabled={notifying === productId}
-                  className="btn"
+                  className="btn tr-52"
                   style={{ marginLeft: 'auto', background: '#2563eb', color: '#fff', borderRadius: 6, padding: '8px 16px', minHeight: 44, fontSize: '0.85rem' }}
                 >
                   {notifying === productId ? 'Sending…' : 'Notify now'}
@@ -133,7 +133,7 @@ export default function AdminWatchlistPage() {
                 {list.map((s) => (
                   <li
                     key={s.token}
-                    className="card-row anim-slide-right row-lift"
+                    className="card-row anim-slide-right row-lift tr-118"
                     style={{ display: 'flex', gap: 10, alignItems: 'center', flexWrap: 'wrap', border: '1px solid #1e3a8a', borderRadius: 8, padding: '8px 10px', background: '#0f172a' }}
                   >
                     <span style={{ color: '#e5e7eb', fontSize: '0.88rem', flex: 1, minWidth: 140 }}>{s.email}</span>

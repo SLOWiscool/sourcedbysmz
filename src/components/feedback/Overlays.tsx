@@ -9,7 +9,7 @@ export function BagToast() {
   return (
     <div
       key={toast.id}
-      className="anim-toast"
+      className="anim-toast tr-107"
       role="status"
       style={{
         position: 'fixed',
@@ -60,14 +60,14 @@ export function BackToTop() {
   return (
     <button
       aria-label="Back to top"
-      className={`to-top${show ? ' show' : ''}`}
+      className={`to-top tr-52${show ? ' show' : ''}`}
       tabIndex={show ? 0 : -1}
       onClick={() => {
         const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
         window.scrollTo({ top: 0, behavior: reduced ? 'auto' : 'smooth' });
       }}
     >
-      <ArrowUp size={18} />
+      <ArrowUp size={18} className="tr-21" />
     </button>
   );
 }

@@ -157,7 +157,7 @@ export default function AdminDiscountsPage() {
             <input type="checkbox" checked={form.active} onChange={(e) => set({ active: e.target.checked })} style={{ width: 20, height: 20, accentColor: '#2563eb' }} /> Active
           </label>
           <div style={{ display: 'flex', gap: 10 }}>
-            <button type="submit" className="btn" disabled={saving} style={{ background: '#2563eb', color: '#fff', borderRadius: 6, padding: '12px 24px', minHeight: 48, fontWeight: 700 }}>
+            <button type="submit" className="btn tr-52" disabled={saving} style={{ background: '#2563eb', color: '#fff', borderRadius: 6, padding: '12px 24px', minHeight: 48, fontWeight: 700 }}>
               {saving ? 'Saving…' : editing ? 'Save changes' : 'Create code'}
             </button>
             {editing && (
@@ -171,7 +171,7 @@ export default function AdminDiscountsPage() {
 
       <ul className="stagger" style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
         {discounts.map((d) => (
-          <li key={d.code} className="card-row anim-slide-right row-lift" style={{ background: '#111827', border: '1px solid #1e3a8a', borderRadius: 10, padding: 12, display: 'flex', gap: 12, alignItems: 'center', flexWrap: 'wrap' }}>
+          <li key={d.code} className="card-row anim-slide-right row-lift tr-118" style={{ background: '#111827', border: '1px solid #1e3a8a', borderRadius: 10, padding: 12, display: 'flex', gap: 12, alignItems: 'center', flexWrap: 'wrap' }}>
             <div style={{ flex: 1, minWidth: 160 }}>
               <p style={{ fontWeight: 800, color: '#f8fafc', letterSpacing: '0.04em' }}>{d.code}</p>
               <p style={{ fontSize: '0.82rem', color: '#94a3b8', marginTop: 2 }}>
@@ -181,7 +181,7 @@ export default function AdminDiscountsPage() {
                 {d.maxUses === null && d.usedCount > 0 && ` · ${d.usedCount} used`}
                 {d.expiresAt && ` · expires ${new Date(d.expiresAt).toLocaleDateString('en-GB')}`}
               </p>
-              <span className="badge" style={d.active
+              <span className="badge tr-99" style={d.active
                 ? { background: '#052e16', color: '#4ade80', marginTop: 6 }
                 : { background: '#451a03', color: '#fbbf24', marginTop: 6 }}>
                 {d.active ? 'active' : 'paused'}

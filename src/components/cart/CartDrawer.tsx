@@ -61,6 +61,7 @@ export default function CartDrawer() {
       />
       <div
         ref={drawerRef}
+        className="anim-blur-in-soft"
         style={{
           position: 'absolute',
           top: 0,
@@ -111,7 +112,7 @@ export default function CartDrawer() {
           ) : (
             <ul style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-4)' }}>
               {lines.map(({ item, product }, i) => (
-                <li key={`${item.productId}-${item.variantId || ''}-${item.size || ''}`} className="card-row anim-slide-right" style={{
+                <li key={`${item.productId}-${item.variantId || ''}-${item.size || ''}`} className="card-row anim-slide-right tr-94" style={{
                   display: 'flex',
                   gap: 'var(--space-3)',
                   padding: 'var(--space-3)',
@@ -166,7 +167,7 @@ export default function CartDrawer() {
                       <button
                         onClick={() => removeItem(item.productId, item.variantId, item.size)}
                         aria-label={`Remove ${product.title}`}
-                        className="t-color"
+                        className="t-color tr-38"
                         style={{ marginLeft: 'auto', fontSize: '0.75rem', color: 'var(--color-text-muted)', textDecoration: 'underline' }}
                       >
                         Remove
@@ -191,7 +192,7 @@ export default function CartDrawer() {
             <p style={{ fontSize: '0.75rem', color: 'var(--color-text-muted)', marginBottom: 'var(--space-3)' }}>
               Shipping calculated at checkout.
             </p>
-            <Link to="/cart" onClick={closeDrawer} className="btn btn--primary btn--full">
+            <Link to="/cart" onClick={closeDrawer} className="btn btn--primary btn--full tr-52">
               View Bag
             </Link>
           </div>

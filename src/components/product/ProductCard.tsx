@@ -22,7 +22,7 @@ export default function ProductCard({ product, index = 0 }: ProductCardProps) {
   const showPrice = product.price > 0;
 
   return (
-    <article className="lift anim-rise anim-wipe" style={{ display: 'flex', flexDirection: 'column', background: '#fff', width: '100%', maxWidth: '100%', boxSizing: 'border-box', borderRadius: 'var(--radius-medium)', animationDelay: `${Math.min(index, 8) * 60}ms` }}>
+    <article className="lift anim-rise anim-wipe tr-95" style={{ display: 'flex', flexDirection: 'column', background: '#fff', width: '100%', maxWidth: '100%', boxSizing: 'border-box', borderRadius: 'var(--radius-medium)', animationDelay: `${Math.min(index, 8) * 60}ms` }}>
       <Link
         to={hasColorVariants && selectedVariant ? `/products/${product.slug}?color=${selectedVariant}` : `/products/${product.slug}`}
         aria-label={`View ${product.title}`}
@@ -60,13 +60,13 @@ export default function ProductCard({ product, index = 0 }: ProductCardProps) {
 
       <div style={{ padding: '12px 2px 0', display: 'flex', flexDirection: 'column', gap: 6, flex: 1, minWidth: 0, alignSelf: 'stretch' }}>
         <h3 style={{ fontSize: '0.95rem', fontWeight: 600, lineHeight: 1.35, minHeight: '2.7em' }}>
-          <Link to={`/products/${product.slug}`} className="t-color" style={{ textDecoration: 'none' }}>
+          <Link to={`/products/${product.slug}`} className="t-color tr-38" style={{ textDecoration: 'none' }}>
             {product.title}
           </Link>
         </h3>
 
         {showPrice ? (
-          <span style={{ fontWeight: 700, fontSize: '1rem' }}>{formatPrice(product.price)}</span>
+          <span className="tr-41" style={{ fontWeight: 700, fontSize: '1rem' }}>{formatPrice(product.price)}</span>
         ) : (
           <span style={{ fontSize: '0.85rem', color: 'var(--color-text-muted)' }}>Price to be confirmed</span>
         )}
@@ -78,7 +78,7 @@ export default function ProductCard({ product, index = 0 }: ProductCardProps) {
               return (
                 <button
                   key={v.id}
-                  className="swatch"
+                  className="swatch tr-29"
                   onClick={() => setSelectedVariant(v.id)}
                   aria-pressed={selected}
                   aria-label={`Select colour ${v.label}`}

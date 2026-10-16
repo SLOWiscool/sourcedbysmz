@@ -23,26 +23,26 @@ export default function HomePage() {
           gap: 'var(--space-8)', paddingBlock: 'var(--space-12)'
         }}>
           <div>
-            <p className="anim-rise" style={{ display: 'inline-flex', alignItems: 'center', gap: 6, fontSize: '0.72rem', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.1em', background: 'rgba(37, 99, 235, 0.16)', border: '1px solid rgba(59, 130, 246, 0.45)', color: '#bfdbfe', padding: '5px 12px', borderRadius: 999, marginBottom: 18 }}>
+            <p className="anim-rise anim-pop-soft" style={{ display: 'inline-flex', alignItems: 'center', gap: 6, fontSize: '0.72rem', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.1em', background: 'rgba(37, 99, 235, 0.16)', border: '1px solid rgba(59, 130, 246, 0.45)', color: '#bfdbfe', padding: '5px 12px', borderRadius: 999, marginBottom: 18 }}>
               <span style={{ width: 6, height: 6, borderRadius: '50%', background: '#22c55e', display: 'inline-block' }} />
               Independent resale · UK
             </p>
             {logoUrl ? (
-              <img src={logoUrl} alt="" aria-hidden="true" style={{ width: 'min(280px, 72%)', height: 'auto', objectFit: 'cover', display: 'block', marginBottom: 20, borderRadius: 18, border: '1px solid #24365c', boxShadow: '0 12px 40px rgb(0 0 0 / 0.45)' }} />
+              <img src={logoUrl} alt="" aria-hidden="true" className="anim-float-up" style={{ width: 'min(280px, 72%)', height: 'auto', objectFit: 'cover', display: 'block', marginBottom: 20, borderRadius: 18, border: '1px solid #24365c', boxShadow: '0 12px 40px rgb(0 0 0 / 0.45)' }} />
             ) : (
-              <img src="/images/logo.png" alt="" aria-hidden="true" style={{ width: 'min(280px, 72%)', height: 'auto', objectFit: 'cover', display: 'block', marginBottom: 20, borderRadius: 18, border: '1px solid #24365c', boxShadow: '0 12px 40px rgb(0 0 0 / 0.45)' }} />
+              <img src="/images/logo.png" alt="" aria-hidden="true" className="anim-float-up" style={{ width: 'min(280px, 72%)', height: 'auto', objectFit: 'cover', display: 'block', marginBottom: 20, borderRadius: 18, border: '1px solid #24365c', boxShadow: '0 12px 40px rgb(0 0 0 / 0.45)' }} />
             )}
-            <h1 className="anim-rise" style={{ fontSize: 'clamp(2rem, 4.2vw, 3rem)', fontWeight: 800, lineHeight: 1.05, letterSpacing: '-0.02em', marginBottom: 12, animationDelay: '80ms' }}>
+            <h1 className="anim-rise anim-tilt-in-left" style={{ fontSize: 'clamp(2rem, 4.2vw, 3rem)', fontWeight: 800, lineHeight: 1.05, letterSpacing: '-0.02em', marginBottom: 12, animationDelay: '80ms' }}>
               Sourced<br />with intent.
             </h1>
-            <p className="anim-rise" style={{ fontSize: '1rem', color: '#b5b5b5', maxWidth: '32rem', lineHeight: 1.6, marginBottom: 24, animationDelay: '160ms' }}>
+            <p className="anim-rise anim-fade-up-sm" style={{ fontSize: '1rem', color: '#b5b5b5', maxWidth: '32rem', lineHeight: 1.6, marginBottom: 24, animationDelay: '160ms' }}>
               Curated footwear and outerwear, hand-selected by two friends who know what's worth wearing. Honest photos, honest descriptions.
             </p>
             <div className="anim-rise" style={{ display: 'flex', gap: 12, flexWrap: 'wrap', animationDelay: '240ms' }}>
-              <Link to="/shop" className="btn" style={{ background: 'var(--color-brand)', color: '#fff', fontWeight: 700, padding: '12px 22px', borderRadius: 6, minHeight: 48 }}>
+              <Link to="/shop" className="btn tr-29" style={{ background: 'var(--color-brand)', color: '#fff', fontWeight: 700, padding: '12px 22px', borderRadius: 6, minHeight: 48 }}>
                 Shop the drop <ArrowRight size={16} />
               </Link>
-              <Link to="/collections/footwear" className="btn" style={{ border: '1px solid #3b5a8f', color: '#fff', padding: '12px 22px', borderRadius: 6, minHeight: 48 }}>
+              <Link to="/collections/footwear" className="btn tr-29" style={{ border: '1px solid #3b5a8f', color: '#fff', padding: '12px 22px', borderRadius: 6, minHeight: 48 }}>
                 Footwear
               </Link>
             </div>
@@ -53,7 +53,7 @@ export default function HomePage() {
                 { icon: <Lock size={14} />, text: 'Secure Stripe checkout' },
               ].map((t) => (
                 <li key={t.text} style={{ display: 'inline-flex', alignItems: 'center', gap: 6 }}>
-                  <span style={{ color: '#4ade80', display: 'inline-flex' }}>{t.icon}</span>
+                  <span className="anim-sparkle" style={{ color: '#4ade80', display: 'inline-flex' }}>{t.icon}</span>
                   {t.text}
                 </li>
               ))}
@@ -72,7 +72,7 @@ export default function HomePage() {
 
       <section style={{ paddingBlock: 'var(--space-12)' }}>
         <div className="container stagger">
-          <div className="anim-rise" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', marginBottom: 20 }}>
+          <div className="anim-rise anim-blur-in-soft" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', marginBottom: 20 }}>
             <div>
               <h2 style={{ fontSize: '1.4rem', fontWeight: 800, letterSpacing: '-0.01em' }}>Featured products</h2>
               <p style={{ fontSize: '0.88rem', color: 'var(--color-text-muted)', marginTop: 4 }}>The current drop — real photos, real items.</p>
@@ -96,7 +96,7 @@ export default function HomePage() {
             { title: 'Fair pricing', text: 'Researched pricing with no fake discounts or invented reference prices.' },
             { title: 'Sourced carefully', text: 'Each piece is selected by hand. Photo counts are never shown as stock.' },
           ].map((item, i) => (
-            <div key={item.title} className="lift t-color" style={{ animationDelay: `${i * 80}ms` }}>
+            <div key={item.title} className="lift t-color tr-95" style={{ animationDelay: `${i * 80}ms` }}>
               <h3 className="anim-fade" style={{ fontSize: '1.02rem', fontWeight: 700, marginBottom: 8 }}>{item.title}</h3>
               <p style={{ color: '#555', lineHeight: 1.6, fontSize: '0.92rem' }}>{item.text}</p>
             </div>

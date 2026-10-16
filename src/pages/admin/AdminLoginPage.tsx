@@ -71,7 +71,7 @@ export default function AdminLoginPage() {
             style={{ height: 56, width: 'auto', display: 'block', margin: '0 auto 24px' }}
           />
         )}
-        <div className="anim-pop" style={{ background: '#111827', border: '1px solid #1e3a8a', borderRadius: 12, padding: 24 }}>
+        <div className="anim-pop tr-107" style={{ background: '#111827', border: '1px solid #1e3a8a', borderRadius: 12, padding: 24 }}>
           <p style={{ fontWeight: 800, letterSpacing: '0.04em', marginBottom: 8, color: '#fff', fontSize: '0.8rem' }}>
             SOURCEDBYSMZ · ADMIN
           </p>
@@ -111,7 +111,7 @@ export default function AdminLoginPage() {
                 {error}
               </p>
             )}
-            <button type="submit" className="btn btn--primary btn--full" disabled={pending} style={{ background: '#2563eb' }}>
+            <button type="submit" className="btn btn--primary btn--full tr-52" disabled={pending} style={{ background: '#2563eb' }}>
               {pending ? 'Signing in…' : 'Sign in'}
             </button>
           </form>

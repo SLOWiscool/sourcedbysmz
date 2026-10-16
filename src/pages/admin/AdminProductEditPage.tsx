@@ -103,7 +103,7 @@ function MediaPicker({ onPick, onClose }: { onPick: (url: string) => void; onClo
       style={{ position: 'fixed', inset: 0, background: 'rgba(0,0,0,0.7)', zIndex: 100, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 16 }}
       onClick={onClose}
     >
-      <div className="anim-pop" style={{ background: '#111827', border: '1px solid #1e3a8a', borderRadius: 12, maxWidth: 720, width: '100%', maxHeight: '85vh', overflow: 'auto', padding: 16 }} onClick={(e) => e.stopPropagation()}>
+      <div className="anim-pop anim-blur-in-soft" style={{ background: '#111827', border: '1px solid #1e3a8a', borderRadius: 12, maxWidth: 720, width: '100%', maxHeight: '85vh', overflow: 'auto', padding: 16 }} onClick={(e) => e.stopPropagation()}>
         <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 12, flexWrap: 'wrap' }}>
           <h2 style={{ fontSize: '1.1rem', fontWeight: 700, color: '#f8fafc' }}>Choose image</h2>
           <label style={{ marginLeft: 'auto', fontSize: '0.85rem', color: '#e5e7eb' }}>
@@ -335,7 +335,7 @@ export default function AdminProductEditPage() {
           <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
             <div>
               <label htmlFor="f-title" className="label">Title *</label>
-              <input id="f-title" className="input input--dark" value={product.title} onChange={(e) => {
+              <input id="f-title" className="input input--dark tr-101" value={product.title} onChange={(e) => {
                 const title = e.target.value;
                 setProduct((p) => (p ? { ...p, title, slug: p.slug || slugify(title) } : p));
                 setDirty(true);
@@ -344,11 +344,11 @@ export default function AdminProductEditPage() {
             <div className="form-grid-2">
               <div>
                 <label htmlFor="f-slug" className="label">Slug * (page address)</label>
-                <input id="f-slug" className="input input--dark" value={product.slug} onChange={(e) => set({ slug: slugify(e.target.value) })} required />
+                <input id="f-slug" className="input input--dark tr-101" value={product.slug} onChange={(e) => set({ slug: slugify(e.target.value) })} required />
               </div>
               <div>
                 <label htmlFor="f-category" className="label">Category *</label>
-                <input id="f-category" className="input input--dark" list="category-suggestions" value={product.category} onChange={(e) => set({ category: e.target.value })} required />
+                <input id="f-category" className="input input--dark tr-101" list="category-suggestions" value={product.category} onChange={(e) => set({ category: e.target.value })} required />
                 <datalist id="category-suggestions">
                   {CATEGORY_SUGGESTIONS.map((c) => (
                     <option key={c} value={c} />
@@ -358,16 +358,16 @@ export default function AdminProductEditPage() {
             </div>
             <div>
               <label htmlFor="f-desc" className="label">Description * (plain words, no brand names)</label>
-              <textarea id="f-desc" className="input input--dark" rows={4} value={product.description} onChange={(e) => set({ description: e.target.value })} required />
+              <textarea id="f-desc" className="input input--dark tr-101" rows={4} value={product.description} onChange={(e) => set({ description: e.target.value })} required />
             </div>
             <div className="form-grid-2">
               <div>
                 <label htmlFor="f-tags" className="label">Tags (comma separated)</label>
-                <input id="f-tags" className="input input--dark" value={tagsText} onChange={(e) => { setTagsText(e.target.value); setDirty(true); }} placeholder="chunky, black, footwear" />
+                <input id="f-tags" className="input input--dark tr-101" value={tagsText} onChange={(e) => { setTagsText(e.target.value); setDirty(true); }} placeholder="chunky, black, footwear" />
               </div>
               <div>
                 <label htmlFor="f-sizes" className="label">Sizes (comma separated, blank = one-size)</label>
-                <input id="f-sizes" className="input input--dark" value={sizesText} onChange={(e) => { setSizesText(e.target.value); setDirty(true); }} placeholder="S, M, L" />
+                <input id="f-sizes" className="input input--dark tr-101" value={sizesText} onChange={(e) => { setSizesText(e.target.value); setDirty(true); }} placeholder="S, M, L" />
               </div>
             </div>
           </div>
@@ -379,11 +379,11 @@ export default function AdminProductEditPage() {
             <div className="form-grid-3">
               <div>
                 <label htmlFor="f-price" className="label">Price (£) * — 0 = to be confirmed</label>
-                <input id="f-price" className="input input--dark" inputMode="decimal" value={priceText} onChange={(e) => { setPriceText(e.target.value); setDirty(true); }} required />
+                <input id="f-price" className="input input--dark tr-101" inputMode="decimal" value={priceText} onChange={(e) => { setPriceText(e.target.value); setDirty(true); }} required />
               </div>
               <div>
                 <label htmlFor="f-stock" className="label">Stock * (−1 = unlimited)</label>
-                <input id="f-stock" className="input input--dark" type="number" min={-1} step={1} value={product.stockQuantity} onChange={(e) => {
+                <input id="f-stock" className="input input--dark tr-101" type="number" min={-1} step={1} value={product.stockQuantity} onChange={(e) => {
                   const n = Math.floor(Number(e.target.value) || 0);
                   set({ stockQuantity: n === -1 ? -1 : Math.max(0, n) });
                 }} required />
@@ -395,7 +395,7 @@ export default function AdminProductEditPage() {
               </div>
               <div>
                 <label htmlFor="f-status" className="label">Status *</label>
-                <select id="f-status" className="input input--dark" value={product.status} onChange={(e) => set({ status: e.target.value as ProductStatus })}>
+                <select id="f-status" className="input input--dark tr-101" value={product.status} onChange={(e) => set({ status: e.target.value as ProductStatus })}>
                   {STATUSES.map((s) => (
                     <option key={s.value} value={s.value}>{s.value} — {s.hint}</option>
                   ))}
@@ -405,7 +405,7 @@ export default function AdminProductEditPage() {
             <div className="form-grid-2">
               <div>
                 <label htmlFor="f-condition" className="label">Condition *</label>
-                <select id="f-condition" className="input input--dark" value={product.condition} onChange={(e) => set({ condition: e.target.value as Condition })}>
+                <select id="f-condition" className="input input--dark tr-101" value={product.condition} onChange={(e) => set({ condition: e.target.value as Condition })}>
                   {CONDITIONS.map((c) => (
                     <option key={c} value={c}>{c.replace('_', ' ')}</option>
                   ))}
@@ -413,7 +413,7 @@ export default function AdminProductEditPage() {
               </div>
               <div>
                 <label htmlFor="f-notes" className="label">Condition notes (flaws — shown to customers)</label>
-                <textarea id="f-notes" className="input input--dark" rows={2} value={product.conditionNotes || ''} onChange={(e) => set({ conditionNotes: e.target.value })} />
+                <textarea id="f-notes" className="input input--dark tr-101" rows={2} value={product.conditionNotes || ''} onChange={(e) => set({ conditionNotes: e.target.value })} />
               </div>
             </div>
             <label style={{ display: 'flex', alignItems: 'center', gap: 10, color: '#e5e7eb', minHeight: 44 }}>
@@ -428,7 +428,7 @@ export default function AdminProductEditPage() {
             {product.images.map((image, i) => (
               <div key={`${image.url}-${i}`} style={{ display: 'flex', gap: 8, alignItems: 'center', border: '1px solid #1e3a8a', borderRadius: 8, padding: 8, background: '#0f172a' }}>
                 <img src={image.url} alt="" style={{ width: 52, height: 64, objectFit: 'cover', borderRadius: 4, flexShrink: 0, display: 'block' }} />
-                <input aria-label={`Alt text for photo ${i + 1}`} className="input input--dark" value={image.alt} onChange={(e) => updateImage(i, { alt: e.target.value })} placeholder="Describe this photo" style={{ flex: 1, minWidth: 0 }} />
+                <input aria-label={`Alt text for photo ${i + 1}`} className="input input--dark tr-101" value={image.alt} onChange={(e) => updateImage(i, { alt: e.target.value })} placeholder="Describe this photo" style={{ flex: 1, minWidth: 0 }} />
                 <button type="button" onClick={() => removeImage(i)} style={{ textDecoration: 'underline', color: '#fca5a5', flexShrink: 0, minHeight: 44, padding: '0 4px' }}>Remove</button>
               </div>
             ))}
@@ -446,23 +446,23 @@ export default function AdminProductEditPage() {
             </button>
           </div>
           {(product.variants || []).map((v, i) => (
-            <fieldset key={v.id} style={{ border: '1px solid #1e3a8a', borderRadius: 10, padding: 12, marginBottom: 10, background: '#0f172a', minWidth: 0 }}>
+            <fieldset key={v.id} className="tr-49" style={{ border: '1px solid #1e3a8a', borderRadius: 10, padding: 12, marginBottom: 10, background: '#0f172a', minWidth: 0 }}>
               <legend style={{ fontWeight: 700, padding: '0 6px', color: '#f8fafc' }}>{v.label || `Option ${i + 1}`}</legend>
               <div className="form-grid-3" style={{ marginBottom: 10 }}>
                 <div>
                   <label className="label" htmlFor={`v-label-${i}`}>Label *</label>
-                  <input id={`v-label-${i}`} className="input input--dark" value={v.label} onChange={(e) => updateVariant(i, { label: e.target.value })} required />
+                  <input id={`v-label-${i}`} className="input input--dark tr-101" value={v.label} onChange={(e) => updateVariant(i, { label: e.target.value })} required />
                 </div>
                 <div>
                   <label className="label" htmlFor={`v-stock-${i}`}>Stock * (−1 = unlimited)</label>
-                  <input id={`v-stock-${i}`} className="input input--dark" type="number" min={-1} step={1} value={v.stockQuantity} onChange={(e) => {
+                  <input id={`v-stock-${i}`} className="input input--dark tr-101" type="number" min={-1} step={1} value={v.stockQuantity} onChange={(e) => {
                     const n = Math.floor(Number(e.target.value) || 0);
                     updateVariant(i, { stockQuantity: n === -1 ? -1 : Math.max(0, n) });
                   }} required />
                 </div>
                 <div>
                   <label className="label" htmlFor={`v-price-${i}`}>Price £ (blank = product price)</label>
-                  <input id={`v-price-${i}`} className="input input--dark" inputMode="decimal" value={v.price === undefined || v.price === null ? '' : (v.price / 100).toFixed(2)} onChange={(e) => {
+                  <input id={`v-price-${i}`} className="input input--dark tr-101" inputMode="decimal" value={v.price === undefined || v.price === null ? '' : (v.price / 100).toFixed(2)} onChange={(e) => {
                     const raw = e.target.value;
                     updateVariant(i, { price: raw.trim() === '' ? undefined : poundsToPence(raw) ?? undefined });
                   }} />
@@ -496,7 +496,7 @@ export default function AdminProductEditPage() {
           <span style={{ fontSize: '0.85rem', color: dirty ? '#fbbf24' : '#94a3b8' }}>
             {dirty ? '● Unsaved changes' : 'All saved'}
           </span>
-          <button type="submit" className="btn" disabled={saving} style={{ marginLeft: 'auto', background: '#2563eb', color: '#fff', borderRadius: 6, padding: '12px 28px', minHeight: 48, fontWeight: 700 }}>
+          <button type="submit" className="btn tr-52" disabled={saving} style={{ marginLeft: 'auto', background: '#2563eb', color: '#fff', borderRadius: 6, padding: '12px 28px', minHeight: 48, fontWeight: 700 }}>
             {saving ? 'Saving…' : isNew ? 'Create product' : 'Save changes'}
           </button>
           <Link to="/admin/products" style={{ color: '#93c5fd', fontSize: '0.9rem' }}>

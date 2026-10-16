@@ -41,26 +41,26 @@ export default function AdminLayout() {
       <header style={{ background: '#0a0a0a', color: '#fff', borderBottom: '3px solid #2563eb' }}>
         <div className="container" style={{ display: 'flex', alignItems: 'center', gap: 8, rowGap: 10, paddingBlock: 12, flexWrap: 'wrap' }}>
           {logoUrl && <img src={logoUrl} alt="SOURCEDBYSMZ" style={{ height: 40, width: 'auto' }} />}
-          <Link to="/admin" style={{ color: '#fff', textDecoration: 'none', fontWeight: 800, letterSpacing: '0.04em' }}>
+          <Link to="/admin" className="tr-21" style={{ color: '#fff', textDecoration: 'none', fontWeight: 800, letterSpacing: '0.04em' }}>
             SOURCEDBYSMZ · ADMIN
           </Link>
           <nav style={{ display: 'flex', gap: 12, rowGap: 8, fontSize: '0.9rem', flexWrap: 'wrap' }} aria-label="Admin">
-            <NavLink to="/admin" end style={linkStyle}>
+            <NavLink to="/admin" end className="tr-38" style={linkStyle}>
               Dashboard
             </NavLink>
-            <NavLink to="/admin/products" style={linkStyle}>
+            <NavLink to="/admin/products" className="tr-38" style={linkStyle}>
               Products
             </NavLink>
-            <NavLink to="/admin/discounts" style={linkStyle}>
+            <NavLink to="/admin/discounts" className="tr-38" style={linkStyle}>
               Discounts
             </NavLink>
-            <NavLink to="/admin/watchlist" style={linkStyle}>
+            <NavLink to="/admin/watchlist" className="tr-38" style={linkStyle}>
               Watchlist
             </NavLink>
-            <NavLink to="/admin/orders" style={linkStyle}>
+            <NavLink to="/admin/orders" className="tr-38" style={linkStyle}>
               Orders
             </NavLink>
-            <Link to="/" style={{ color: '#93c5fd', opacity: 0.9 }}>
+            <Link to="/" className="tr-38" style={{ color: '#93c5fd', opacity: 0.9 }}>
               View shop
             </Link>
           </nav>

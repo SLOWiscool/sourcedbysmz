@@ -35,12 +35,12 @@ export default function AdminOrdersPage() {
           {orders.map((o) => (
             <details
               key={o.ref}
-              className="card-row row-lift"
+              className="card-row row-lift tr-118"
               style={{ border: '1px solid #1e3a8a', borderRadius: 8, padding: 12, background: '#111827', color: '#e5e7eb' }}
             >
               <summary style={{ cursor: 'pointer', fontSize: '0.92rem' }}>
                 <strong>{o.ref}</strong> · {new Date(o.createdAt).toLocaleString('en-GB')} · {o.items} item{o.items === 1 ? '' : 's'} ·{' '}
-                {formatPrice(o.total)} · <span className="badge">{o.status}</span>
+                {formatPrice(o.total)} · <span className="badge tr-99">{o.status}</span>
               </summary>
               <div style={{ marginTop: 10, fontSize: '0.88rem', display: 'flex', flexDirection: 'column', gap: 4 }}>
                 <p>

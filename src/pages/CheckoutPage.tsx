@@ -95,7 +95,7 @@ export default function CheckoutPage() {
 
   return (
     <div className="container section stagger">
-      <h1 style={{ fontSize: '1.5rem', fontWeight: 700, marginBottom: 'var(--space-6)' }}>Checkout</h1>
+      <h1 className="anim-slide-down-sm" style={{ fontSize: '1.5rem', fontWeight: 700, marginBottom: 'var(--space-6)' }}>Checkout</h1>
 
       <div onBlur={validate} className="summary-layout">
           <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-6)' }}>
@@ -110,7 +110,7 @@ export default function CheckoutPage() {
                     autoComplete="email"
                     value={form.email}
                     onChange={(e) => updateField('email', e.target.value)}
-                    className="input"
+                    className="input tr-101"
                     aria-invalid={!!errors.email}
                     aria-describedby={errors.email ? 'email-error' : undefined}
                   />
@@ -124,7 +124,7 @@ export default function CheckoutPage() {
                     autoComplete="tel"
                     value={form.phone}
                     onChange={(e) => updateField('phone', e.target.value)}
-                    className="input"
+                    className="input tr-101"
                   />
                 </div>
               </div>
@@ -142,7 +142,7 @@ export default function CheckoutPage() {
                       autoComplete="given-name"
                       value={form.firstName}
                       onChange={(e) => updateField('firstName', e.target.value)}
-                      className="input"
+                      className="input tr-101"
                       aria-invalid={!!errors.firstName}
                       aria-describedby={errors.firstName ? 'firstName-error' : undefined}
                     />
@@ -156,7 +156,7 @@ export default function CheckoutPage() {
                       autoComplete="family-name"
                       value={form.lastName}
                       onChange={(e) => updateField('lastName', e.target.value)}
-                      className="input"
+                      className="input tr-101"
                       aria-invalid={!!errors.lastName}
                       aria-describedby={errors.lastName ? 'lastName-error' : undefined}
                     />
@@ -171,7 +171,7 @@ export default function CheckoutPage() {
                     autoComplete="address-line1"
                     value={form.addressLine1}
                     onChange={(e) => updateField('addressLine1', e.target.value)}
-                    className="input"
+                    className="input tr-101"
                     aria-invalid={!!errors.addressLine1}
                     aria-describedby={errors.addressLine1 ? 'addressLine1-error' : undefined}
                   />
@@ -185,7 +185,7 @@ export default function CheckoutPage() {
                     autoComplete="address-line2"
                     value={form.addressLine2}
                     onChange={(e) => updateField('addressLine2', e.target.value)}
-                    className="input"
+                    className="input tr-101"
                   />
                 </div>
                 <div className="form-grid-2" style={{ gap: 'var(--space-3)' }}>
@@ -197,7 +197,7 @@ export default function CheckoutPage() {
                       autoComplete="address-level2"
                       value={form.city}
                       onChange={(e) => updateField('city', e.target.value)}
-                      className="input"
+                      className="input tr-101"
                       aria-invalid={!!errors.city}
                       aria-describedby={errors.city ? 'city-error' : undefined}
                     />
@@ -211,7 +211,7 @@ export default function CheckoutPage() {
                       autoComplete="postal-code"
                       value={form.postcode}
                       onChange={(e) => updateField('postcode', e.target.value.toUpperCase())}
-                      className="input"
+                      className="input tr-101"
                       aria-invalid={!!errors.postcode}
                       aria-describedby={errors.postcode ? 'postcode-error' : undefined}
                     />
@@ -224,7 +224,7 @@ export default function CheckoutPage() {
             <section className="anim-rise" style={{ animationDelay: '120ms' }}>
               <h2 style={{ fontSize: '1rem', fontWeight: 700, marginBottom: 'var(--space-3)' }}>Shipping Method</h2>
               <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-2)' }}>
-                <label style={{
+                <label className="tr-99" style={{
                   display: 'flex',
                   alignItems: 'center',
                   gap: 'var(--space-3)',
@@ -247,7 +247,7 @@ export default function CheckoutPage() {
                   </div>
                   <span style={{ fontWeight: 600 }}>{subtotal >= 5000 ? 'Free' : formatPrice(399)}</span>
                 </label>
-                <label style={{
+                <label className="tr-99" style={{
                   display: 'flex',
                   alignItems: 'center',
                   gap: 'var(--space-3)',

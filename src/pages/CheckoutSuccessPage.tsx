@@ -93,7 +93,7 @@ export default function CheckoutSuccessPage() {
     if (order && (order.status === 'paid' || order.status === 'refunded')) clearBag();
   }, [order]);
 
-  let icon = <Loader2 size={48} color="var(--color-brand)" className="anim-spin" style={{ margin: '0 auto var(--space-4)' }} />;
+  let icon = <Loader2 size={48} color="var(--color-brand)" className="anim-spin anim-spin-cw-fast" style={{ margin: '0 auto var(--space-4)' }} />;
   let title = 'Confirming your order…';
   let body = 'Checking with the payment provider. This page updates automatically.';
 
@@ -105,9 +105,9 @@ export default function CheckoutSuccessPage() {
     const copy = (order.status ? STATUS_COPY[order.status] : undefined) || STATUS_COPY.pending!;
     const confirmed = order.status === 'paid';
     icon = confirmed ? (
-      <CheckCircle size={48} color="var(--color-success)" className="anim-bounce-in" style={{ margin: '0 auto var(--space-4)' }} />
+      <CheckCircle size={48} color="var(--color-success)" className="anim-bounce-in anim-sparkle" style={{ margin: '0 auto var(--space-4)' }} />
     ) : (
-      <Loader2 size={48} color="var(--color-brand)" className="anim-spin" style={{ margin: '0 auto var(--space-4)' }} />
+      <Loader2 size={48} color="var(--color-brand)" className="anim-spin anim-spin-cw-fast" style={{ margin: '0 auto var(--space-4)' }} />
     );
     title = copy.title;
     body = copy.body;
@@ -116,7 +116,7 @@ export default function CheckoutSuccessPage() {
   return (
     <div className="container section" style={{ textAlign: 'center', paddingBlock: 'var(--space-20)' }}>
       {icon}
-      <h1 className="anim-rise" style={{ fontSize: '1.5rem', fontWeight: 700, marginBottom: 'var(--space-3)' }}>{title}</h1>
+      <h1 className="anim-rise anim-slide-up-sm" style={{ fontSize: '1.5rem', fontWeight: 700, marginBottom: 'var(--space-3)' }}>{title}</h1>
       <p style={{ color: 'var(--color-text-muted)', maxWidth: '36rem', margin: '0 auto var(--space-6)', lineHeight: 1.6 }}>
         {body}
       </p>
@@ -126,8 +126,8 @@ export default function CheckoutSuccessPage() {
         </p>
       )}
       <div style={{ display: 'flex', gap: 'var(--space-3)', justifyContent: 'center', flexWrap: 'wrap' }}>
-        <Link to="/shop" className="btn btn--primary">Continue Shopping</Link>
-        <Link to="/" className="btn btn--secondary">Back to Home</Link>
+        <Link to="/shop" className="btn btn--primary tr-29">Continue Shopping</Link>
+        <Link to="/" className="btn btn--secondary tr-29">Back to Home</Link>
       </div>
     </div>
   );

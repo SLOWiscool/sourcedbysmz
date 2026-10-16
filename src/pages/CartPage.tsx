@@ -14,8 +14,8 @@ export default function CartPage() {
     return (
       <div className="container section">
         <div className="empty-state">
-          <ShoppingBag size={48} />
-          <h1>Your bag is empty</h1>
+          <ShoppingBag size={48} className="anim-float-up" />
+          <h1 className="anim-slide-down-sm">Your bag is empty</h1>
           <p>Browse our curated selection and find something you love.</p>
           <Link to="/shop" className="btn btn--primary">
             Shop products
@@ -35,7 +35,7 @@ export default function CartPage() {
   return (
     <div className="container section">
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', marginBottom: 'var(--space-8)' }}>
-        <h1 style={{ fontSize: '1.5rem', fontWeight: 700 }}>Shopping Bag</h1>
+        <h1 className="anim-slide-down-sm" style={{ fontSize: '1.5rem', fontWeight: 700 }}>Shopping Bag</h1>
         <button onClick={clearCart} className="btn btn--secondary btn--small t-color">
           <Trash2 size={14} />
           Clear bag
@@ -54,7 +54,7 @@ export default function CartPage() {
             return (
               <li
                 key={`${item.productId}-${item.variantId || ''}-${item.size || ''}`}
-                className="card-row anim-slide-right"
+                className="card-row anim-slide-right tr-118"
                 style={{
                   display: 'flex',
                   gap: 'var(--space-4)',
@@ -143,7 +143,7 @@ export default function CartPage() {
               <span style={{ fontWeight: 600 }}>{formatPrice(subtotal)}</span>
             </div>
             {discount && (
-              <div style={{ display: 'flex', justifyContent: 'space-between', color: 'var(--color-success)' }}>
+              <div className="anim-pop-soft tr-31" style={{ display: 'flex', justifyContent: 'space-between', color: 'var(--color-success)' }}>
                 <span>Discount ({discount.code})</span>
                 <span style={{ fontWeight: 600 }}>−{formatPrice(discount.amount)}</span>
               </div>
@@ -169,7 +169,7 @@ export default function CartPage() {
             <span style={{ fontWeight: 700, fontSize: '1.125rem' }}>{formatPrice(total)}</span>
           </div>
 
-          <Link to="/checkout" className="btn btn--primary btn--full">
+          <Link to="/checkout" className="btn btn--primary btn--full tr-52">
             Checkout
           </Link>
         </aside>

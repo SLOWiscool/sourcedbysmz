@@ -50,7 +50,7 @@ export default function AdminDashboardPage() {
           <Link
             key={c.label}
             to={c.to}
-            className="lift anim-rise"
+            className="lift anim-rise tr-95"
             style={{ textDecoration: 'none', border: '1px solid #1e3a8a', borderRadius: 8, padding: 14, background: '#111827', color: '#e5e7eb', animationDelay: `${Math.min(i, 4) * 70}ms` }}
           >
             <div style={{ fontSize: '1.4rem', fontWeight: 800 }}>{c.value}</div>
@@ -66,7 +66,7 @@ export default function AdminDashboardPage() {
           {orders.slice(0, 5).map((o) => (
             <li
               key={o.ref}
-              className="card-row"
+              className="card-row tr-118"
               style={{ border: '1px solid #1e3a8a', borderRadius: 8, padding: 10, background: '#111827', fontSize: '0.88rem', color: '#e5e7eb' }}
             >
               <strong>{o.ref}</strong> · {o.items} item{o.items === 1 ? '' : 's'} · {formatPrice(o.total)} · {o.status}

@@ -40,7 +40,7 @@ function PaymentForm({ amount, orderRef, onSuccess, onError }: { amount: number;
   };
 
   return (
-    <form onSubmit={handlePay}>
+    <form onSubmit={handlePay} className="anim-blur-in-soft">
       <ExpressCheckoutElement
         options={{ wallets: { applePay: 'auto', googlePay: 'auto' } }}
         onConfirm={confirm}
@@ -48,7 +48,7 @@ function PaymentForm({ amount, orderRef, onSuccess, onError }: { amount: number;
       <div style={{ marginTop: 16 }}>
         <PaymentElement options={{ layout: 'tabs' }} />
       </div>
-      <button type="submit" disabled={!stripe || processing} className="btn btn--primary btn--full" style={{ marginTop: 16, minHeight: 46 }}>
+      <button type="submit" disabled={!stripe || processing} className="btn btn--primary btn--full tr-52" style={{ marginTop: 16, minHeight: 46 }}>
         {processing ? 'Processing…' : `Pay ${formatPrice(amount)}`}
       </button>
     </form>
@@ -152,7 +152,7 @@ export default function StripePayment(props: StripePaymentProps) {
 
   if (status === 'error' || !clientSecret) {
     return (
-      <div role="alert" className="anim-shake" style={{ border: '1px solid #f0c0c0', borderRadius: 8, padding: 14, background: '#fff5f5' }}>
+      <div role="alert" className="anim-shake tr-46" style={{ border: '1px solid #f0c0c0', borderRadius: 8, padding: 14, background: '#fff5f5' }}>
         <p style={{ fontWeight: 600 }}>Payment unavailable right now</p>
         <p style={{ fontSize: '0.87rem', color: '#666' }}>{message || 'Please try again later.'}</p>
       </div>

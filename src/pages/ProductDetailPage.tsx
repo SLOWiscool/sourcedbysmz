@@ -148,7 +148,7 @@ export default function ProductDetailPage() {
   const nextImage = () => setSelectedImage((prev) => (prev + 1) % gallery.length);
   const prevImage = () => setSelectedImage((prev) => (prev - 1 + gallery.length) % gallery.length);  return (
     <div className="container section">
-      <nav aria-label="Breadcrumb" style={{ marginBottom: 'var(--space-4)', fontSize: '0.8125rem' }}>
+      <nav aria-label="Breadcrumb" className="anim-fade-down-sm" style={{ marginBottom: 'var(--space-4)', fontSize: '0.8125rem' }}>
         <ol style={{ display: 'flex', gap: 'var(--space-2)', alignItems: 'center', flexWrap: 'wrap', color: 'var(--color-text-muted)' }}>
           <li><Link to="/" className="t-color">Home</Link></li>
           <li>/</li>
@@ -198,7 +198,7 @@ export default function ProductDetailPage() {
           {gallery.length > 1 && (
             <div style={{ display: 'flex', gap: 8, marginTop: 10, flexWrap: 'wrap' }} role="group" aria-label="Product images">
               {gallery.map((g, idx) => (
-                <button key={idx} onClick={() => setSelectedImage(idx)} className="thumb"
+                <button key={idx} onClick={() => setSelectedImage(idx)} className="thumb tr-95"
                   aria-label={`View image ${idx + 1} of ${gallery.length}`} aria-pressed={selectedImage === idx}
                   style={{ width: 64, height: 80, borderRadius: 6, overflow: 'hidden', border: selectedImage === idx ? '2px solid var(--color-brand)' : '1px solid var(--color-border)', padding: 0, background: '#fff' }}>
                   <img src={g.url} alt="" style={{ width: '100%', height: '100%', objectFit: 'cover' }} loading="lazy" />
@@ -236,7 +236,7 @@ export default function ProductDetailPage() {
                 {product.variants!.map((v) => {
                   const selected = v.id === selectedVariant;
                   return (
-                    <button key={v.id} role="radio" aria-checked={selected} aria-label={v.label} title={v.label} className="pill"
+                    <button key={v.id} role="radio" aria-checked={selected} aria-label={v.label} title={v.label} className="pill tr-29"
                       onClick={() => selectColor(v.id)}
                       style={{
                         display: 'flex', alignItems: 'center', gap: 8, padding: '8px 14px 8px 8px', minHeight: 44,
@@ -263,7 +263,7 @@ export default function ProductDetailPage() {
                 {sizes.map((s) => {
                   const selected = s === selectedSize;
                   return (
-                    <button key={s} role="radio" aria-checked={selected} aria-label={`Size ${s}`} className="pill"
+                    <button key={s} role="radio" aria-checked={selected} aria-label={`Size ${s}`} className="pill tr-29"
                       onClick={() => { setSelectedSize(s); setSizeError(false); }}
                       style={{
                         minWidth: 48, minHeight: 44, padding: '8px 14px',
@@ -287,7 +287,7 @@ export default function ProductDetailPage() {
           <p style={{ lineHeight: 1.65, color: '#333', marginBottom: 16 }}>{product.description}</p>
 
           {product.conditionNotes && (
-            <div className="anim-rise" style={{ background: '#f7f7f7', padding: 14, borderRadius: 8, marginBottom: 20 }}>
+            <div className="anim-rise anim-slide-right-sm" style={{ background: '#f7f7f7', padding: 14, borderRadius: 8, marginBottom: 20 }}>
               <p style={{ fontWeight: 600, fontSize: '0.85rem', marginBottom: 4 }}>Condition notes</p>
               <p style={{ fontSize: '0.87rem', lineHeight: 1.55, color: '#555' }}>{product.conditionNotes}</p>
             </div>
@@ -297,10 +297,10 @@ export default function ProductDetailPage() {
             <div style={{ marginBottom: 20 }}>
               <p style={{ fontWeight: 600, fontSize: '0.85rem', marginBottom: 8 }}>Quantity</p>
               <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
-                <button onClick={() => setQuantity(Math.max(1, quantity - 1))} disabled={quantity <= 1} aria-label="Decrease quantity" className="icon-btn"
+                <button onClick={() => setQuantity(Math.max(1, quantity - 1))} disabled={quantity <= 1} aria-label="Decrease quantity" className="icon-btn tr-21"
                   style={{ width: 44, height: 44, border: '1px solid var(--color-border)', borderRadius: 6, fontSize: '1.1rem' }}>−</button>
                 <span style={{ minWidth: 24, textAlign: 'center', fontWeight: 700 }}>{quantity}</span>
-                <button onClick={() => setQuantity(Math.min(infiniteStock ? 10 : stock, quantity + 1))} disabled={!infiniteStock && quantity >= stock} aria-label="Increase quantity" className="icon-btn"
+                <button onClick={() => setQuantity(Math.min(infiniteStock ? 10 : stock, quantity + 1))} disabled={!infiniteStock && quantity >= stock} aria-label="Increase quantity" className="icon-btn tr-21"
                   style={{ width: 44, height: 44, border: '1px solid var(--color-border)', borderRadius: 6, fontSize: '1.1rem' }}>+</button>
                 <span style={{ fontSize: '0.82rem', color: 'var(--color-text-muted)' }}>{infiniteStock ? 'In stock — unlimited' : `${stock} available`}</span>
               </div>
@@ -313,7 +313,7 @@ export default function ProductDetailPage() {
 
           {!purchasable && <WatchlistForm productId={product.id} productTitle={product.title} />}
 
-          <button onClick={handleAddToCart} disabled={!purchasable} className="btn btn--primary btn--full"
+          <button onClick={handleAddToCart} disabled={!purchasable} className="btn btn--primary btn--full tr-93"
             style={{ marginBottom: 16, minHeight: 48, fontSize: '1rem' }}>
             <ShoppingBag size={18} />
             {purchasable ? 'Add to Bag' : price <= 0 ? 'Coming Soon' : 'Sold Out'}
@@ -321,11 +321,11 @@ export default function ProductDetailPage() {
 
           <div style={{ display: 'flex', flexDirection: 'column', gap: 8, padding: 14, border: '1px solid var(--color-border)', borderRadius: 8 }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-              <Truck size={16} />
+              <Truck size={16} className="anim-sparkle" />
               <p style={{ fontSize: '0.83rem', color: '#555' }}><Link to="/shipping" style={{ textDecoration: 'underline' }}>Shipping information</Link></p>
             </div>
             <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-              <RotateCcw size={16} />
+              <RotateCcw size={16} className="anim-sparkle" />
               <p style={{ fontSize: '0.83rem', color: '#555' }}><Link to="/returns" style={{ textDecoration: 'underline' }}>Returns & refunds</Link></p>
             </div>
           </div>
@@ -333,7 +333,7 @@ export default function ProductDetailPage() {
       </div>
 
       {lightboxOpen && (
-        <div role="dialog" aria-modal="true" aria-label="Image lightbox"
+        <div role="dialog" aria-modal="true" aria-label="Image lightbox" className="anim-zoom-blur"
           style={{ position: 'fixed', inset: 0, zIndex: 300, background: 'rgba(0,0,0,0.92)' }} onClick={() => setLightboxOpen(false)}>
           <button onClick={() => setLightboxOpen(false)} aria-label="Close"
             style={{ position: 'absolute', top: 16, right: 20, color: '#fff', fontSize: '2rem', zIndex: 301 }}>&times;</button>

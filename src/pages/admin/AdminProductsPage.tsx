@@ -78,7 +78,7 @@ export default function AdminProductsPage() {
           return (
             <li
               key={p.id}
-              className="card-row anim-slide-right row-lift"
+              className="card-row anim-slide-right row-lift tr-118"
               style={{
                 display: 'flex',
                 gap: 12,
@@ -109,7 +109,7 @@ export default function AdminProductsPage() {
               <div style={{ display: 'flex', flexDirection: 'column', gap: 6, flexShrink: 0 }}>
                 <Link
                   to={`/admin/products/${p.id}`}
-                  className="btn"
+                  className="btn tr-97"
                   style={{ background: '#2563eb', color: '#fff', borderRadius: 6, padding: '8px 16px', minHeight: 44, fontSize: '0.85rem' }}
                 >
                   Edit
@@ -117,7 +117,7 @@ export default function AdminProductsPage() {
                 <button
                   onClick={() => toggleStatus(p)}
                   disabled={busy === p.id}
-                  className="btn"
+                  className="btn tr-97"
                   style={{ border: '1px solid #1e3a8a', color: '#e5e7eb', borderRadius: 6, padding: '8px 16px', minHeight: 44, fontSize: '0.85rem' }}
                 >
                   {p.status === 'active' ? 'Unpublish' : 'Publish'}
@@ -125,7 +125,7 @@ export default function AdminProductsPage() {
                 <button
                   onClick={() => remove(p)}
                   disabled={busy === p.id}
-                  className="btn"
+                  className="btn tr-97"
                   style={{ border: '1px solid #7f1d1d', color: '#fca5a5', borderRadius: 6, padding: '8px 16px', minHeight: 44, fontSize: '0.85rem' }}
                 >
                   Delete

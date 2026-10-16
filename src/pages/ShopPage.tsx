@@ -133,7 +133,7 @@ export default function ShopPage() {
         <p style={{ fontWeight: 600, fontSize: '0.875rem', marginBottom: 'var(--space-2)' }}>Category</p>
         <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-2)' }}>
           {categories.map(cat => (
-            <label key={cat} style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-2)', cursor: 'pointer', fontSize: '0.9375rem' }}>
+            <label key={cat} className="tr-97" style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-2)', cursor: 'pointer', fontSize: '0.9375rem' }}>
               <input
                 type="checkbox"
                 checked={selectedCategories.includes(cat)}
@@ -150,7 +150,7 @@ export default function ShopPage() {
         <p style={{ fontWeight: 600, fontSize: '0.875rem', marginBottom: 'var(--space-2)' }}>Condition</p>
         <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-2)' }}>
           {CONDITIONS.map(cond => (
-            <label key={cond} style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-2)', cursor: 'pointer', fontSize: '0.9375rem' }}>
+            <label key={cond} className="tr-97" style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-2)', cursor: 'pointer', fontSize: '0.9375rem' }}>
               <input
                 type="checkbox"
                 checked={selectedConditions.includes(cond)}
@@ -187,7 +187,7 @@ export default function ShopPage() {
   return (
     <div className="container section">
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', marginBottom: 'var(--space-6)' }}>
-        <h1 style={{ fontSize: '1.5rem', fontWeight: 700 }}>Shop All</h1>
+        <h1 className="anim-slide-down-sm" style={{ fontSize: '1.5rem', fontWeight: 700 }}>Shop All</h1>
         <p key={filtered.length} className="anim-fade" style={{ color: 'var(--color-text-muted)', fontSize: '0.875rem' }}>
           {filtered.length} {filtered.length === 1 ? 'product' : 'products'}
         </p>
@@ -196,7 +196,7 @@ export default function ShopPage() {
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 'var(--space-6)', flexWrap: 'wrap', gap: 'var(--space-4)' }}>
         <button
           onClick={() => setFiltersOpen(!filtersOpen)}
-          className="btn btn--secondary btn--small"
+          className="btn btn--secondary btn--small tr-119"
           style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-2)' }}
           aria-expanded={filtersOpen}
         >
@@ -226,7 +226,7 @@ export default function ShopPage() {
             id="sort"
             value={sort}
             onChange={(e) => updateParams({ sort: e.target.value })}
-            className="input t-color"
+            className="input t-color tr-46"
             style={{ width: 'auto', minHeight: 32, paddingBlock: 'var(--space-1)', fontSize: '0.875rem' }}
           >
             {SORT_OPTIONS.map(opt => (
@@ -237,7 +237,7 @@ export default function ShopPage() {
       </div>
 
       {filtered.length === 0 ? (
-        <div className="empty-state anim-pop">
+        <div className="empty-state anim-pop anim-zoom-fade">
           <h2>No products found</h2>
           <p>Try adjusting your search or filters.</p>
           <button onClick={clearFilters} className="btn btn--primary">

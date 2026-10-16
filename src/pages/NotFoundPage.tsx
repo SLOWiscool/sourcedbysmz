@@ -10,13 +10,13 @@ export default function NotFoundPage() {
         color: 'var(--color-text)',
         marginBottom: 'var(--space-3)'
       }}>404</p>
-      <h1 className="anim-bounce-in" style={{ fontSize: '1.25rem', fontWeight: 700, marginBottom: 'var(--space-3)' }}>Page not found</h1>
+      <h1 className="anim-bounce-in anim-zoom-blur" style={{ fontSize: '1.25rem', fontWeight: 700, marginBottom: 'var(--space-3)' }}>Page not found</h1>
       <p style={{ color: 'var(--color-text-muted)', marginBottom: 'var(--space-6)' }}>
         The page you're looking for doesn't exist or has been moved.
       </p>
       <div style={{ display: 'flex', gap: 'var(--space-3)', justifyContent: 'center' }}>
-        <Link to="/" className="btn btn--primary">Back to Home</Link>
-        <Link to="/shop" className="btn btn--secondary">Browse Shop</Link>
+        <Link to="/" className="btn btn--primary tr-29">Back to Home</Link>
+        <Link to="/shop" className="btn btn--secondary tr-29">Browse Shop</Link>
       </div>
     </div>
   );

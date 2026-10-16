@@ -78,4 +78,67 @@ describe('watchlist subscriptions', () => {
       expect.objectContaining({ status: 404 })
     );
   });
+
+  it('finds watchers only when a product newly becomes buyable', () => {
+    const base = {
+      id: 'p-test', status: 'draft', price: 0, stockQuantity: 0, variants: [],
+    };
+    const live = { ...base, status: 'active', price: 2000, stockQuantity: 3 };
+    const subs = [
+      { token: 't1', productId: 'p-test', email: 'a@b.co', notifiedAt: null },
+      { token: 't2', productId: 'p-test', email: 'b@b.co', notifiedAt: '2026-01-01T00:00:00Z' },
+      { token: 't3', productId: 'p-other', email: 'c@b.co', notifiedAt: null },
+    ];
+    expect(watchlistMod.findNewlyAvailableWatchers(base, live, subs).map((s) => s.token)).toEqual(['t1']);
+    expect(watchlistMod.findNewlyAvailableWatchers(live, live, subs)).toEqual([]);
+    expect(watchlistMod.findNewlyAvailableWatchers(base, base, subs)).toEqual([]);
+    expect(watchlistMod.findNewlyAvailableWatchers(null, live, subs).map((s) => s.token)).toEqual(['t1']);
+  });
+});
+
+describe('outgoing mail boundary', () => {
+  let emailMod: {
+    setOutboxFile: (path: string) => void;
+    getOutbox: () => Array<Record<string, unknown>>;
+    sendStockAlert: (args: { to: string; productSlug: string; productTitle: string; unsubscribeToken: string; transportOverride?: unknown }) => Promise<{ sent: boolean }>;
+  };
+  beforeEach(async () => {
+    emailMod = await import('../../server/email.js');
+    emailMod.setOutboxFile(tmpFile('outbox'));
+  });
+
+  it('sends through an injected transport and records the outbox', async () => {
+    const sent = [];
+    const transport = { sendMail: async (msg) => { sent.push(msg); return { accepted: [msg.to], messageId: 'm1' }; } };
+    const result = await emailMod.sendStockAlert({
+      to: 'fan@example.com',
+      productSlug: 'down-vest',
+      productTitle: 'Down Vest',
+      unsubscribeToken: 'tok123',
+      transportOverride: transport,
+    });
+    expect(result.sent).toBe(true);
+    expect(sent.length).toBe(1);
+    expect(sent[0].to).toBe('fan@example.com');
+    expect(sent[0].headers['List-Unsubscribe']).toContain('tok123');
+    const outbox = emailMod.getOutbox();
+    expect(outbox[outbox.length - 1].status).toBe('sent');
+  });
+
+  it('records failures with the reason instead of dropping mail', async () => {
+    const transport = { sendMail: async () => { throw new Error('ECONNREFUSED port 25 blocked'); } };
+    await expect(
+      emailMod.sendStockAlert({
+        to: 'fan@example.com',
+        productSlug: 'down-vest',
+        productTitle: 'Down Vest',
+        unsubscribeToken: 'tok123',
+        transportOverride: transport,
+      })
+    ).rejects.toThrow(/port 25 blocked/);
+    const outbox = emailMod.getOutbox();
+    const last = outbox[outbox.length - 1];
+    expect(last.status).toBe('failed');
+    expect(last.to).toBe('fan@example.com');
+  });
 });

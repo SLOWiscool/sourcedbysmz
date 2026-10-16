@@ -4,15 +4,16 @@ import type { Product } from '../../types';
 
 export default function AdminWatchlistPage() {
   const [subscriptions, setSubscriptions] = useState<WatchlistEntry[] | null>(null);
-  const [outboxCount, setOutboxCount] = useState(0);
+  const [outbox, setOutbox] = useState<Array<Record<string, unknown>>>([]);
   const [products, setProducts] = useState<Product[] | null>(null);
+  const [showOutbox, setShowOutbox] = useState(false);
   const [error, setError] = useState('');
 
   const refresh = () =>
     Promise.all([adminWatchlist(), adminListProducts()])
       .then(([w, p]) => {
         setSubscriptions(w.subscriptions);
-        setOutboxCount(w.outbox.length);
+        setOutbox(w.outbox);
         setProducts(p.products);
       })
       .catch((err) => setError(err instanceof Error ? err.message : 'Could not load watchlist.'));
@@ -48,9 +49,29 @@ export default function AdminWatchlistPage() {
         Watchlist ({subscriptions.length})
       </h1>
       <p style={{ fontSize: '0.85rem', color: '#94a3b8', marginBottom: 16 }}>
-        Stock-alert signups. Emails send automatically once an email provider is connected
-        (see instructions.md) — until then {outboxCount} alert{outboxCount === 1 ? ' is' : 's are'} queued in the server outbox, nothing is silently dropped.
+        Stock-alert signups. When a product becomes buyable, everyone waiting gets an email
+        from your own domain automatically. Every attempt is logged below — nothing is silently dropped.
       </p>
+      <button
+        type="button"
+        onClick={() => setShowOutbox((v) => !v)}
+        className="btn"
+        style={{ border: '1px solid #1e3a8a', color: '#fff', borderRadius: 6, padding: '8px 16px', minHeight: 44, marginBottom: 16 }}
+      >
+        {showOutbox ? 'Hide email log' : `Show email log (${outbox.length})`}
+      </button>
+      {showOutbox && (
+        <ul style={{ display: 'flex', flexDirection: 'column', gap: 8, marginBottom: 16 }}>
+          {outbox.length === 0 && <p style={{ color: '#94a3b8' }}>No emails attempted yet.</p>}
+          {outbox.slice(-20).reverse().map((m, i) => (
+            <li key={i} style={{ border: '1px solid #1e3a8a', borderRadius: 8, padding: '8px 10px', background: '#0f172a', fontSize: '0.82rem', color: '#e5e7eb' }}>
+              <strong>{String(m.to)}</strong> · {String(m.subject)} ·{' '}
+              <span style={{ color: m.status === 'sent' ? '#4ade80' : '#fbbf24', fontWeight: 700 }}>{String(m.status)}</span>
+              {m.status === 'failed' && m.reason ? <span style={{ color: '#94a3b8' }}> — {String(m.reason)}</span> : null}
+            </li>
+          ))}
+        </ul>
+      )}
       {error && (
         <p role="alert" style={{ color: '#fca5a5', marginBottom: 12 }}>
           {error}

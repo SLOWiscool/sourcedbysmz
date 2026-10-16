@@ -74,11 +74,33 @@ and subscribe to `payment_intent.succeeded` and `payment_intent.payment_failed`.
 ## 5. Going live
 
 1. Replace `sk_test_...` with `sk_live_...` in `server/.env`.
-2. Replace `pk_test_...` with `pk_live_...` in root `.env`.
+2. Replace `pk_test_...` with `pk_live_...` in `server/.env`.
 3. Register `https://sourcedbysmz.co.uk` in Stripe Dashboard → Payments →
    Apple Pay (domain verification).
 4. Add the production webhook endpoint (step 3).
 5. Run one more test-mode order, then switch.
+
+## 6. Email from your own domain (stock alerts)
+
+No provider account needed. The server sends directly and signs mail with
+DKIM. Two things you must do in your domain's DNS:
+
+1. **First boot prints your DKIM record** — look for `[mail] DKIM keys
+   generated` in the server log and add that TXT record at
+   `sbmz1._domainkey.sourcedbysmz.co.uk`.
+2. **SPF record** (stops providers rejecting you outright) — TXT record at
+   the domain root:
+   `v=spf1 ip4:YOUR-SERVER-IP ~all`
+   (find the IP with `npm run find:ip`).
+3. **DMARC record** (tells receivers what to do with failures) — TXT at
+   `_dmarc.sourcedbysmz.co.uk`:
+   `v=DMARC1; p=none; rua=mailto:alerts@sourcedbysmz.co.uk`
+
+Honest limits: many container hosts block outbound port 25 — if the admin
+email log shows connection failures, set `SMTP_URL` in `server/.env` to a
+relay instead. New server IPs also start with zero reputation, so Gmail may
+spam-folder the first alerts. Every attempt (sent or failed with the reason)
+is visible under Admin → Watchlist → email log.
 
 ## Security note
 

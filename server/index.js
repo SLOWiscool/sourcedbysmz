@@ -65,9 +65,29 @@ import {
 } from './discounts.js';
 import {
   listSubscriptions, subscribe as subscribeWatchlist, unsubscribe as unsubscribeWatchlist,
-  removeSubscription,
+  removeSubscription, findNewlyAvailableWatchers, markNotified,
 } from './watchlist.js';
-import { getOutbox } from './email.js';
+import { sendStockAlert, getOutbox } from './email.js';
+
+/** Email waiting subscribers when a save makes a product buyable. */
+async function notifyWatchers(before, after) {
+  const waiting = findNewlyAvailableWatchers(before, after, listSubscriptions());
+  if (waiting.length === 0) return;
+  for (const sub of waiting) {
+    try {
+      await sendStockAlert({
+        to: sub.email,
+        productSlug: after.slug,
+        productTitle: after.title,
+        unsubscribeToken: sub.token,
+      });
+      markNotified([sub.token]);
+    } catch (err) {
+      // Recorded in the outbox by email.js; keep trying the rest.
+      console.error(`watchlist email to ${sub.email} failed:`, err instanceof Error ? err.message : err);
+    }
+  }
+}
 import { isAuthConfigured, checkCredentials, requireAdmin } from './auth.js';
 import { loadStore, saveStore, publicProducts, validateProduct } from './store.js';
 
@@ -358,9 +378,16 @@ app.put('/api/admin/products/:id', requireAdmin, (req, res) => {
       new Set(others.map((p) => p.id))
     );
     const product = { ...body, updatedAt: new Date().toISOString() };
+    const before = products[idx];
     products[idx] = product;
     saveStore(products);
     syncCheckoutMirror();
+    // Fire-and-forget: email everyone waiting for this product, now that it
+    // just became buyable. Failures are recorded in the outbox, never crash
+    // the save.
+    notifyWatchers(before, product).catch((err) => {
+      console.error(`watchlist notify failed for ${product.id}:`, err instanceof Error ? err.message : err);
+    });
     res.json({ product });
   } catch (err) {
     res.status(err instanceof HttpError ? err.status : 400).json({

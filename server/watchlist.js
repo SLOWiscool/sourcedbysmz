@@ -107,3 +107,22 @@ export function markNotified(tokens) {
   }
   if (changed) save(subscriptions);
 }
+
+/** Purchasable in the same sense as the shop: active, priced, with stock. */
+export function isRecordPurchasable(p) {
+  if (!p || p.status !== 'active') return false;
+  if (!(p.price > 0)) return false;
+  if (Array.isArray(p.variants) && p.variants.length > 0) {
+    return p.variants.some((v) => v.stockQuantity > 0);
+  }
+  return p.stockQuantity > 0;
+}
+
+/**
+ * Subscribers owed an alert: product just became buyable and they have
+ * never been notified for it. Pure — easy to test, no I/O.
+ */
+export function findNewlyAvailableWatchers(oldProduct, newProduct, subscriptions) {
+  if (!newProduct || isRecordPurchasable(oldProduct) || !isRecordPurchasable(newProduct)) return [];
+  return (subscriptions || []).filter((s) => s.productId === newProduct.id && !s.notifiedAt);
+}

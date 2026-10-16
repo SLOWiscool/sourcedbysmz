@@ -125,11 +125,57 @@ function buildTransport(dkim) {
 }
 
 /**
- * Send one email. Throws with a human reason on failure (port blocked, DNS
- * missing, refused by receiver). Every attempt is recorded in the outbox.
+ * Send via the SendPulse SMTP API (https://api.sendpulse.com/smtp/emails).
+ * Needs SENDPULSE_API_KEY in server/.env. Throws with SendPulse's message
+ * on failure so the outbox records the real reason.
  */
-export async function sendMail({ to, subject, text, html, listUnsubscribe, transportOverride }) {
+async function sendViaSendPulse({ to, subject, text, html, fetchImpl }) {
+  const post = fetchImpl || fetch;
+  const fromEmail = `alerts@${getFromDomain()}`;
+  const res = await post('https://api.sendpulse.com/smtp/emails', {
+    method: 'POST',
+    headers: {
+      Authorization: `Bearer ${process.env.SENDPULSE_API_KEY}`,
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      email: {
+        html: Buffer.from(html || `<p>${text || subject}</p>`, 'utf8').toString('base64'),
+        text: text || subject,
+        subject,
+        from: { name: process.env.MAIL_FROM_NAME || 'SOURCEDBYSMZ', email: fromEmail },
+        to: [{ email: to }],
+      },
+    }),
+  });
+  if (!res.ok) {
+    const detail = await res.text().catch(() => '');
+    throw new Error(`SendPulse refused the message (${res.status}): ${detail.slice(0, 200)}`);
+  }
+  return res.json().catch(() => ({}));
+}
+
+/**
+ * Send one email. Transport priority: injected test transport, SendPulse API
+ * key, SMTP_URL relay, direct port 25. Throws with a human reason on failure.
+ * Every attempt is recorded in the outbox with which path was used.
+ */
+export async function sendMail({ to, subject, text, html, listUnsubscribe, transportOverride, fetchImpl }) {
+  // Preferred path: SendPulse API key in server env (works even when the
+  // host blocks outbound port 25).
+  if (!transportOverride && process.env.SENDPULSE_API_KEY) {
+    try {
+      await sendViaSendPulse({ to, subject, text, html, fetchImpl });
+      appendOutbox({ to, subject, status: 'sent', via: 'sendpulse' });
+      return { sent: true, via: 'sendpulse' };
+    } catch (err) {
+      const reason = err instanceof Error ? err.message : String(err);
+      appendOutbox({ to, subject, status: 'failed', via: 'sendpulse', reason });
+      throw new Error(`Email to ${to} failed: ${reason}`);
+    }
+  }
   const transport = transportOverride || buildTransport(ensureDkim());
+  const via = transportOverride ? 'test' : process.env.SMTP_URL ? 'smtp-relay' : 'direct';
   try {
     const info = await transport.sendMail({
       from: getFromAddress(),
@@ -140,17 +186,17 @@ export async function sendMail({ to, subject, text, html, listUnsubscribe, trans
       headers: listUnsubscribe ? { 'List-Unsubscribe': `<${listUnsubscribe}>` } : undefined,
     });
     const accepted = info && info.accepted && info.accepted.length > 0;
-    appendOutbox({ to, subject, status: accepted ? 'sent' : 'sent-unconfirmed', messageId: info?.messageId || null });
-    return { sent: true, messageId: info?.messageId || null };
+    appendOutbox({ to, subject, status: accepted ? 'sent' : 'sent-unconfirmed', via, messageId: info?.messageId || null });
+    return { sent: true, via, messageId: info?.messageId || null };
   } catch (err) {
     const reason = err instanceof Error ? err.message : String(err);
-    appendOutbox({ to, subject, status: 'failed', reason });
+    appendOutbox({ to, subject, status: 'failed', via, reason });
     throw new Error(`Email to ${to} failed: ${reason}`);
   }
 }
 
 /** Back-in-stock alert for one subscriber. Returns { sent } or throws. */
-export async function sendStockAlert({ to, productSlug, productTitle, unsubscribeToken, transportOverride }) {
+export async function sendStockAlert({ to, productSlug, productTitle, unsubscribeToken, transportOverride, fetchImpl }) {
   const base = (process.env.PUBLIC_SHOP_URL || `https://${getFromDomain()}`).replace(/\/$/, '');
   const productUrl = `${base}/products/${productSlug}`;
   const unsubscribeUrl = `${base}/api/watchlist/unsubscribe/${unsubscribeToken}`;
@@ -159,5 +205,10 @@ export async function sendStockAlert({ to, productSlug, productTitle, unsubscrib
     `Good news — ${productTitle} is available again at SOURCEDBYSMZ.\n\n` +
     `See it here: ${productUrl}\n\n` +
     `You got this because you asked for a stock alert. Unsubscribe any time: ${unsubscribeUrl}`;
-  return sendMail({ to, subject, text, listUnsubscribe: unsubscribeUrl, transportOverride });
+  const html =
+    `<p>Good news — <strong>${productTitle}</strong> is available again at SOURCEDBYSMZ.</p>` +
+    `<p><a href="${productUrl}">See it here</a></p>` +
+    `<p style="color:#666;font-size:12px;">You got this because you asked for a stock alert. ` +
+    `<a href="${unsubscribeUrl}">Unsubscribe any time</a>.</p>`;
+  return sendMail({ to, subject, text, html, listUnsubscribe: unsubscribeUrl, transportOverride, fetchImpl });
 }

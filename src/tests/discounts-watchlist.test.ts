@@ -1,4 +1,4 @@
-import { describe, it, expect, beforeEach } from 'vitest';
+import { describe, it, expect, beforeEach, vi, afterEach } from 'vitest';
 import { join } from 'node:path';
 import { tmpdir } from 'node:os';
 
@@ -144,5 +144,36 @@ describe('outgoing mail boundary', () => {
     ).rejects.toThrow(/port 25 blocked/);
     const outbox = emailMod.getOutbox();
     expect(outbox[outbox.length - 1]).toMatchObject({ status: 'failed', to: 'fan@example.com' });
+  });
+
+  it('sends through SendPulse when the API key is set, with the documented payload shape', async () => {
+    const calls: Array<{ url: string; init: { headers: Record<string, string>; body: string } }> = [];
+    const stubFetch = async (url: string, init: { headers: Record<string, string>; body: string }) => {
+      calls.push({ url, init });
+      return { ok: true, json: async () => ({ result: true }) };
+    };
+    process.env.SENDPULSE_API_KEY = 'sp_test_key';
+    try {
+      const result = await emailMod.sendStockAlert({
+        to: 'fan@example.com',
+        productSlug: 'down-vest',
+        productTitle: 'Down Vest',
+        unsubscribeToken: 'tok123',
+        fetchImpl: stubFetch,
+      });
+      expect(result.sent).toBe(true);
+      expect(calls.length).toBe(1);
+      expect(calls[0]?.url).toBe('https://api.sendpulse.com/smtp/emails');
+      expect(calls[0]?.init.headers.Authorization).toBe('Bearer sp_test_key');
+      const body = JSON.parse(calls[0]?.init.body || '{}');
+      expect(body.email.subject).toContain('Down Vest');
+      expect(body.email.from.email).toContain('@');
+      expect(body.email.to).toEqual([{ email: 'fan@example.com' }]);
+      expect(typeof body.email.html).toBe('string');
+      expect(Buffer.from(body.email.html, 'base64').toString('utf8')).toContain('Down Vest');
+    } finally {
+      delete process.env.SENDPULSE_API_KEY;
+      vi.unstubAllGlobals();
+    }
   });
 });

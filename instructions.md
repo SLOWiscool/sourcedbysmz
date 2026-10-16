@@ -80,10 +80,22 @@ and subscribe to `payment_intent.succeeded` and `payment_intent.payment_failed`.
 4. Add the production webhook endpoint (step 3).
 5. Run one more test-mode order, then switch.
 
-## 6. Email from your own domain (stock alerts)
+## 6. Email for stock alerts (SendPulse)
 
-No provider account needed. The server sends directly and signs mail with
-DKIM. Two things you must do in your domain's DNS:
+Stock alerts send through the **SendPulse SMTP API** — no port 25 needed,
+so host firewall blocks don't matter.
+
+1. In SendPulse, verify your sender: Settings → SMTP → add
+   `alerts@sourcedbysmz.co.uk` (or your `MAIL_FROM_DOMAIN`) and complete
+   their domain verification (they give you the SPF/DKIM records).
+2. Create an API key (API → API keys) and put it in `server/.env`:
+   `SENDPULSE_API_KEY=sp_...`
+3. Restart the server. Watch Admin → Watchlist → email log: entries show
+   `via: sendpulse` with `sent` status.
+
+Priority order in code: SendPulse key → `SMTP_URL` relay → direct port 25.
+Without any of them, attempts are logged as failed with the reason — the
+DKIM/SPF/DMARC DNS guide below still applies to the direct path.
 
 1. **First boot prints your DKIM record** — look for `[mail] DKIM keys
    generated` in the server log and add that TXT record at

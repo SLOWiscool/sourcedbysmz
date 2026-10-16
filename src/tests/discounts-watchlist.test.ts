@@ -102,6 +102,7 @@ describe('outgoing mail boundary', () => {
     setOutboxFile: (path: string) => void;
     getOutbox: () => Array<Record<string, unknown>>;
     sendStockAlert: (args: { to: string; productSlug: string; productTitle: string; unsubscribeToken: string; transportOverride?: unknown; fetchImpl?: unknown }) => Promise<{ sent: boolean }>;
+    verifySendPulseAuth: (fetchImpl?: unknown) => Promise<Record<string, unknown>>;
   };
   beforeEach(async () => {
     emailMod = await import('../../server/email.js');
@@ -206,8 +207,8 @@ describe('outgoing mail boundary', () => {
       json: async () => ({ email: 'owner@example.com' }),
     });
     process.env.SENDPULSE_API_KEY = 'sp_test_key';
-    const seen = [];
-    const spy = async (url, init) => { seen.push(url); return stubOk(url, init); };
+    const seen: string[] = [];
+    const spy = async (url: string, init: unknown) => { seen.push(url); return stubOk(url, init); };
     try {
       const me = await emailMod.verifySendPulseAuth(spy);
       expect(seen).toEqual(['https://api.sendpulse.com/user/info']);

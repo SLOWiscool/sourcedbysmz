@@ -1,4 +1,4 @@
-import { describe, it, expect, beforeEach, vi, afterEach } from 'vitest';
+import { describe, it, expect, beforeEach, vi } from 'vitest';
 import { join } from 'node:path';
 import { tmpdir } from 'node:os';
 
@@ -101,7 +101,7 @@ describe('outgoing mail boundary', () => {
   let emailMod: {
     setOutboxFile: (path: string) => void;
     getOutbox: () => Array<Record<string, unknown>>;
-    sendStockAlert: (args: { to: string; productSlug: string; productTitle: string; unsubscribeToken: string; transportOverride?: unknown }) => Promise<{ sent: boolean }>;
+    sendStockAlert: (args: { to: string; productSlug: string; productTitle: string; unsubscribeToken: string; transportOverride?: unknown; fetchImpl?: unknown }) => Promise<{ sent: boolean }>;
   };
   beforeEach(async () => {
     emailMod = await import('../../server/email.js');

@@ -3,19 +3,10 @@ import { Link } from 'react-router-dom';
 import { adminListProducts, adminOrders, type AdminOrder } from '../../lib/admin-api';
 import type { Product } from '../../types';
 import { formatPrice } from '../../lib/currency';
-import { getBackendUrl, getEffectivePublishableKey } from '../../lib/stripe';
-
-interface BackendHealth {
-  ok: boolean;
-  stripe: boolean;
-  admin: boolean;
-}
 
 export default function AdminDashboardPage() {
   const [products, setProducts] = useState<Product[] | null>(null);
   const [orders, setOrders] = useState<AdminOrder[] | null>(null);
-  const [health, setHealth] = useState<BackendHealth | null>(null);
-  const [frontendKey, setFrontendKey] = useState(false);
   const [error, setError] = useState('');
 
   useEffect(() => {
@@ -29,16 +20,6 @@ export default function AdminDashboardPage() {
       .catch((err) => {
         if (alive) setError(err instanceof Error ? err.message : 'Could not load dashboard.');
       });
-    const base = getBackendUrl();
-    fetch(`${base || ''}/api/health`)
-      .then((res) => (res.ok ? res.json() : null))
-      .then((data) => {
-        if (alive && data) setHealth(data);
-      })
-      .catch(() => {});
-    getEffectivePublishableKey().then((key) => {
-      if (alive) setFrontendKey(!!key);
-    });
     return () => {
       alive = false;
     };
@@ -46,9 +27,6 @@ export default function AdminDashboardPage() {
 
   if (error) return <p role="alert">{error}</p>;
   if (!products || !orders) return <p>Loading…</p>;
-
-  const backendKey = health?.stripe === true;
-  const paymentsLive = frontendKey && backendKey;
 
   const active = products.filter((p) => p.status === 'active').length;
   const drafts = products.filter((p) => p.status === 'draft').length;
@@ -67,34 +45,6 @@ export default function AdminDashboardPage() {
   return (
     <>
       <h1 style={{ fontSize: '1.5rem', fontWeight: 800, marginBottom: 16, color: '#f8fafc' }}>Dashboard</h1>
-      <div
-        style={{
-          border: `1px solid ${paymentsLive ? '#166534' : '#92400e'}`,
-          background: paymentsLive ? '#052e16' : '#451a03',
-          borderRadius: 10,
-          padding: 14,
-          marginBottom: 16,
-        }}
-      >
-        <p style={{ fontWeight: 800, color: '#fff', marginBottom: 6 }}>
-          Payments: {paymentsLive ? 'LIVE — cards, Apple Pay and Google Pay active' : 'NOT LIVE yet'}
-        </p>
-        <ul style={{ fontSize: '0.85rem', color: '#e5e7eb', display: 'flex', flexDirection: 'column', gap: 4 }}>
-          <li>
-            {frontendKey ? '✓' : '✗'} Publishable key (server STRIPE_PUBLISHABLE_KEY or build VITE_STRIPE_PUBLISHABLE_KEY){' '}
-            {!frontendKey && '(add it to server/.env on the host, then restart — no rebuild needed)'}
-          </li>
-          <li>
-            {backendKey ? '✓' : '✗'} Secret key on the server{' '}
-            {!backendKey && '(add STRIPE_SECRET_KEY to server/.env on the host, then restart)'}
-          </li>
-        </ul>
-        {!paymentsLive && (
-          <p style={{ fontSize: '0.82rem', color: '#fbbf24', marginTop: 8 }}>
-            Both keys load only at startup — after adding them, restart the server. See instructions.md for the full checklist.
-          </p>
-        )}
-      </div>
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(150px, 1fr))', gap: 12, marginBottom: 24 }}>
         {cards.map((c) => (
           <Link

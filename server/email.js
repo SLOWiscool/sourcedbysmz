@@ -124,15 +124,50 @@ function buildTransport(dkim) {
   return nodemailer.createTransport(options);
 }
 
+/** SendPulse API base URL (override for tests/proxies). */
+export function sendPulseBase() {
+  return (process.env.SENDPULSE_API_BASE_URL || 'https://api.sendpulse.com').replace(/\/$/, '');
+}
+
 /**
- * Send via the SendPulse SMTP API (https://api.sendpulse.com/smtp/emails).
+ * Verified sender for the SendPulse API. New accounts start on the SMTP
+ * Test plan whose pre-verified sender devtest@sendpulseemail.com works
+ * immediately — so it is the default until you verify your own domain and
+ * set SENDPULSE_API_FROM_EMAIL to it.
+ */
+export function sendPulseFrom() {
+  const email = (process.env.SENDPULSE_API_FROM_EMAIL || 'devtest@sendpulseemail.com').trim();
+  const name = (process.env.SENDPULSE_API_FROM_NAME || 'SOURCEDBYSMZ').trim() || 'SOURCEDBYSMZ';
+  return { email, name };
+}
+
+/**
+ * verifyAuth() — GET /user/info. Proves the API key works before anything
+ * tries to send. Throws with SendPulse's message on failure.
+ */
+export async function verifySendPulseAuth(fetchImpl) {
+  const key = process.env.SENDPULSE_API_KEY;
+  if (!key) throw new Error('SENDPULSE_API_KEY is not set in server/.env.');
+  const get = fetchImpl || fetch;
+  const res = await get(`${sendPulseBase()}/user/info`, {
+    headers: { Authorization: `Bearer ${key}` },
+  });
+  if (!res.ok) {
+    const detail = await res.text().catch(() => '');
+    throw new Error(`SendPulse auth failed (${res.status}): ${detail.slice(0, 200)}`);
+  }
+  return res.json().catch(() => ({}));
+}
+
+/**
+ * Send via the SendPulse SMTP API (POST /smtp/emails).
  * Needs SENDPULSE_API_KEY in server/.env. Throws with SendPulse's message
  * on failure so the outbox records the real reason.
  */
 async function sendViaSendPulse({ to, subject, text, html, fetchImpl }) {
   const post = fetchImpl || fetch;
-  const fromEmail = `alerts@${getFromDomain()}`;
-  const res = await post('https://api.sendpulse.com/smtp/emails', {
+  const from = sendPulseFrom();
+  const res = await post(`${sendPulseBase()}/smtp/emails`, {
     method: 'POST',
     headers: {
       Authorization: `Bearer ${process.env.SENDPULSE_API_KEY}`,
@@ -140,16 +175,24 @@ async function sendViaSendPulse({ to, subject, text, html, fetchImpl }) {
     },
     body: JSON.stringify({
       email: {
+        subject,
         html: Buffer.from(html || `<p>${text || subject}</p>`, 'utf8').toString('base64'),
         text: text || subject,
-        subject,
-        from: { name: process.env.MAIL_FROM_NAME || 'SOURCEDBYSMZ', email: fromEmail },
+        from: { email: from.email, name: from.name },
         to: [{ email: to }],
       },
     }),
   });
   if (!res.ok) {
     const detail = await res.text().catch(() => '');
+    if (res.status === 422 && /sender is not valid/i.test(detail)) {
+      throw new Error(
+        `SendPulse rejected the sender (${from.email}). On the Test plan use the pre-verified devtest@sendpulseemail.com (the default); on Free/paid plans set SENDPULSE_API_FROM_EMAIL to your own verified sender.`
+      );
+    }
+    if (res.status === 429) {
+      throw new Error('SendPulse rate limit reached — quota may be exhausted. Wait and retry; do not resend in a loop.');
+    }
     throw new Error(`SendPulse refused the message (${res.status}): ${detail.slice(0, 200)}`);
   }
   return res.json().catch(() => ({}));

@@ -82,16 +82,17 @@ and subscribe to `payment_intent.succeeded` and `payment_intent.payment_failed`.
 
 ## 6. Email for stock alerts (SendPulse)
 
-Stock alerts send through the **SendPulse SMTP API** — no port 25 needed,
-so host firewall blocks don't matter.
+Full guide: `server/README.md`. Short version:
 
-1. In SendPulse, verify your sender: Settings → SMTP → add
-   `alerts@sourcedbysmz.co.uk` (or your `MAIL_FROM_DOMAIN`) and complete
-   their domain verification (they give you the SPF/DKIM records).
-2. Create an API key (API → API keys) and put it in `server/.env`:
-   `SENDPULSE_API_KEY=sp_...`
-3. Restart the server. Watch Admin → Watchlist → email log: entries show
-   `via: sendpulse` with `sent` status.
+1. Put `SENDPULSE_API_KEY=sp_...` in `server/.env` (never in git).
+2. Leave `SENDPULSE_API_FROM_EMAIL` at the default `devtest@sendpulseemail.com`
+   on the Test plan — it's pre-verified and works immediately. Demo mail
+   arrives rewritten as `SP test` with a "development purposes" subject prefix
+   (SendPulse does that, not us).
+3. Test it: `node server/send-test-email.js you@example.com`, then restart.
+4. Watch Admin → Watchlist → email log: entries show `via: sendpulse`.
+5. Going production: verify your own domain in SendPulse, set
+   `SENDPULSE_API_FROM_EMAIL` to it, and do the SPF/DKIM/DMARC DNS below.
 
 Priority order in code: SendPulse key → `SMTP_URL` relay → direct port 25.
 Without any of them, attempts are logged as failed with the reason — the

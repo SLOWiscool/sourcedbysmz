@@ -167,13 +167,94 @@ describe('outgoing mail boundary', () => {
       expect(calls[0]?.init.headers.Authorization).toBe('Bearer sp_test_key');
       const body = JSON.parse(calls[0]?.init.body || '{}');
       expect(body.email.subject).toContain('Down Vest');
-      expect(body.email.from.email).toContain('@');
+      expect(body.email.from.email).toBe('devtest@sendpulseemail.com');
       expect(body.email.to).toEqual([{ email: 'fan@example.com' }]);
       expect(typeof body.email.html).toBe('string');
       expect(Buffer.from(body.email.html, 'base64').toString('utf8')).toContain('Down Vest');
     } finally {
       delete process.env.SENDPULSE_API_KEY;
       vi.unstubAllGlobals();
+    }
+  });
+
+  it('uses a custom verified sender when configured', async () => {
+    const calls = [];
+    const stubFetch = async (url, init) => {
+      calls.push({ url, init });
+      return { ok: true, json: async () => ({ result: true }) };
+    };
+    process.env.SENDPULSE_API_KEY = 'sp_test_key';
+    process.env.SENDPULSE_API_FROM_EMAIL = 'alerts@sourcedbysmz.co.uk';
+    try {
+      await emailMod.sendStockAlert({
+        to: 'fan@example.com',
+        productSlug: 'down-vest',
+        productTitle: 'Down Vest',
+        unsubscribeToken: 'tok123',
+        fetchImpl: stubFetch,
+      });
+      expect(JSON.parse(calls[0].init.body).email.from.email).toBe('alerts@sourcedbysmz.co.uk');
+    } finally {
+      delete process.env.SENDPULSE_API_KEY;
+      delete process.env.SENDPULSE_API_FROM_EMAIL;
+    }
+  });
+
+  it('verifyAuth hits GET /user/info and surfaces auth failures', async () => {
+    const stubOk = async (url, init) => ({
+      ok: true,
+      json: async () => ({ email: 'owner@example.com' }),
+    });
+    process.env.SENDPULSE_API_KEY = 'sp_test_key';
+    const seen = [];
+    const spy = async (url, init) => { seen.push(url); return stubOk(url, init); };
+    try {
+      const me = await emailMod.verifySendPulseAuth(spy);
+      expect(seen).toEqual(['https://api.sendpulse.com/user/info']);
+      expect(me.email).toBe('owner@example.com');
+    } finally {
+      delete process.env.SENDPULSE_API_KEY;
+    }
+    await expect(emailMod.verifySendPulseAuth(async () => ({ ok: false, status: 401, text: async () => 'Unauthorized' }))).rejects.toThrow(/401/);
+  });
+
+  it('surfaces quota exhaustion as a rate-limit error, not a silent failure', async () => {
+    const stubFetch = async () => ({ ok: false, status: 429, text: async () => 'Too Many Requests' });
+    process.env.SENDPULSE_API_KEY = 'sp_test_key';
+    try {
+      await expect(
+        emailMod.sendStockAlert({
+          to: 'fan@example.com',
+          productSlug: 'down-vest',
+          productTitle: 'Down Vest',
+          unsubscribeToken: 'tok123',
+          fetchImpl: stubFetch,
+        })
+      ).rejects.toThrow(/rate limit/i);
+    } finally {
+      delete process.env.SENDPULSE_API_KEY;
+    }
+  });
+
+  it('translates SendPulse sender rejection into an actionable error', async () => {
+    const stubFetch = async () => ({
+      ok: false,
+      status: 422,
+      text: async () => '{"message":"Sender is not valid","error_code":422}',
+    });
+    process.env.SENDPULSE_API_KEY = 'sp_test_key';
+    try {
+      await expect(
+        emailMod.sendStockAlert({
+          to: 'fan@example.com',
+          productSlug: 'down-vest',
+          productTitle: 'Down Vest',
+          unsubscribeToken: 'tok123',
+          fetchImpl: stubFetch,
+        })
+      ).rejects.toThrow(/verify .* sender/i);
+    } finally {
+      delete process.env.SENDPULSE_API_KEY;
     }
   });
 });

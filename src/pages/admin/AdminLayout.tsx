@@ -60,6 +60,9 @@ export default function AdminLayout() {
             <NavLink to="/admin/orders" className="tr-38" style={linkStyle}>
               Orders
             </NavLink>
+            <NavLink to="/admin/payouts" className="tr-38" style={linkStyle}>
+              Payouts
+            </NavLink>
             <Link to="/" className="tr-38" style={{ color: '#93c5fd', opacity: 0.9 }}>
               View shop
             </Link>

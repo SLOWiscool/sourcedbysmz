@@ -289,8 +289,8 @@ app.post('/api/admin/login', async (req, res) => {
     return;
   }
   const { username, password } = req.body || {};
-  const ok = await checkCredentials(username, password);
-  if (!ok) {
+  const account = await checkCredentials(username, password);
+  if (!account) {
     noteLoginFailure(ip);
     // Same message for bad name or bad password: never reveal which half failed.
     res.status(401).json({ error: 'Wrong username or password.' });
@@ -298,7 +298,9 @@ app.post('/api/admin/login', async (req, res) => {
   }
   store.loginAttempts.delete(ip);
   req.session.admin = true;
-  res.json({ ok: true });
+  req.session.role = account.role;
+  req.session.username = account.username;
+  res.json({ ok: true, role: account.role });
 });
 
 app.post('/api/admin/logout', (req, res) => {
@@ -613,6 +615,96 @@ app.get('/api/admin/orders', requireAdmin, (_req, res) => {
   }));
   orders.sort((a, b) => (a.createdAt < b.createdAt ? 1 : -1));
   res.json({ orders });
+});
+
+// --- Admin: payouts (cash out Stripe balance to bank) -------------------------
+const PAYOUTS_FILE = join(here, 'data', 'payouts.json');
+
+function loadPayouts() {
+  try {
+    const parsed = JSON.parse(readFileSync(PAYOUTS_FILE, 'utf8'));
+    if (parsed && Array.isArray(parsed.payouts)) return parsed.payouts;
+  } catch {
+    // Missing or corrupt: start fresh.
+  }
+  return [];
+}
+
+function savePayouts(payouts) {
+  try {
+    mkdirSync(join(here, 'data'), { recursive: true });
+    const tmp = `${PAYOUTS_FILE}.${process.pid}.tmp`;
+    writeFileSync(tmp, JSON.stringify({ payouts }, null, 2));
+    renameSync(tmp, PAYOUTS_FILE);
+  } catch (err) {
+    console.error('[payout] failed to write payout log:', err instanceof Error ? err.message : err);
+  }
+}
+
+function appendPayout(record) {
+  const payouts = loadPayouts();
+  payouts.unshift(record);
+  // Keep the last 200 entries only.
+  savePayouts(payouts.slice(0, 200));
+  return payouts;
+}
+
+// List payout history (auth, payout role or admin).
+app.get('/api/admin/payouts', requireAdmin, (_req, res) => {
+  try {
+    res.json({ payouts: loadPayouts() });
+  } catch {
+    res.status(500).json({ error: 'Could not load payout history.' });
+  }
+});
+
+// Create a payout: sends Stripe available balance to the linked bank account.
+// Only a Stripe secret key configured on this server can do this, and Stripe
+// requires a bank account to be linked in the Stripe dashboard.
+app.post('/api/admin/payout', requireAdmin, async (req, res) => {
+  if (!stripe) {
+    res.status(503).json({ error: 'Stripe is not configured on this server. Set STRIPE_SECRET_KEY and restart.' });
+    return;
+  }
+  const { amount } = req.body || {};
+  const amountPence = Number(amount);
+  if (!Number.isInteger(amountPence) || amountPence <= 0) {
+    res.status(400).json({ error: 'Amount must be a whole number of pence greater than 0.' });
+    return;
+  }
+  const record = {
+    id: `payout_${randomUUID().slice(0, 8)}`,
+    amount: amountPence,
+    currency: 'gbp',
+    requestedBy: req.session.username || 'unknown',
+    role: req.session.role,
+    requestedAt: new Date().toISOString(),
+    status: 'pending',
+  };
+  try {
+    const payout = await stripe.payouts.create({
+      amount: amountPence,
+      currency: 'gbp',
+      description: `SOURCEDBYSMZ cash out to bank requested by ${record.requestedBy} (${record.role})`,
+      metadata: {
+        requestedBy: record.requestedBy,
+        role: record.role,
+        requestedAt: record.requestedAt,
+      },
+    });
+    record.status = payout.status;
+    record.payoutId = payout.id;
+    record.arrivalDate = payout.arrival_date || null;
+    record.failureMessage = payout.failure_message || null;
+    appendPayout(record);
+    res.json({ ok: true, payoutId: payout.id, status: payout.status, amount: payout.amount, currency: payout.currency });
+  } catch (err) {
+    record.status = 'failed';
+    record.failureMessage = err instanceof Error ? err.message : 'Payout failed.';
+    appendPayout(record);
+    console.error('[payout] Stripe payout failed:', err instanceof Error ? err.message : err);
+    res.status(400).json({ error: err instanceof Error ? err.message : 'Payout failed.' });
+  }
 });
 
 // --- Create a PaymentIntent from TRUSTED data --------------------------------

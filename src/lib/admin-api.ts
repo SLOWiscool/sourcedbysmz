@@ -137,3 +137,37 @@ export const adminUpload = (file: File) => {
 };
 
 export const adminOrders = () => req<{ orders: AdminOrder[] }>('/api/admin/orders');
+
+export interface PayoutRecord {
+  id: string;
+  amount: number;
+  currency: string;
+  requestedBy: string;
+  role: string;
+  requestedAt: string;
+  status: string;
+  payoutId?: string;
+  arrivalDate?: string | null;
+  failureMessage?: string | null;
+}
+
+export interface PayoutsResponse {
+  payouts: PayoutRecord[];
+}
+
+export interface PayoutRequest {
+  amount: number; // pence
+}
+
+export interface PayoutResponse {
+  ok: boolean;
+  payoutId: string;
+  status: string;
+  amount: number;
+  currency: string;
+}
+
+export const adminListPayouts = () => req<PayoutsResponse>('/api/admin/payouts');
+
+export const adminPayout = (amount: number) =>
+  req<PayoutResponse>('/api/admin/payout', { method: 'POST', body: { amount } });

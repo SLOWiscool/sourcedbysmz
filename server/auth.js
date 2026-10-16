@@ -103,19 +103,30 @@ function usernameMatches(provided, configured) {
 
 export async function checkCredentials(username, password) {
   if (!isAuthConfigured()) return false;
-  const { loadAccounts, getPasswordHash } = await import('./account-store.js');
+  const { loadAccounts } = await import('./account-store.js');
   const account = loadAccounts().find(
     (a) => a.username.toLowerCase() === (username || '').toLowerCase()
   );
   if (!account) return false;
   const userOk = usernameMatches(username, account.username);
   const passOk = await verifyPassword(password, account.passwordHash);
-  return userOk && passOk;
+  return (userOk && passOk) ? account : false;
 }
 
-/** Express middleware: rejects unauthenticated admin API calls. */
-export function requireAdmin(req, res, next) {
-  if (req.session && req.session.admin === true) {
+/** Look up an account by username (returns null when not found). */
+export async function getAccount(username) {
+  if (typeof username !== 'string') return null;
+  const { loadAccounts } = await import('./account-store.js');
+  return loadAccounts().find((a) => a.username.toLowerCase() === username.toLowerCase()) || null;
+}
+
+/**
+ * Express middleware: rejects unauthenticated admin API calls.
+ * `allowedRoles` defaults to ['admin', 'payout'] so a payout-only
+ * staff member can cash out without full product/order access.
+ */
+export function requireAdmin(req, res, next, allowedRoles = ['admin', 'payout']) {
+  if (req.session && req.session.admin === true && allowedRoles.includes(req.session.role || 'admin')) {
     next();
     return;
   }

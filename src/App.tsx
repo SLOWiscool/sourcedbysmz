@@ -21,6 +21,7 @@ import AdminDashboardPage from './pages/admin/AdminDashboardPage';
 import AdminProductsPage from './pages/admin/AdminProductsPage';
 import AdminProductEditPage from './pages/admin/AdminProductEditPage';
 import AdminOrdersPage from './pages/admin/AdminOrdersPage';
+import AdminPayoutPage from './pages/admin/AdminPayoutPage';
 import AdminDiscountsPage from './pages/admin/AdminDiscountsPage';
 import AdminWatchlistPage from './pages/admin/AdminWatchlistPage';
 import NotFoundPage from './pages/NotFoundPage';
@@ -45,6 +46,7 @@ export default function App() {
         <Route path="discounts" element={<AdminDiscountsPage />} />
         <Route path="watchlist" element={<AdminWatchlistPage />} />
         <Route path="orders" element={<AdminOrdersPage />} />
+        <Route path="payouts" element={<AdminPayoutPage />} />
       </Route>
       <Route element={<Layout />}>
         <Route index element={<HomePage />} />

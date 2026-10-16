@@ -100,24 +100,25 @@ function askHidden(prompt) {
   });
 }
 
-/** Add or update the admin account. Returns { created, updated, username }. */
-async function saveAccount(username, password) {
+/** Add or update the admin account. `role` defaults to 'admin'. */
+async function saveAccount(username, password, role = 'admin') {
   if (username.length < 2) throw new Error('Username must be at least 2 characters.');
   if (password.length < 12) throw new Error('Password must be at least 12 characters.');
+  if (!['admin', 'payout'].includes(role)) throw new Error('Role must be "admin" or "payout".');
   const db = loadDb();
   const existing = db.accounts.find((a) => a.username.toLowerCase() === username.toLowerCase());
   const hash = await hashPassword(password);
   const now = new Date().toISOString();
   if (existing) {
     existing.passwordHash = hash;
-    existing.role = 'admin';
+    existing.role = role;
     existing.updatedAt = now;
     saveDb(db);
-    return { created: false, updated: true, username };
+    return { created: false, updated: true, username, role };
   }
-  db.accounts.push({ id: `admin_${randomUUID().slice(0, 8)}`, username, passwordHash: hash, role: 'admin', createdAt: now, updatedAt: now });
+  db.accounts.push({ id: `admin_${randomUUID().slice(0, 8)}`, username, passwordHash: hash, role, createdAt: now, updatedAt: now });
   saveDb(db);
-  return { created: true, updated: false, username };
+  return { created: true, updated: false, username, role };
 }
 
 async function writeEnv(username) {
@@ -150,15 +151,15 @@ async function main() {
   if (!process.stdin.isTTY) {
     const { readFileSync: readStdin } = await import('node:fs');
     const lines = readStdin(0, 'utf8').split(/\r?\n/);
-    const [username, password, confirm] = lines;
+    const [username, password, confirm, role = 'admin'] = lines;
     if (!username || !password || password.length < 12 || confirm !== password) {
-      console.error('Piped setup needs three lines: username, password (12+ chars), same password again.');
+      console.error('Piped setup needs three lines: username, password (12+ chars), same password again. Optional 4th line: role (admin|payout).');
       process.exitCode = 1;
       return;
     }
-    const result = await saveAccount(username, password);
+    const result = await saveAccount(username, password, role);
     await writeEnv(username);
-    console.log(`Admin account "${username}" saved (${result.created ? 'created' : 'updated'}) to server/data/accounts.json.`);
+    console.log(`Admin account "${username}" saved (${result.created ? 'created' : 'updated'}) to server/data/accounts.json with role "${result.role}".`);
     return;
   }
   const rl = createInterface({ input: process.stdin, output: process.stdout });
@@ -166,14 +167,15 @@ async function main() {
     const username = await ask(rl, 'Admin username: ');
     const password = await askHidden('Admin password (12+ characters, typed blind): ');
     const confirm = await askHidden('Repeat password: ');
+    const role = (await ask(rl, 'Role [admin/payout] (default admin): ')) || 'admin';
     if (!username || !password || password.length < 12 || confirm !== password) {
       console.error('Need a username, a password of 12+ characters, and a matching repeat.');
       process.exitCode = 1;
       return;
     }
-    const result = await saveAccount(username, password);
+    const result = await saveAccount(username, password, role);
     await writeEnv(username);
-    console.log(`Admin account "${username}" saved (${result.created ? 'created' : 'updated'}) to server/data/accounts.json (hash only).`);
+    console.log(`Admin account "${username}" saved (${result.created ? 'created' : 'updated'}) to server/data/accounts.json with role "${result.role}".`);
     console.log('Restart the server, then sign in at /admin/login.');
   } finally {
     rl.close();

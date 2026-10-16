@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowRight } from 'lucide-react';
+import { ArrowRight, Check, Truck, Lock } from 'lucide-react';
 import { useProducts } from '../hooks/useProducts';
 import { getLogoUrl } from '../lib/product-source';
 import ProductCard from '../components/product/ProductCard';
@@ -23,28 +23,41 @@ export default function HomePage() {
           gap: 'var(--space-8)', paddingBlock: 'var(--space-12)'
         }}>
           <div>
-            <p className="anim-rise" style={{ display: 'inline-block', fontSize: '0.72rem', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.1em', background: 'var(--color-brand)', color: '#fff', padding: '4px 10px', borderRadius: 4, marginBottom: 16 }}>
+            <p className="anim-rise" style={{ display: 'inline-flex', alignItems: 'center', gap: 6, fontSize: '0.72rem', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.1em', background: 'rgba(37, 99, 235, 0.16)', border: '1px solid rgba(59, 130, 246, 0.45)', color: '#bfdbfe', padding: '5px 12px', borderRadius: 999, marginBottom: 18 }}>
+              <span style={{ width: 6, height: 6, borderRadius: '50%', background: '#22c55e', display: 'inline-block' }} />
               Independent resale · UK
             </p>
             {logoUrl ? (
-              <img src={logoUrl} alt="" aria-hidden="true" style={{ width: 'min(360px, 85%)', height: 'auto', objectFit: 'cover', display: 'block', marginBottom: 20, borderRadius: 20, border: '1px solid #24365c', boxShadow: '0 12px 40px rgb(0 0 0 / 0.45)' }} />
+              <img src={logoUrl} alt="" aria-hidden="true" style={{ width: 'min(280px, 72%)', height: 'auto', objectFit: 'cover', display: 'block', marginBottom: 20, borderRadius: 18, border: '1px solid #24365c', boxShadow: '0 12px 40px rgb(0 0 0 / 0.45)' }} />
             ) : (
-              <img src="/images/logo.png" alt="" aria-hidden="true" style={{ width: 'min(360px, 85%)', height: 'auto', objectFit: 'cover', display: 'block', marginBottom: 20, borderRadius: 20, border: '1px solid #24365c', boxShadow: '0 12px 40px rgb(0 0 0 / 0.45)' }} />
+              <img src="/images/logo.png" alt="" aria-hidden="true" style={{ width: 'min(280px, 72%)', height: 'auto', objectFit: 'cover', display: 'block', marginBottom: 20, borderRadius: 18, border: '1px solid #24365c', boxShadow: '0 12px 40px rgb(0 0 0 / 0.45)' }} />
             )}
-            <h1 className="anim-rise" style={{ fontSize: 'clamp(2.4rem, 5vw, 3.8rem)', fontWeight: 800, lineHeight: 1.02, letterSpacing: '-0.02em', marginBottom: 16, animationDelay: '80ms' }}>
+            <h1 className="anim-rise" style={{ fontSize: 'clamp(2rem, 4.2vw, 3rem)', fontWeight: 800, lineHeight: 1.05, letterSpacing: '-0.02em', marginBottom: 12, animationDelay: '80ms' }}>
               Sourced<br />with intent.
             </h1>
-            <p className="anim-rise" style={{ fontSize: '1.05rem', color: '#b5b5b5', maxWidth: '34rem', lineHeight: 1.6, marginBottom: 28, animationDelay: '160ms' }}>
+            <p className="anim-rise" style={{ fontSize: '1rem', color: '#b5b5b5', maxWidth: '32rem', lineHeight: 1.6, marginBottom: 24, animationDelay: '160ms' }}>
               Curated footwear and outerwear, hand-selected by two friends who know what's worth wearing. Honest photos, honest descriptions.
             </p>
             <div className="anim-rise" style={{ display: 'flex', gap: 12, flexWrap: 'wrap', animationDelay: '240ms' }}>
-              <Link to="/shop" className="btn" style={{ background: 'var(--color-brand)', color: '#fff', fontWeight: 700, padding: '12px 22px', borderRadius: 6 }}>
+              <Link to="/shop" className="btn" style={{ background: 'var(--color-brand)', color: '#fff', fontWeight: 700, padding: '12px 22px', borderRadius: 6, minHeight: 48 }}>
                 Shop the drop <ArrowRight size={16} />
               </Link>
-              <Link to="/collections/footwear" className="btn" style={{ border: '1px solid #3b5a8f', color: '#fff', padding: '12px 22px', borderRadius: 6 }}>
+              <Link to="/collections/footwear" className="btn" style={{ border: '1px solid #3b5a8f', color: '#fff', padding: '12px 22px', borderRadius: 6, minHeight: 48 }}>
                 Footwear
               </Link>
             </div>
+            <ul className="anim-rise" style={{ display: 'flex', gap: 16, flexWrap: 'wrap', marginTop: 22, fontSize: '0.82rem', color: '#9fb0c9', animationDelay: '320ms' }}>
+              {[
+                { icon: <Check size={14} />, text: 'Real item photos' },
+                { icon: <Truck size={14} />, text: 'Tracked UK delivery' },
+                { icon: <Lock size={14} />, text: 'Secure Stripe checkout' },
+              ].map((t) => (
+                <li key={t.text} style={{ display: 'inline-flex', alignItems: 'center', gap: 6 }}>
+                  <span style={{ color: '#4ade80', display: 'inline-flex' }}>{t.icon}</span>
+                  {t.text}
+                </li>
+              ))}
+            </ul>
           </div>
 
           <div className="grid grid--products" style={{ gap: 12 }}>

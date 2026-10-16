@@ -1,0 +1,12 @@
+{
+  "accounts": [
+    {
+      "id": "admin_a6083f86",
+      "username": "SourcedBySMZ",
+      "passwordHash": "scrypt$v=1$n=16384$r=8$p=1$8f6bdbb973bf44cc9d8c1f5a745af176$8f775b3956ef5320363d45da22ec2a43f3f03bd8d55a3d47b530573f9d4b8f8c956473fb150503b248e005403338c44ac4fad684c27a9b069b90a9d0d85044dc",
+      "role": "admin",
+      "createdAt": "2026-10-15T18:20:00.934Z",
+      "updatedAt": "2026-10-15T18:20:00.934Z"
+    }
+  ]
+}

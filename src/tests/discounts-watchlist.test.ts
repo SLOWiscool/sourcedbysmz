@@ -103,6 +103,7 @@ describe('outgoing mail boundary', () => {
     getOutbox: () => Array<Record<string, unknown>>;
     sendStockAlert: (args: { to: string; productSlug: string; productTitle: string; unsubscribeToken: string; transportOverride?: unknown; fetchImpl?: unknown }) => Promise<{ sent: boolean }>;
     verifySendPulseAuth: (fetchImpl?: unknown) => Promise<Record<string, unknown>>;
+    listSendPulseSenders: (fetchImpl?: unknown) => Promise<unknown>;
   };
   beforeEach(async () => {
     emailMod = await import('../../server/email.js');
@@ -224,7 +225,7 @@ describe('outgoing mail boundary', () => {
   });
 
   it('listSendPulseSenders hits GET /smtp/from-list', async () => {
-    const stubFetch = async (url) => {
+    const stubFetch = async (url: string) => {
       expect(url).toBe('https://api.sendpulse.com/smtp/from-list');
       return { ok: true, json: async () => [{ email: 'devtest@sendpulseemail.com', active: 1 }] };
     };
@@ -238,6 +239,7 @@ describe('outgoing mail boundary', () => {
   });
 
   it('surfaces quota exhaustion as a rate-limit error, not a silent failure', async () => {
+    const stubFetch = async () => ({ ok: false, status: 429, text: async () => 'Too Many Requests' });
     process.env.SENDPULSE_API_KEY = 'sp_test_key';
     try {
       await expect(
@@ -270,8 +272,9 @@ describe('outgoing mail boundary', () => {
           unsubscribeToken: 'tok123',
           fetchImpl: stubFetch,
         })
-      ).rejects.toThrow(/verified sender/);
+      ).rejects.toThrow(/not verified on your SendPulse account/);
     } finally {
       delete process.env.SENDPULSE_API_KEY;
     }
   });
+});

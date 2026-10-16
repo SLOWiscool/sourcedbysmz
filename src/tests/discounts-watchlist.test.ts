@@ -84,15 +84,16 @@ describe('watchlist subscriptions', () => {
       id: 'p-test', status: 'draft', price: 0, stockQuantity: 0, variants: [],
     };
     const live = { ...base, status: 'active', price: 2000, stockQuantity: 3 };
-    const subs = [
+    const subs: Array<{ token: string; productId: string; email: string; notifiedAt: string | null }> = [
       { token: 't1', productId: 'p-test', email: 'a@b.co', notifiedAt: null },
       { token: 't2', productId: 'p-test', email: 'b@b.co', notifiedAt: '2026-01-01T00:00:00Z' },
       { token: 't3', productId: 'p-other', email: 'c@b.co', notifiedAt: null },
     ];
-    expect(watchlistMod.findNewlyAvailableWatchers(base, live, subs).map((s) => s.token)).toEqual(['t1']);
+    const tokens = (list: unknown) => (list as typeof subs).map((s) => s.token);
+    expect(tokens(watchlistMod.findNewlyAvailableWatchers(base, live, subs))).toEqual(['t1']);
     expect(watchlistMod.findNewlyAvailableWatchers(live, live, subs)).toEqual([]);
     expect(watchlistMod.findNewlyAvailableWatchers(base, base, subs)).toEqual([]);
-    expect(watchlistMod.findNewlyAvailableWatchers(null, live, subs).map((s) => s.token)).toEqual(['t1']);
+    expect(tokens(watchlistMod.findNewlyAvailableWatchers(null, live, subs))).toEqual(['t1']);
   });
 });
 

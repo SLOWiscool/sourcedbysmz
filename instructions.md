@@ -85,10 +85,9 @@ and subscribe to `payment_intent.succeeded` and `payment_intent.payment_failed`.
 Full guide: `server/README.md`. Short version:
 
 1. Put `SENDPULSE_API_KEY=sp_...` in `server/.env` (never in git).
-2. Leave `SENDPULSE_API_FROM_EMAIL` at the default `devtest@sendpulseemail.com`
-   on the Test plan — it's pre-verified and works immediately. Demo mail
-   arrives rewritten as `SP test` with a "development purposes" subject prefix
-   (SendPulse does that, not us).
+2. Leave `SENDPULSE_API_FROM_EMAIL` at `sender@sourcedbysmz.co.uk`
+   (verified on your account). On a fresh Test-plan account with no verified
+   domain yet, temporarily use `devtest@sendpulseemail.com` instead.
 3. Test it: `node server/send-test-email.js you@example.com`, then restart.
 4. Watch Admin → Watchlist → email log: entries show `via: sendpulse`.
 5. Going production: verify your own domain in SendPulse, set

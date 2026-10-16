@@ -17,7 +17,7 @@ No OAuth — one API key. No secrets in this repo; everything comes from
    ```
    Optional overrides (defaults shown):
    ```
-   SENDPULSE_API_FROM_EMAIL=devtest@sendpulseemail.com
+   SENDPULSE_API_FROM_EMAIL=sender@sourcedbysmz.co.uk
    SENDPULSE_API_FROM_NAME=SOURCEDBYSMZ
    SENDPULSE_API_BASE_URL=https://api.sendpulse.com
    ```

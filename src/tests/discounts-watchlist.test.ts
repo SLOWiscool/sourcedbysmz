@@ -168,7 +168,7 @@ describe('outgoing mail boundary', () => {
       expect(calls[0]?.init.headers.Authorization).toBe('Bearer sp_test_key');
       const body = JSON.parse(calls[0]?.init.body || '{}');
       expect(body.email.subject).toContain('Down Vest');
-      expect(body.email.from.email).toBe('devtest@sendpulseemail.com');
+      expect(body.email.from.email).toBe('sender@sourcedbysmz.co.uk');
       expect(body.email.to).toEqual([{ email: 'fan@example.com' }]);
       expect(typeof body.email.html).toBe('string');
       expect(Buffer.from(body.email.html, 'base64').toString('utf8')).toContain('Down Vest');
@@ -223,7 +223,20 @@ describe('outgoing mail boundary', () => {
     }
   });
 
-  it('surfaces quota exhaustion as a rate-limit error, not a silent failure', async () => {
+  it('listSendPulseSenders hits GET /smtp/from-list', async () => {
+    const stubFetch = async (url) => {
+      expect(url).toBe('https://api.sendpulse.com/smtp/from-list');
+      return { ok: true, json: async () => [{ email: 'devtest@sendpulseemail.com', active: 1 }] };
+    };
+    process.env.SENDPULSE_API_KEY = 'sp_test_key';
+    try {
+      const senders = await emailMod.listSendPulseSenders(stubFetch);
+      expect(senders).toEqual([{ email: 'devtest@sendpulseemail.com', active: 1 }]);
+    } finally {
+      delete process.env.SENDPULSE_API_KEY;
+    }
+  });
+});
     const stubFetch = async () => ({ ok: false, status: 429, text: async () => 'Too Many Requests' });
     process.env.SENDPULSE_API_KEY = 'sp_test_key';
     try {

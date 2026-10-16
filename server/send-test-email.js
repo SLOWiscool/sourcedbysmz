@@ -53,6 +53,20 @@ try {
 }
 
 try {
+  const { listSendPulseSenders } = await import('./email.js');
+  const senders = await listSendPulseSenders();
+  const flat = Array.isArray(senders) ? senders : senders.result || senders.data || [];
+  console.log('Verified senders on this account:');
+  for (const s of Array.isArray(flat) ? flat : [flat]) {
+    console.log(`  - ${typeof s === 'string' ? s : s.email || s.from_email || JSON.stringify(s)}`);
+  }
+  console.log('If your sender is not listed, add/verify it in SendPulse first — anything else gets HTTP 422.');
+} catch (err) {
+  console.error(`Could not list senders: ${err instanceof Error ? err.message : err}`);
+  console.error('Continuing anyway — the send attempt below will show the real error.');
+}
+
+try {
   const from = sendPulseFrom();
   console.log(`Sending test email to ${to} from ${from.email} …`);
   await sendStockAlert({

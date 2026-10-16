@@ -131,12 +131,12 @@ export function sendPulseBase() {
 
 /**
  * Verified sender for the SendPulse API. New accounts start on the SMTP
- * Test plan whose pre-verified sender devtest@sendpulseemail.com works
- * immediately — so it is the default until you verify your own domain and
- * set SENDPULSE_API_FROM_EMAIL to it.
+ * Test plan whose pre-verified sender works immediately — the shop default
+ * is the owner's verified sender@sourcedbysmz.co.uk (override with
+ * SENDPULSE_API_FROM_EMAIL).
  */
 export function sendPulseFrom() {
-  const email = (process.env.SENDPULSE_API_FROM_EMAIL || 'devtest@sendpulseemail.com').trim();
+  const email = (process.env.SENDPULSE_API_FROM_EMAIL || 'sender@sourcedbysmz.co.uk').trim();
   const name = (process.env.SENDPULSE_API_FROM_NAME || 'SOURCEDBYSMZ').trim() || 'SOURCEDBYSMZ';
   return { email, name };
 }
@@ -157,6 +157,26 @@ export async function verifySendPulseAuth(fetchImpl) {
     throw new Error(`SendPulse auth failed (${res.status}): ${detail.slice(0, 200)}`);
   }
   return res.json().catch(() => ({}));
+}
+
+/**
+ * listSendPulseSenders() — GET /smtp/from-list. Returns the sender
+ * addresses this account is actually allowed to send from. This is the
+ * ground truth when SendPulse answers 422: whatever is NOT on this list
+ * will be rejected, no matter what the docs say about defaults.
+ */
+export async function listSendPulseSenders(fetchImpl) {
+  const key = process.env.SENDPULSE_API_KEY;
+  if (!key) throw new Error('SENDPULSE_API_KEY is not set in server/.env.');
+  const get = fetchImpl || fetch;
+  const res = await get(`${sendPulseBase()}/smtp/from-list`, {
+    headers: { Authorization: `Bearer ${key}` },
+  });
+  if (!res.ok) {
+    const detail = await res.text().catch(() => '');
+    throw new Error(`Could not list SendPulse senders (${res.status}): ${detail.slice(0, 200)}`);
+  }
+  return res.json().catch(() => ([]));
 }
 
 /**
@@ -187,7 +207,7 @@ async function sendViaSendPulse({ to, subject, text, html, fetchImpl }) {
     const detail = await res.text().catch(() => '');
     if (res.status === 422 && /sender is not valid/i.test(detail)) {
       throw new Error(
-        `SendPulse rejected the sender (${from.email}). On the Test plan use the pre-verified devtest@sendpulseemail.com (the default); on Free/paid plans set SENDPULSE_API_FROM_EMAIL to your own verified sender.`
+        `SendPulse rejected the sender (${from.email}). That address is not verified on your SendPulse account — verify it under SendPulse SMTP settings (run node server/send-test-email.js to list your allowed senders), then retry.`
       );
     }
     if (res.status === 429) {

@@ -79,7 +79,12 @@ export async function createPaymentIntent(
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(payload),
   });
-  if (!res.ok) throw new Error(`Payment setup failed (${res.status})`);
+  if (!res.ok) {
+    // Surface the server's customer-safe message (e.g. "only 2 available",
+    // "That code is not valid") instead of a bare status code.
+    const body = (await res.json().catch(() => null)) as { error?: string } | null;
+    throw new Error(body?.error || `Payment setup failed (${res.status})`);
+  }
   return res.json() as Promise<{ clientSecret: string; orderRef?: string }>;
 }
 

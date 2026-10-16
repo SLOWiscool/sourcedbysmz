@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { X, Minus, Plus } from 'lucide-react';
 import { useCart } from '../../context/CartContext';
 import { useProducts } from '../../hooks/useProducts';
-import { getGalleryImages } from '../../types';
+import { getGalleryImages, maxPurchasableQuantity } from '../../types';
 import { formatPrice } from '../../lib/currency';
 
 export default function CartDrawer() {
@@ -111,8 +111,10 @@ export default function CartDrawer() {
             </div>
           ) : (
             <ul style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-4)' }}>
-              {lines.map(({ item, product }, i) => (
-                <li key={`${item.productId}-${item.variantId || ''}-${item.size || ''}`} className="card-row anim-slide-right tr-94" style={{
+              {lines.map(({ item, product }, i) => {
+                const maxQty = maxPurchasableQuantity(product, item.variantId);
+                return (
+                  <li key={`${item.productId}-${item.variantId || ''}-${item.size || ''}`} className="card-row anim-slide-right tr-94" style={{
                   display: 'flex',
                   gap: 'var(--space-3)',
                   padding: 'var(--space-3)',
@@ -158,6 +160,7 @@ export default function CartDrawer() {
                         onClick={() => updateQuantity(item.productId, item.variantId, item.quantity + 1, item.size)}
                         aria-label="Increase quantity"
                         className="icon-btn"
+                        disabled={item.quantity >= maxQty}
                         style={{
                           width: 24, height: 24,
                           display: 'flex', alignItems: 'center', justifyContent: 'center',
@@ -175,7 +178,9 @@ export default function CartDrawer() {
                     </div>
                   </div>
                 </li>
-              ))}
+              );
+            }
+          )}
             </ul>
           )}
         </div>

@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Trash2, Minus, Plus, ShoppingBag } from 'lucide-react';
 import { useCart, useProductFromCart } from '../context/CartContext';
-import { getGalleryImages } from '../types';
+import { getGalleryImages, maxPurchasableQuantity } from '../types';
 import { formatPrice } from '../lib/currency';
 import DiscountForm, { type DiscountPreview } from '../components/cart/DiscountForm';
 
@@ -50,6 +50,7 @@ export default function CartPage() {
             const variantLabel = item.variantId
               ? product.variants?.find(v => v.id === item.variantId)?.label
               : undefined;
+            const maxQty = maxPurchasableQuantity(product, item.variantId);
 
             return (
               <li
@@ -108,6 +109,7 @@ export default function CartPage() {
                         onClick={() => updateQuantity(item.productId, item.variantId, item.quantity + 1, item.size)}
                         aria-label="Increase quantity"
                         className="icon-btn"
+                        disabled={item.quantity >= maxQty}
                         style={{ width: 32, height: 32, display: 'flex', alignItems: 'center', justifyContent: 'center' }}
                       >
                         <Plus size={14} />

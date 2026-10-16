@@ -105,6 +105,16 @@ export function availableStock(product: Product, variantId?: string): number {
     : getEffectiveStock(product, variantId);
 }
 
+/**
+ * Highest quantity a shopper may put on one line. Mirrors the server's
+ * catalogue maxQuantityPerLine (10) — exceeding it is rejected at checkout,
+ * so the UI must never allow it. Unlimited (-1) stock still caps here.
+ */
+export function maxPurchasableQuantity(product: Product, variantId?: string): number {
+  const stock = getEffectiveStock(product, variantId);
+  return isInfiniteStock(stock) ? 10 : Math.min(stock, 10);
+}
+
 export function getGalleryImages(product: Product, variantId?: string): ProductImage[] {
   const v = getVariant(product, variantId);
   if (v?.images && v.images.length > 0) return v.images;

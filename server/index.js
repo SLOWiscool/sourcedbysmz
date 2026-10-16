@@ -624,7 +624,11 @@ app.post('/api/create-payment-intent', async (req, res) => {
     );
   } catch (err) {
     const status = err instanceof HttpError ? err.status : 400;
-    res.status(status).json({ error: err instanceof Error ? err.message : 'Invalid order.' });
+    const message = err instanceof Error ? err.message : 'Invalid order.';
+    // Panel-console diagnostics: the message is customer-safe (product
+    // titles, no personal data) and shows exactly why a checkout was refused.
+    console.warn(`[checkout] payment intent refused (${status}): ${message}`);
+    res.status(status).json({ error: message });
     return;
   }
 

@@ -108,8 +108,13 @@ describe('outgoing mail boundary', () => {
   });
 
   it('sends through an injected transport and records the outbox', async () => {
-    const sent = [];
-    const transport = { sendMail: async (msg) => { sent.push(msg); return { accepted: [msg.to], messageId: 'm1' }; } };
+    const sent: Array<{ to: string; headers: Record<string, string> }> = [];
+    const transport = {
+      sendMail: async (msg: { to: string; headers: Record<string, string> }) => {
+        sent.push(msg);
+        return { accepted: [msg.to], messageId: 'm1' };
+      },
+    };
     const result = await emailMod.sendStockAlert({
       to: 'fan@example.com',
       productSlug: 'down-vest',
@@ -119,10 +124,10 @@ describe('outgoing mail boundary', () => {
     });
     expect(result.sent).toBe(true);
     expect(sent.length).toBe(1);
-    expect(sent[0].to).toBe('fan@example.com');
-    expect(sent[0].headers['List-Unsubscribe']).toContain('tok123');
+    expect(sent[0]?.to).toBe('fan@example.com');
+    expect(sent[0]?.headers['List-Unsubscribe']).toContain('tok123');
     const outbox = emailMod.getOutbox();
-    expect(outbox[outbox.length - 1].status).toBe('sent');
+    expect(outbox[outbox.length - 1]).toMatchObject({ status: 'sent' });
   });
 
   it('records failures with the reason instead of dropping mail', async () => {
@@ -137,8 +142,6 @@ describe('outgoing mail boundary', () => {
       })
     ).rejects.toThrow(/port 25 blocked/);
     const outbox = emailMod.getOutbox();
-    const last = outbox[outbox.length - 1];
-    expect(last.status).toBe('failed');
-    expect(last.to).toBe('fan@example.com');
+    expect(outbox[outbox.length - 1]).toMatchObject({ status: 'failed', to: 'fan@example.com' });
   });
 });

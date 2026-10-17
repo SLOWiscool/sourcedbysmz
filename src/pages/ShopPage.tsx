@@ -25,7 +25,8 @@ export default function ShopPage() {
   const inStockOnly = searchParams.get('in_stock') === 'true';
 
   const categories = useMemo(() => {
-    const cats = new Set(products.filter(p => p.status === 'active' || p.status === 'draft').map(p => p.category));
+    const all = Array.isArray(products) ? products : [];
+    const cats = new Set(all.filter(p => p.status === 'active' || p.status === 'draft').map(p => p.category));
     return Array.from(cats).sort();
   }, []);
 

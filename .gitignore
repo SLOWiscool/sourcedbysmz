@@ -6,3 +6,4 @@ server/data/
 .env.local
 *.local
 server/data/
+.vercel
